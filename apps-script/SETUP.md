@@ -36,6 +36,17 @@ var NOTIFY_EMAIL = 'roberto.hsu@gmail.com';
 5. 按 **Deploy**
 6. 第一次部署時 Google 會要求授權，點選「允許」以開放存取試算表與寄送 Email 的權限
 
+> ⚠️ **【嚴重警告】「Who has access」必須選 Anyone，絕對不能選 "Anyone with Google account"**
+>
+> 這是最常見的隱性失敗原因，且**不會產生任何可見的錯誤訊息**：
+>
+> - **Anyone with Google account** 會在每次請求前強制導向 Google 登入頁。
+>   因為網站使用 `fetch mode:"no-cors"` 提交表單，該登入導向會讓提交**靜默失敗**：
+>   頁面仍正常顯示成功訊息，但 Sheet 沒有任何新資料、也不會寄出通知信——**每一筆詢問單都無聲消失**。
+> - 如果 **「Anyone」選項是灰色或不存在**，表示你的帳號是 **Workspace（組織）帳號**，且管理員封鎖了公開 Web app。
+>   解法二擇一：改用個人 **@gmail.com 帳號**重做整個 Apps Script（`NOTIFY_EMAIL` 仍可填任何信箱），
+>   或請 Workspace 管理員開放「允許使用者部署公開 Web app」的權限。
+
 ### 5. 複製 Web App URL 並填入表單
 
 部署完成後會出現一個 Web app URL，格式類似：
@@ -52,7 +63,14 @@ https://script.google.com/macros/s/AKfycby.../exec
 
 ### 6. 測試
 
-- **健康檢查**：在瀏覽器直接開啟 `/exec` URL，應看到 `{"ok":true,"service":"shinylogic-contact","sheet":"Inquiries"}`
+- **健康檢查（必須用無痕 / 私密瀏覽視窗）**：開啟一個**無痕視窗**（確保已登出 Google 的狀態），
+  直接輸入 `/exec` URL。必須看到：
+  ```
+  {"ok":true,"service":"shinylogic-contact","sheet":"Inquiries"}
+  ```
+  如果出現 **Google 登入頁面**，代表「Who has access」設定不是 **Anyone**——
+  回到步驟 4，按照下方「重新部署」說明修正設定後再試一次。
+  **唯有無痕視窗回傳 `ok:true` JSON，表單才算真正上線。**
 - **端對端測試**：到網站實際送出一次表單，確認：
   - Google Sheet 新增一列資料（含時間戳記）
   - `NOTIFY_EMAIL` 信箱收到通知信
@@ -89,13 +107,17 @@ https://script.google.com/macros/s/AKfycby.../exec
 帳號擁有者即為資料控制者（data controller），需自行遵守適用的隱私法規（例如 GDPR、個資法）。
 資料不會傳輸到 Google 生態系以外的第三方服務。
 
-### 更新 Code.gs 後須重新部署
+### 重新部署（修改程式碼或存取設定）
 
-修改 `Code.gs` 後，**必須建立新版本**，否則 `/exec` URL 仍會執行舊程式碼：
+需要更新程式碼，**或**需要修正「Who has access」等部署設定時，一律走以下流程以**保留同一個 `/exec` URL**：
 
 1. **Deploy** → **Manage deployments**
-2. 找到現有的 Web app 部署，點選編輯（鉛筆圖示）
+2. 找到現有的 Web app 部署，點選 ✏️ 編輯圖示
 3. Version 選 **New version**
 4. 按 **Deploy**
 
 直接儲存 `.gs` 檔案不會自動更新已部署的 Web app。
+
+> ⚠️ **不要按「New deployment」**——那會產生**全新的 `/exec` URL**，
+> 你必須把新 URL 重新貼回 `contact.html` 的 `data-endpoint` 並重新部署網站。
+> 只有走「Manage deployments → 編輯現有部署 → New version」才能同時更新內容並保留原 URL。
