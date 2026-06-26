@@ -307,7 +307,16 @@
                 <span class="s-form__panel-ref" aria-hidden="true">X:0901  Y:FORM</span>
               </div>
 
-              <form id="contactForm" novalidate>
+              <!-- Submissions POST to a Google Apps Script Web App (see apps-script/SETUP.md). Paste your
+                   deployed /exec URL into data-endpoint. Leave it empty to keep the form in demo mode
+                   (shows the success panel without saving). -->
+              <form id="contactForm" novalidate data-endpoint="https://script.google.com/macros/s/AKfycbxxM0yF5E3tGwybfmxcKCFP76QrZVyauq1LIHNm4NxOeGa53RdX7a6DCwULRb-loQO6/exec">
+
+                <!-- Honeypot: off-screen, hidden from people & screen readers; bots that fill it are dropped server-side. -->
+                <div class="s-form__hp" aria-hidden="true">
+                  <label for="contact-website">Website</label>
+                  <input type="text" id="contact-website" name="botcheck" tabindex="-1" autocomplete="off">
+                </div>
 
                 <!-- Name + Company row -->
                 <div class="s-form__row-2">
@@ -411,7 +420,15 @@
                   </button>
                 </div>
 
+                <p class="s-form__privacy mono fog" data-i18n="contact.privacyNote">送出後，您的諮詢內容會傳送並保存至本公司的 Google 工作表，僅用於回覆此次諮詢。</p>
+
               </form>
+
+              <!-- Inline error (shown if the submission could not be sent) -->
+              <div class="s-form__error" id="contactError" role="alert" aria-live="assertive" hidden>
+                <span class="s-form__error-note mono" data-i18n="contact.errorNote">// SUBMIT FAILED</span>
+                <p class="s-form__error-body" data-i18n="contact.errorSubmit">送出失敗，請稍後再試，或透過本頁的電子郵件直接與我們聯繫。</p>
+              </div>
 
               <!-- Inline confirmation (shown after submit) -->
               <div class="s-form__confirm" id="contactConfirm" role="alert" aria-live="polite">
