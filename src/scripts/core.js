@@ -687,15 +687,49 @@ function initHeroParallax() {
 // =============================================================================
 // IIFE6 — Contact form submit lifecycle (contact.html only)
 //   - <form id="contactForm" novalidate> drives native validation manually
-//   - On pass: .is-submitting + disabled on submit btn, form.hidden = true,
-//     #contactConfirm revealed with .is-visible, focus moved for SR
-//   - No-ops on pages without the form
+//   - On pass: POST form data (urlencoded, no-cors) to form.dataset.endpoint
+//     (a Google Apps Script Web App); opaque response -> optimistic success.
+//   - Success: form.hidden, #contactConfirm revealed + focused for SR.
+//   - Network failure: re-enable submit, reveal #contactError (role=alert).
+//   - No endpoint set -> demo mode (reveal success panel without sending).
+//   - No-ops on pages without the form.
 // =============================================================================
 
 function initContactForm() {
   const form = document.getElementById('contactForm');
   const confirmEl = document.getElementById('contactConfirm');
   if (!form || !confirmEl) return;
+
+  const errorEl = document.getElementById('contactError');
+  const endpoint = (form.dataset.endpoint || '').trim();
+
+  function reveal(el) {
+    el.classList.add('is-visible');
+    if (el.getAttribute('tabindex') === null) el.setAttribute('tabindex', '-1');
+    if (typeof el.focus === 'function') el.focus();
+  }
+
+  function showSuccess() {
+    form.removeAttribute('aria-busy');
+    form.hidden = true;
+    if (errorEl) {
+      errorEl.hidden = true;
+      errorEl.classList.remove('is-visible');
+    }
+    reveal(confirmEl);
+  }
+
+  function showError(submitBtn) {
+    form.removeAttribute('aria-busy');
+    if (submitBtn) {
+      submitBtn.classList.remove('is-submitting');
+      submitBtn.removeAttribute('disabled');
+    }
+    if (errorEl) {
+      errorEl.hidden = false;
+      reveal(errorEl);
+    }
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -711,14 +745,35 @@ function initContactForm() {
       submitBtn.classList.add('is-submitting');
       submitBtn.setAttribute('disabled', '');
     }
-
-    // No backend yet — reveal the styled success panel directly.
-    form.hidden = true;
-    confirmEl.classList.add('is-visible');
-    if (confirmEl.getAttribute('tabindex') === null) {
-      confirmEl.setAttribute('tabindex', '-1');
+    form.setAttribute('aria-busy', 'true');
+    if (errorEl) {
+      errorEl.hidden = true;
+      errorEl.classList.remove('is-visible');
     }
-    if (typeof confirmEl.focus === 'function') confirmEl.focus();
+
+    // No endpoint configured -> demo mode: reveal the success panel directly.
+    if (!/^https:\/\//.test(endpoint)) {
+      showSuccess();
+      return;
+    }
+
+    // urlencoded body keeps this a CORS-safelisted request (no preflight, which a Google
+    // Apps Script Web App cannot answer). Under no-cors the response is opaque, so a
+    // resolved fetch is treated as success and only a network failure surfaces an error.
+    const body = new URLSearchParams();
+    new FormData(form).forEach(function (value, key) {
+      body.append(key, value);
+    });
+    body.append('locale', document.documentElement.lang || 'zh-Hant');
+    body.append('userAgent', navigator.userAgent);
+
+    fetch(endpoint, { method: 'POST', mode: 'no-cors', body: body })
+      .then(function () {
+        showSuccess();
+      })
+      .catch(function () {
+        showError(submitBtn);
+      });
   });
 }
 
