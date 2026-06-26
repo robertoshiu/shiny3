@@ -1,0 +1,778 @@
+@import '../foundation.css';
+@import '../chrome.css';
+@import '../polish.css';
+@import '../utilities.css';
+
+/* === contact === */
+/* ==========================================================================
+   contact.html — page-scoped CSS
+   Root class: .p-contact
+   All selectors MUST be prefixed with .p-contact to avoid collisions.
+   Shared classes (tokens, .section, .panel, .card, .btn, .reveal, .reticle,
+   .tick, .hairline, .kicker, .section-head, .section-title, etc.) live in
+   styles.css and are reused verbatim — only page-specific overrides go here.
+   ========================================================================== */
+
+/* ── PAGE HERO BAND ─────────────────────────────────────────────────────── */
+.p-contact .contact-hero {
+  position: relative;
+  padding-top: calc(var(--strip-h) + var(--nav-h) + clamp(56px, 9vw, 112px));
+  padding-bottom: clamp(64px, 8vw, 112px);
+  overflow: hidden;
+}
+
+/* restrained single radial glow (§7 rule 7 — one per page spotlight) */
+.p-contact .contact-hero__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(58% 52% at 82% 36%, var(--glow-cyan), transparent 68%),
+    radial-gradient(38% 36% at 10% 80%, rgba(231, 181, 103, 0.04), transparent 70%);
+}
+
+.p-contact .contact-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 80px);
+  -webkit-mask-image: radial-gradient(68% 68% at 78% 38%, #000, transparent 80%);
+  mask-image: radial-gradient(68% 68% at 78% 38%, #000, transparent 80%);
+}
+
+.p-contact .contact-hero .wrap {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+/* left copy column */
+.p-contact .contact-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.p-contact .contact-hero__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.p-contact .contact-hero__lede {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.85;
+  color: var(--mist);
+  max-width: 52ch;
+}
+
+/* right: coordinate panel (decorative precision flourish) */
+.p-contact .contact-hero__coord-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(28px, 4vw, 48px);
+}
+
+.p-contact .contact-hero__coord-inner {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-800);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  overflow: hidden;
+}
+
+/* inner cross-hair SVG background */
+.p-contact .contact-hero__coord-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 40px);
+}
+
+/* center-point reticle ring */
+.p-contact .contact-hero__crosshair {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.p-contact .contact-hero__coord-data {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  text-align: center;
+}
+
+.p-contact .contact-hero__coord-label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.p-contact .contact-hero__coord-val {
+  font-family: var(--font-mono);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.p-contact .contact-hero__coord-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--fog);
+}
+
+.p-contact .contact-hero__coord-badge {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(103, 232, 249, 0.28);
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+
+/* ── SECTION: CONTACT FORM ──────────────────────────────────────────────── */
+.p-contact .s-form {
+  position: relative;
+}
+
+/* two-column: form left, direct contact right */
+.p-contact .s-form__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+/* ── Form panel ──────────────────────────────────────────────────────────── */
+.p-contact .s-form__panel {
+  padding: var(--s-6);
+  position: relative;
+}
+
+.p-contact .s-form__panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-6);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.p-contact .s-form__panel-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.p-contact .s-form__panel-ref {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  opacity: 0.55;
+}
+
+/* form field group: label + input/select/textarea */
+.p-contact .s-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-bottom: var(--s-5);
+}
+
+.p-contact .s-form__field:last-of-type {
+  margin-bottom: 0;
+}
+
+.p-contact .s-form__label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+/* required asterisk */
+.p-contact .s-form__required {
+  color: var(--cyan);
+  font-size: 0.82em;
+  line-height: 1;
+}
+
+/* base input / select / textarea */
+.p-contact .s-form__input,
+.p-contact .s-form__select,
+.p-contact .s-form__textarea {
+  width: 100%;
+  background: var(--ink-900);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 11px 14px;
+  transition:
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    background-color 0.25s var(--ease);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: text;
+}
+
+.p-contact .s-form__select {
+  cursor: pointer;
+  /* custom arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C6B78' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+
+.p-contact .s-form__select:focus,
+.p-contact .s-form__select:hover {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2367E8F9' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.p-contact .s-form__select option {
+  background: var(--ink-800);
+  color: var(--text);
+}
+
+.p-contact .s-form__textarea {
+  resize: vertical;
+  min-height: 140px;
+  cursor: text;
+}
+
+/* placeholder */
+.p-contact .s-form__input::placeholder,
+.p-contact .s-form__textarea::placeholder {
+  color: var(--steel);
+  opacity: 1;
+}
+
+/* focus */
+.p-contact .s-form__input:focus,
+.p-contact .s-form__select:focus,
+.p-contact .s-form__textarea:focus {
+  outline: none;
+  border-color: var(--line-bright);
+  box-shadow: 0 0 0 2px rgba(103, 232, 249, 0.12);
+  background-color: var(--ink-850);
+}
+
+/* hover */
+.p-contact .s-form__input:hover,
+.p-contact .s-form__select:hover,
+.p-contact .s-form__textarea:hover {
+  border-color: rgba(103, 232, 249, 0.22);
+}
+
+/* two-column row (Name + Company) */
+.p-contact .s-form__row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+
+/* submit row */
+.p-contact .s-form__submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.p-contact .s-form__submit-note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+/* ── Inline confirmation (shown after submit; hidden by default) ─────────── */
+.p-contact .s-form__confirm {
+  display: none;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-6);
+  border: 1px solid var(--line-bright);
+  border-radius: var(--radius);
+  background: rgba(103, 232, 249, 0.04);
+  margin-top: var(--s-5);
+}
+
+.p-contact .s-form__confirm.is-visible {
+  display: flex;
+}
+
+.p-contact .s-form__confirm-icon {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.p-contact .s-form__confirm-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: -0.005em;
+}
+
+.p-contact .s-form__confirm-body {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--mist);
+  max-width: 52ch;
+}
+
+.p-contact .s-form__confirm-note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  opacity: 0.65;
+}
+
+/* ── Direct contact column ───────────────────────────────────────────────── */
+.p-contact .s-direct {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.p-contact .s-direct__panel {
+  padding: var(--s-5);
+  position: relative;
+}
+
+.p-contact .s-direct__panel-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel);
+  opacity: 0.65;
+  display: block;
+  margin-bottom: var(--s-4);
+}
+
+.p-contact .s-direct__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.p-contact .s-direct__row:last-of-type {
+  border-bottom: 0;
+}
+
+.p-contact .s-direct__label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.p-contact .s-direct__val {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--mist);
+  line-height: 1.5;
+}
+
+.p-contact .s-direct__val a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color 0.25s var(--ease);
+}
+
+.p-contact .s-direct__val a:hover {
+  color: var(--cyan-bright);
+}
+
+.p-contact .s-direct__sub {
+  font-size: 0.78rem;
+  color: var(--fog);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  margin-top: var(--s-1);
+}
+
+/* coordinate panel (decorative) */
+.p-contact .s-direct__coord-panel {
+  background: var(--ink-850);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s-5);
+  position: relative;
+  overflow: hidden;
+}
+
+.p-contact .s-direct__coord-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 32px);
+  pointer-events: none;
+}
+
+.p-contact .s-direct__coord-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: var(--s-3);
+  position: relative;
+  z-index: 1;
+}
+
+.p-contact .s-direct__coord-val {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--cyan);
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+}
+
+.p-contact .s-direct__coord-note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  margin-top: var(--s-2);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── SECTION: INQUIRY TYPES GRID ────────────────────────────────────────── */
+.p-contact .s-types {
+  position: relative;
+}
+
+.p-contact .s-types__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-4);
+  list-style: none;
+}
+
+.p-contact .s-types__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-5) var(--s-6);
+  position: relative;
+}
+
+.p-contact .s-types__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 7px;
+  background: rgba(103, 232, 249, 0.04);
+  flex-shrink: 0;
+  transition:
+    border-color 0.35s var(--ease),
+    background-color 0.35s var(--ease);
+}
+
+.p-contact .s-types__card:hover .s-types__card-icon {
+  border-color: var(--line-bright);
+  background: rgba(103, 232, 249, 0.08);
+}
+
+.p-contact .s-types__card-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: var(--mist);
+  transition: color 0.35s var(--ease);
+}
+
+.p-contact .s-types__card:hover .s-types__card-name {
+  color: var(--text);
+}
+
+.p-contact .s-types__card-en {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  display: block;
+}
+
+.p-contact .s-types__card-desc {
+  font-size: 0.875rem;
+  line-height: 1.72;
+  color: var(--fog);
+  flex: 1;
+}
+
+.p-contact .s-types__card-spec {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--steel);
+  border-top: 1px solid var(--line);
+  padding-top: var(--s-3);
+  margin-top: var(--s-2);
+  width: 100%;
+}
+
+/* accent first card */
+.p-contact .s-types__card:first-child {
+  border-color: rgba(103, 232, 249, 0.18);
+  background: linear-gradient(140deg, rgba(103, 232, 249, 0.04) 0%, var(--ink-700) 55%);
+}
+
+.p-contact .s-types__card:first-child .s-types__card-name {
+  color: var(--text);
+}
+
+/* ── CLOSING CTA BAND ───────────────────────────────────────────────────── */
+.p-contact .s-cta {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink-900);
+  border-top: 1px solid var(--line);
+}
+
+/* restrained glow — mirrors the home #contact visual language */
+.p-contact .s-cta__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(60% 70% at 50% 60%, var(--glow-cyan), transparent 65%);
+  opacity: 0.7;
+}
+
+.p-contact .s-cta .wrap {
+  position: relative;
+  z-index: 2;
+}
+
+/* centred layout */
+.p-contact .s-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--s-6);
+}
+
+.p-contact .s-cta__panel {
+  width: 100%;
+  max-width: 840px;
+  padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 64px);
+  position: relative;
+}
+
+.p-contact .s-cta__statement {
+  font-family: var(--font-body);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.7;
+  color: var(--mist);
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+.p-contact .s-cta__metrics {
+  display: flex;
+  justify-content: center;
+  gap: clamp(32px, 6vw, 80px);
+  padding-block: var(--s-5);
+  border-block: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.p-contact .s-cta__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+}
+
+.p-contact .s-cta__metric-num {
+  font-family: var(--font-cond);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.p-contact .s-cta__metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.p-contact .s-cta__actions {
+  display: flex;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.p-contact .s-cta__coord {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  opacity: 0.55;
+}
+
+.p-contact .s-cta__ref {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  opacity: 0.45;
+}
+
+/* ── RESPONSIVE — 1024 / 768 / 560 ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .p-contact .contact-hero .wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .p-contact .contact-hero__coord-panel {
+    order: -1;
+    max-width: 280px;
+    margin-inline: auto;
+    padding: var(--s-4);
+  }
+
+  .p-contact .s-form__body {
+    grid-template-columns: 1fr;
+  }
+
+  .p-contact .s-types__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .p-contact .s-form__row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .p-contact .s-form__submit-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .p-contact .s-form__submit-row .btn {
+    justify-content: center;
+  }
+
+  .p-contact .s-cta__metrics {
+    gap: var(--s-6);
+  }
+}
+
+@media (max-width: 620px) {
+  .p-contact .s-types__grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-3);
+  }
+
+  .p-contact .s-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .p-contact .s-cta__actions .btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .p-contact .contact-hero__coord-panel {
+    display: none; /* coord panel hidden on small mobile — not critical content */
+  }
+
+  .p-contact .s-cta__metrics {
+    gap: var(--s-5);
+  }
+}
+
+/* ── PREFERS-REDUCED-MOTION ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .p-contact .s-form__input,
+  .p-contact .s-form__select,
+  .p-contact .s-form__textarea,
+  .p-contact .s-types__card-icon,
+  .p-contact .s-types__card-name,
+  .p-contact .s-direct__val a {
+    transition: none;
+  }
+}

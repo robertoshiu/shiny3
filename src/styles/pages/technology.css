@@ -1,0 +1,1261 @@
+@import '../foundation.css';
+@import '../chrome.css';
+@import '../polish.css';
+@import '../utilities.css';
+
+/* === technology === */
+/* ==========================================================================
+   technology.css — page-scoped styles for technology.html
+   Scope root: .p-tech  (every selector MUST be prefixed with .p-tech)
+   Reuses all shared tokens and components from styles.css.
+   Only section-specific rules live here.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   PAGE HERO — tech variant (no wafer; blueprint grid overlay + reticle)
+   -------------------------------------------------------------------------- */
+.p-tech .tech-hero {
+  position: relative;
+  padding-top: calc(var(--strip-h) + var(--nav-h) + clamp(56px, 9vw, 112px));
+  padding-bottom: clamp(64px, 9vw, 128px);
+  overflow: hidden;
+}
+
+.p-tech .tech-hero__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(52% 48% at 82% 28%, var(--glow-cyan), transparent 70%),
+    radial-gradient(36% 36% at 10% 90%, rgba(231, 181, 103, 0.04), transparent 70%);
+}
+
+.p-tech .tech-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 80px);
+  -webkit-mask-image: radial-gradient(75% 75% at 80% 35%, #000, transparent 85%);
+  mask-image: radial-gradient(75% 75% at 80% 35%, #000, transparent 85%);
+}
+
+.p-tech .tech-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.p-tech .tech-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.p-tech .tech-hero__kicker {
+  margin-bottom: var(--s-5);
+}
+
+.p-tech .tech-hero__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.5vw, 4.75rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  margin-bottom: var(--s-5);
+}
+
+.p-tech .tech-hero__title .line {
+  display: block;
+}
+.p-tech .tech-hero__title .accent {
+  color: var(--cyan);
+}
+
+.p-tech .tech-hero__lede {
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.85;
+  color: var(--mist);
+  max-width: 56ch;
+  margin-bottom: var(--s-6);
+}
+
+.p-tech .tech-hero__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+
+.p-tech .tech-hero__metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.p-tech .tech-hero__metric .n {
+  font-family: var(--font-cond);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  color: var(--text);
+  line-height: 1;
+}
+
+.p-tech .tech-hero__metric .n .u {
+  color: var(--cyan);
+  font-size: 0.6em;
+  margin-left: 0.1em;
+}
+
+.p-tech .tech-hero__metric .l {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  text-transform: uppercase;
+}
+
+/* Right column: blueprint schematic panel */
+.p-tech .tech-hero__schema {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-tech .tech-hero__schema-panel {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  position: relative;
+  padding: var(--s-6);
+}
+
+.p-tech .tech-hero__stack-vis {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: 100%;
+}
+
+.p-tech .tech-hero__stack-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-900);
+  transition:
+    border-color 0.3s var(--ease),
+    background 0.3s var(--ease);
+  cursor: default;
+  min-height: 0;
+}
+
+.p-tech .tech-hero__stack-row:hover {
+  border-color: var(--line-bright);
+  background: var(--ink-700);
+}
+
+.p-tech .tech-hero__stack-row:first-child {
+  border-color: rgba(103, 232, 249, 0.22);
+  background: rgba(103, 232, 249, 0.04);
+}
+
+.p-tech .tech-hero__stack-idx {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+  flex: none;
+  min-width: 2em;
+}
+
+.p-tech .tech-hero__stack-label {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--mist);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-tech .tech-hero__stack-tag {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   COMPUTE SECTION — inherits s-compute pattern, adds gpu dot grid
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-compute {
+  position: relative;
+}
+
+.p-tech .s-tech-compute__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(55% 60% at 72% 44%, var(--glow-cyan), transparent 68%);
+}
+
+.p-tech .s-tech-compute .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.p-tech .s-tech-compute__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.p-tech .s-tech-compute__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.p-tech .s-tech-compute__hero-stat {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--s-4);
+  padding-bottom: var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.p-tech .s-tech-compute__hero-num {
+  font-family: var(--font-cond);
+  font-size: clamp(4.5rem, 9vw, 8rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-shadow:
+    0 0 40px rgba(103, 232, 249, 0.25),
+    0 0 80px rgba(103, 232, 249, 0.1);
+  user-select: none;
+}
+
+.p-tech .s-tech-compute__hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding-bottom: 0.12em;
+}
+
+.p-tech .s-tech-compute__hero-unit {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.p-tech .s-tech-compute__hero-sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--fog);
+}
+
+.p-tech .s-tech-compute__spec-panel {
+  padding: var(--s-5);
+}
+
+.p-tech .s-tech-compute__spec-head {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--steel);
+  margin-bottom: var(--s-4);
+}
+
+.p-tech .s-tech-compute__specs {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-tech .s-tech-compute__spec-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--s-3) var(--s-5);
+  align-items: center;
+  padding-block: var(--s-4);
+}
+
+/* dividers between spec rows — replaces invalid <hr> direct children of <dl> */
+.p-tech .s-tech-compute__spec-row + .s-tech-compute__spec-row {
+  border-top: 1px solid var(--line);
+}
+
+.p-tech .s-tech-compute__spec-key {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.p-tech .s-tech-compute__spec-val {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+  font-size: 0.88rem;
+  color: var(--mist);
+}
+
+.p-tech .s-tech-compute__cool-note {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  color: var(--steel);
+  line-height: 1.6;
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-850);
+}
+
+/* dot grid right column */
+.p-tech .s-tech-compute__right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.p-tech .s-tech-compute__telem {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+}
+
+.p-tech .s-tech-compute__grid-wrap {
+  padding: var(--s-5);
+  aspect-ratio: 1 / 1;
+}
+
+.p-tech .s-tech-compute__dots {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+
+.p-tech .s-tech-compute__dot {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 2px;
+  transition: opacity 0.25s var(--ease);
+}
+
+.p-tech .s-tech-compute__dot--cyan {
+  background: var(--cyan);
+  box-shadow: 0 0 4px rgba(103, 232, 249, 0.4);
+}
+
+.p-tech .s-tech-compute__dot--gold {
+  background: var(--gold);
+  box-shadow: 0 0 4px rgba(231, 181, 103, 0.35);
+  border: 1px solid rgba(231, 181, 103, 0.5);
+}
+
+.p-tech .s-tech-compute__legend {
+  display: flex;
+  gap: var(--s-5);
+  flex-wrap: wrap;
+}
+
+.p-tech .s-tech-compute__legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.p-tech .s-tech-compute__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.p-tech .s-tech-compute__legend-dot--cyan {
+  background: var(--cyan);
+  box-shadow: 0 0 5px rgba(103, 232, 249, 0.5);
+}
+
+.p-tech .s-tech-compute__legend-dot--gold {
+  background: var(--gold);
+  border: 1px solid rgba(231, 181, 103, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   NETWORK FABRIC SECTION
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-network__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-5);
+  margin-bottom: var(--s-7);
+}
+
+.p-tech .s-tech-network__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-6);
+}
+
+.p-tech .s-tech-network__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  background: rgba(103, 232, 249, 0.04);
+  flex-shrink: 0;
+  transition:
+    border-color 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+
+.p-tech .s-tech-network__card:hover .s-tech-network__card-icon {
+  border-color: var(--line-bright);
+  background: rgba(103, 232, 249, 0.08);
+}
+
+.p-tech .s-tech-network__card-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--mist);
+  line-height: 1.2;
+  transition: color 0.35s var(--ease);
+}
+
+.p-tech .s-tech-network__card:hover .s-tech-network__card-name {
+  color: var(--text);
+}
+
+.p-tech .s-tech-network__card-spec {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  display: block;
+  margin-bottom: var(--s-1);
+}
+
+.p-tech .s-tech-network__card-desc {
+  font-size: 0.88rem;
+  line-height: 1.72;
+  color: var(--fog);
+  flex: 1;
+}
+
+.p-tech .s-tech-network__card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+/* bandwidth metrics row */
+.p-tech .s-tech-network__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.p-tech .s-tech-network__metric-cell {
+  padding: var(--s-5) var(--s-6);
+  border-right: 1px solid var(--line);
+  background: var(--ink-850);
+}
+
+.p-tech .s-tech-network__metric-cell:last-child {
+  border-right: 0;
+}
+
+.p-tech .s-tech-network__metric-num {
+  font-family: var(--font-cond);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.p-tech .s-tech-network__metric-unit {
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  color: var(--cyan);
+  letter-spacing: 0.04em;
+}
+
+.p-tech .s-tech-network__metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  text-transform: uppercase;
+  margin-top: var(--s-2);
+}
+
+/* --------------------------------------------------------------------------
+   MES FAB300 SECTION
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-mes__body {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.p-tech .s-tech-mes__modules {
+  padding: var(--s-6);
+  position: relative;
+}
+
+.p-tech .s-tech-mes__panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-5);
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+.p-tech .s-tech-mes__sub-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+}
+
+.p-tech .s-tech-mes__sub-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--fog);
+}
+
+.p-tech .s-tech-mes__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-5);
+}
+
+.p-tech .s-tech-mes__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.p-tech .s-tech-mes__chip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan-deep);
+  box-shadow: 0 0 5px var(--cyan);
+  flex: none;
+}
+
+.p-tech .s-tech-mes__chip-dot--gold {
+  background: var(--gold);
+  box-shadow: 0 0 5px var(--gold);
+}
+
+.p-tech .s-tech-mes__coord {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+  opacity: 0.45;
+  margin-top: var(--s-4);
+}
+
+/* Facts panel */
+.p-tech .s-tech-mes__facts {
+  padding: var(--s-6);
+  position: relative;
+}
+
+.p-tech .s-tech-mes__facts-head {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  margin-bottom: var(--s-5);
+}
+
+.p-tech .s-tech-mes__fact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.p-tech .s-tech-mes__fact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-4);
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.p-tech .s-tech-mes__fact-row:last-child {
+  border-bottom: 0;
+}
+
+.p-tech .s-tech-mes__fact-label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: var(--steel);
+  flex: none;
+  text-transform: uppercase;
+}
+
+.p-tech .s-tech-mes__fact-val {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--mist);
+  text-align: right;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------------------------------------
+   DATA & AI SECTION
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-data__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-5);
+}
+
+.p-tech .s-tech-data__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-6);
+}
+
+.p-tech .s-tech-data__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  background: rgba(103, 232, 249, 0.04);
+  flex-shrink: 0;
+  transition:
+    border-color 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+
+.p-tech .s-tech-data__card:hover .s-tech-data__card-icon {
+  border-color: var(--line-bright);
+  background: rgba(103, 232, 249, 0.08);
+}
+
+.p-tech .s-tech-data__card-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--mist);
+  line-height: 1.2;
+  transition: color 0.35s var(--ease);
+}
+
+.p-tech .s-tech-data__card:hover .s-tech-data__card-name {
+  color: var(--text);
+}
+
+.p-tech .s-tech-data__card-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  display: block;
+  margin-bottom: var(--s-1);
+}
+
+.p-tech .s-tech-data__card-desc {
+  font-size: 0.88rem;
+  line-height: 1.72;
+  color: var(--fog);
+  flex: 1;
+}
+
+.p-tech .s-tech-data__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+}
+
+/* --------------------------------------------------------------------------
+   SECURITY SECTION
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-sec__domains {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-5);
+  margin-bottom: var(--s-7);
+}
+
+.p-tech .s-tech-sec__domain {
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.p-tech .s-tech-sec__domain--boundary {
+  border-color: rgba(231, 181, 103, 0.22);
+  background: linear-gradient(160deg, rgba(231, 181, 103, 0.04) 0%, var(--ink-800) 60%);
+}
+
+.p-tech .s-tech-sec__domain-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 7px;
+  background: rgba(103, 232, 249, 0.04);
+  flex-shrink: 0;
+}
+
+.p-tech .s-tech-sec__domain--boundary .s-tech-sec__domain-icon {
+  border-color: rgba(231, 181, 103, 0.3);
+  background: rgba(231, 181, 103, 0.06);
+}
+
+.p-tech .s-tech-sec__domain-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--mist);
+  line-height: 1.2;
+}
+
+.p-tech .s-tech-sec__domain-sub {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  color: var(--steel);
+  display: block;
+  text-transform: uppercase;
+}
+
+.p-tech .s-tech-sec__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* Compliance badges row */
+.p-tech .s-tech-sec__compliance {
+  padding: var(--s-5) var(--s-6);
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  flex-wrap: wrap;
+}
+
+.p-tech .s-tech-sec__comp-head {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  flex: none;
+}
+
+.p-tech .s-tech-sec__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+.p-tech .s-tech-sec__foot {
+  margin-top: var(--s-5);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+  opacity: 0.55;
+}
+
+/* --------------------------------------------------------------------------
+   RESILIENCE / DR SECTION
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-dr__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+
+.p-tech .s-tech-dr__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.p-tech .s-tech-dr__metric-card {
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.p-tech .s-tech-dr__metric-card--primary {
+  border-color: rgba(103, 232, 249, 0.28);
+  background: linear-gradient(140deg, rgba(103, 232, 249, 0.06) 0%, var(--ink-800) 60%);
+}
+
+.p-tech .s-tech-dr__metric-num {
+  font-family: var(--font-cond);
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+  font-weight: 600;
+  line-height: 0.92;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.p-tech .s-tech-dr__metric-unit {
+  font-family: var(--font-cond);
+  font-size: 0.44em;
+  color: var(--cyan);
+  letter-spacing: 0.04em;
+}
+
+.p-tech .s-tech-dr__metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.p-tech .s-tech-dr__metric-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  line-height: 1.5;
+}
+
+/* Spec panel right */
+.p-tech .s-tech-dr__spec-panel {
+  padding: var(--s-5) var(--s-6);
+}
+
+.p-tech .s-tech-dr__spec-head {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--steel);
+  margin-bottom: var(--s-5);
+}
+
+.p-tech .s-tech-dr__spec-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-tech .s-tech-dr__spec-row {
+  display: grid;
+  grid-template-columns: 5.5em 1fr;
+  gap: var(--s-3) var(--s-5);
+  align-items: baseline;
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.p-tech .s-tech-dr__spec-row:last-child {
+  border-bottom: 0;
+}
+
+.p-tech .s-tech-dr__spec-key {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--steel);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.p-tech .s-tech-dr__spec-val {
+  font-size: 0.9rem;
+  color: var(--mist);
+  line-height: 1.5;
+}
+
+.p-tech .s-tech-dr__fig {
+  margin-top: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+  opacity: 0.5;
+}
+
+/* --------------------------------------------------------------------------
+   COMPLIANCE BADGES SECTION
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-comp__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-5);
+}
+
+.p-tech .s-tech-comp__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-6);
+}
+
+.p-tech .s-tech-comp__card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--cyan);
+  line-height: 1.2;
+}
+
+.p-tech .s-tech-comp__card-sub {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--steel);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.p-tech .s-tech-comp__card-desc {
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--fog);
+}
+
+.p-tech .s-tech-comp__foot {
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+  opacity: 0.55;
+}
+
+/* --------------------------------------------------------------------------
+   CLOSING CTA BAND
+   -------------------------------------------------------------------------- */
+.p-tech .s-tech-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.p-tech .s-tech-cta__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(50% 70% at 50% 50%, var(--glow-cyan), transparent 70%);
+}
+
+.p-tech .s-tech-cta__panel {
+  position: relative;
+  z-index: 1;
+  padding: clamp(40px, 6vw, 80px) clamp(32px, 5vw, 64px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-5);
+}
+
+.p-tech .s-tech-cta__kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+
+.p-tech .s-tech-cta__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text);
+  max-width: 20ch;
+}
+
+.p-tech .s-tech-cta__body {
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  line-height: 1.82;
+  color: var(--mist);
+  max-width: 60ch;
+}
+
+.p-tech .s-tech-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  justify-content: center;
+  margin-top: var(--s-3);
+}
+
+.p-tech .s-tech-cta__coord {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  opacity: 0.4;
+  margin-top: var(--s-3);
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER TELEMETRY STRIP (shared across sections)
+   -------------------------------------------------------------------------- */
+.p-tech .tech-fig-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER SITEMAP — used in the standard footer
+   -------------------------------------------------------------------------- */
+.p-tech .footer__sitemap {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: var(--s-5) var(--s-7);
+  align-items: start;
+}
+
+.p-tech .footer__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.p-tech .footer__group a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--fog);
+}
+
+.p-tech .footer__group a:hover {
+  color: var(--cyan);
+}
+
+.p-tech .footer__lang {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-block: var(--s-5);
+  padding-block: var(--s-4);
+  border-block: 1px solid var(--line);
+}
+
+/* Language switcher: uses the single shared .langswitch definition (no
+   per-page override) so the segmented control is byte-for-byte consistent. */
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — tablet 1024px
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .p-tech .tech-hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .tech-hero__schema {
+    order: -1;
+    max-width: 480px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .p-tech .s-tech-compute__body {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .s-tech-compute__right {
+    order: -1;
+  }
+
+  .p-tech .s-tech-compute__grid-wrap {
+    aspect-ratio: auto;
+    min-height: 200px;
+  }
+
+  .p-tech .s-tech-network__cards {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .s-tech-network__metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .p-tech .s-tech-mes__body {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .s-tech-data__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .p-tech .s-tech-sec__domains {
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+  }
+
+  .p-tech .s-tech-dr__body {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .s-tech-comp__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — mobile 768px
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .p-tech .tech-hero__metrics {
+    gap: var(--s-4) var(--s-5);
+  }
+
+  .p-tech .s-tech-network__metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .s-tech-network__metric-cell {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .p-tech .s-tech-network__metric-cell:last-child {
+    border-bottom: 0;
+  }
+
+  .p-tech .s-tech-data__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .s-tech-dr__metrics {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .p-tech .s-tech-dr__metric-card {
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .p-tech .s-tech-comp__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .p-tech .tech-hero__schema-panel {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — mobile 560px
+   -------------------------------------------------------------------------- */
+@media (max-width: 560px) {
+  .p-tech .tech-hero__title {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+  }
+
+  .p-tech .s-tech-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .p-tech .s-tech-cta__actions .btn {
+    justify-content: center;
+  }
+
+  .p-tech .s-tech-mes__chips {
+    gap: var(--s-2);
+  }
+
+  .p-tech .s-tech-sec__compliance {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PREFERS-REDUCED-MOTION
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .p-tech .s-tech-compute__glow,
+  .p-tech .tech-hero__glow {
+    background: none;
+  }
+}

@@ -1,0 +1,381 @@
+/* === v2 chrome === */
+/* =========================================================================
+   顯藝科技 ShinyLogic — v2 SHARED CHROME
+   Multi-page nav tabs + active state, language switcher, footer sitemap,
+   page-hero band, and shared form controls. Reuses existing tokens; consistent
+   with the existing NAV block above. Page-scoped CSS lives behind .p-<page>.
+   ========================================================================= */
+
+/* ----- nav page tabs: active state (cyan underline) ---------------------- */
+/* Reuses .nav__link; active page gets .is-active + aria-current="page". */
+.nav__link.is-active,
+.nav__link[aria-current='page'] {
+  color: var(--text);
+}
+.nav__link.is-active::after,
+.nav__link[aria-current='page']::after {
+  right: 0; /* permanent underline (vs. hover-only on inactive tabs) */
+}
+
+/* ----- language switcher — segmented control ----------------------------- */
+.nav__lang {
+  display: flex;
+  align-items: center;
+}
+.langswitch {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.012);
+}
+.langswitch__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  cursor: pointer;
+  border-right: 1px solid var(--line);
+  transition:
+    color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+.langswitch__btn:last-child {
+  border-right: 0;
+}
+.langswitch__btn:hover {
+  color: var(--text);
+  background: rgba(103, 232, 249, 0.06);
+}
+.langswitch__btn.is-active,
+.langswitch__btn[aria-pressed='true'] {
+  color: var(--cyan);
+  background: rgba(103, 232, 249, 0.1);
+}
+.langswitch__btn:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: -2px;
+}
+/* nav lang: keep 44 px min-height for WCAG touch targets even on desktop */
+@media (min-width: 769px) {
+  .nav__lang .langswitch__btn {
+    min-height: 44px;
+  }
+}
+
+/* ----- footer sitemap + language mirror ---------------------------------- */
+.footer__sitemap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5) var(--s-7);
+  justify-content: flex-end;
+}
+.footer__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  min-width: 120px;
+}
+.footer__group-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: var(--s-1);
+}
+.footer__group a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  transition: color 0.25s var(--ease);
+}
+.footer__group a:hover {
+  color: var(--cyan);
+}
+.footer__lang {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  padding-block: var(--s-5);
+  margin-bottom: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+.footer__lang-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+@media (max-width: 1024px) {
+  .footer__sitemap {
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 560px) {
+  .footer__sitemap {
+    gap: var(--s-5);
+    width: 100%;
+  }
+  .footer__group {
+    min-width: 46%;
+  }
+}
+
+/* ----- reusable page-hero band ------------------------------------------- */
+/* Inner-page hero: kicker + index + title + lede, sitting below fixed chrome,
+   with a restrained radial glow + blueprint grid mask (mirrors home hero). */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(var(--strip-h) + var(--nav-h) + clamp(48px, 8vw, 104px));
+  padding-bottom: clamp(56px, 8vw, 112px);
+  border-bottom: 1px solid var(--line);
+}
+.page-hero__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(55% 60% at 82% 24%, var(--glow-cyan), transparent 70%);
+}
+.page-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 80px);
+  -webkit-mask-image: radial-gradient(80% 80% at 75% 30%, #000, transparent 82%);
+  mask-image: radial-gradient(80% 80% at 75% 30%, #000, transparent 82%);
+}
+.page-hero__inner {
+  position: relative;
+  z-index: 2;
+}
+.page-hero .kicker {
+  display: block;
+  margin-bottom: var(--s-4);
+}
+.page-hero__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  max-width: 20ch;
+}
+.page-hero__title .accent {
+  color: var(--cyan);
+}
+.page-hero__lede {
+  margin-top: var(--s-5);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.8;
+  color: var(--mist);
+  max-width: 60ch;
+}
+.page-hero__index {
+  position: absolute;
+  right: var(--pad);
+  top: calc(var(--strip-h) + var(--nav-h) + clamp(40px, 7vw, 88px));
+  z-index: 1;
+  font-family: var(--font-cond);
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--steel);
+  opacity: 0.1;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ----- form controls ----------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-bottom: var(--s-5);
+}
+.field__label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.field__label .req {
+  color: var(--cyan);
+  margin-left: 0.25em;
+}
+.field__help {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--steel);
+  line-height: 1.5;
+}
+.field__error {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  line-height: 1.5;
+  display: none;
+}
+.field.has-error .field__error {
+  display: block;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--ink-800);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 13px 16px;
+  min-height: 48px;
+  transition:
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    background-color 0.25s var(--ease);
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--steel);
+}
+.textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.7;
+}
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2367E8F9' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--line-bright);
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--cyan);
+  background: var(--ink-800);
+  box-shadow:
+    0 0 0 1px var(--cyan),
+    0 0 0 4px rgba(103, 232, 249, 0.1);
+}
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+.field.has-error .input,
+.field.has-error .select,
+.field.has-error .textarea {
+  border-color: var(--gold);
+}
+.field.has-error .input:focus,
+.field.has-error .select:focus,
+.field.has-error .textarea:focus {
+  box-shadow:
+    0 0 0 1px var(--gold),
+    0 0 0 4px rgba(231, 181, 103, 0.12);
+}
+
+/* submit button reuses .btn / .btn--primary; full-width helper */
+.btn--block {
+  width: 100%;
+  justify-content: center;
+}
+
+/* inline form confirmation (static demo, shown by JS on submit) */
+.form-confirm {
+  display: none;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  border: 1px solid var(--line-bright);
+  border-radius: var(--radius);
+  background: rgba(103, 232, 249, 0.05);
+  color: var(--mist);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.form-confirm.is-shown {
+  display: flex;
+}
+.form-confirm__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  margin-top: 8px;
+  background: var(--good);
+  box-shadow: 0 0 8px var(--good);
+}
+
+/* ----- v2 shared utilities ----------------------------------------------- */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+}
+.stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.muted-rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  width: 100%;
+  margin-block: var(--s-6);
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+/* ----- v2 chrome responsive --------------------------------------------- */
+@media (max-width: 768px) {
+  /* language switcher already inside the existing .nav__mobile panel; the
+     desktop .nav__lang is hidden together with .nav__links. */
+  .langswitch--mobile {
+    margin-top: var(--s-4);
+    align-self: flex-start;
+  }
+  .footer__lang {
+    justify-content: flex-start;
+  }
+}

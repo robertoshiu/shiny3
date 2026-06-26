@@ -1,0 +1,133 @@
+@import '../foundation.css';
+@import '../chrome.css';
+@import '../polish.css';
+@import '../utilities.css';
+
+/* === 404 — Wafer Stage Calibration Error ===
+   Root class: .p-404
+   Selectors prefixed with .p-404 to avoid collisions.
+   Shared tokens/components (.panel, .reticle, .tick, .btn, .kicker, .mono)
+   are inherited from foundation — only page-specific layout goes here.
+   ========================================================================= */
+
+/* ── PAGE SECTION ────────────────────────────────────────────────────────── */
+.p-404 .p-404__section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding-top: calc(var(--strip-h) + var(--nav-h) + clamp(40px, 6vw, 80px));
+  padding-bottom: clamp(48px, 7vw, 96px);
+  overflow: hidden;
+}
+
+/* restrained single radial glow (§7 rule 7 — one per page spotlight) */
+.p-404 .p-404__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 56% 48% at 50% 38%, var(--glow-cyan) 0%, transparent 70%);
+}
+
+/* ── ERROR PANEL ─────────────────────────────────────────────────────────── */
+.p-404 .p-404__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  padding: clamp(32px, 5vw, 56px) clamp(24px, 4vw, 48px);
+}
+
+/* ── KICKER ──────────────────────────────────────────────────────────────── */
+.p-404 .p-404__kicker {
+  margin-bottom: var(--s-5);
+}
+
+/* ── LARGE 404 CODE ──────────────────────────────────────────────────────── */
+.p-404 .p-404__code {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 16vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text);
+  margin: 0 0 var(--s-4);
+}
+
+/* ── WAFER MOTIF ─────────────────────────────────────────────────────────── */
+.p-404 .p-404__wafer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--s-4) auto var(--s-3);
+  width: 112px;
+  height: 112px;
+}
+
+.p-404 .p-404__wafer-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── TELEMETRY READOUT ───────────────────────────────────────────────────── */
+.p-404 .p-404__telemetry {
+  display: flex;
+  gap: var(--s-3);
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--steel);
+  margin: 0 0 var(--s-5);
+  flex-wrap: wrap;
+}
+
+/* ── ERROR SUBTITLE ──────────────────────────────────────────────────────── */
+.p-404 .p-404__title {
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-weight: 500;
+  color: var(--mist);
+  margin: 0 0 var(--s-4);
+  letter-spacing: 0.01em;
+}
+
+/* ── LEDE ────────────────────────────────────────────────────────────────── */
+.p-404 .p-404__lede {
+  color: var(--fog);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0 0 var(--s-6);
+}
+
+.p-404 .p-404__lede-en {
+  display: block;
+  font-size: 0.875rem;
+  margin-top: var(--s-2);
+  color: var(--steel);
+}
+
+/* ── MONO REF ────────────────────────────────────────────────────────────── */
+.p-404 .p-404__ref {
+  display: block;
+  margin-top: var(--s-5);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--steel);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .p-404 .p-404__section {
+    min-height: calc(100svh - 40px);
+  }
+
+  .p-404 .p-404__telemetry {
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+}

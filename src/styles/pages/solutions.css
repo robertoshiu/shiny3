@@ -1,0 +1,1078 @@
+@import '../foundation.css';
+@import '../chrome.css';
+@import '../polish.css';
+@import '../utilities.css';
+
+/* === solutions === */
+/* ============================================================================
+   解決方案 solutions.html — page-scoped CSS
+   Scope class: .p-sol (applied to <body>)
+   All selectors MUST be prefixed .p-sol to avoid collisions with styles.css.
+   Shared classes (.card, .card--reticle, .panel, .pill, .tag, .btn, .metric,
+   .section, .section--alt, .section-head, .kicker, .reveal, etc.) are defined
+   in styles.css and must NOT be redeclared here.
+   ============================================================================ */
+
+/* Nav active state: uses the single shared .nav__link.is-active rule
+   (color var(--text) + permanent cyan underline) — no per-page override. */
+
+/* ============================================================================
+   PAGE HERO
+   ============================================================================ */
+
+.p-sol__hero {
+  position: relative;
+  padding-top: calc(var(--strip-h) + var(--nav-h) + clamp(56px, 9vw, 128px));
+  padding-bottom: clamp(72px, 10vw, 140px);
+  overflow: hidden;
+}
+
+.p-sol__hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(55% 50% at 72% 38%, var(--glow-cyan), transparent 68%),
+    radial-gradient(35% 35% at 10% 82%, rgba(231, 181, 103, 0.04), transparent 70%);
+}
+
+.p-sol__hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+}
+
+/* ── Hero copy ────────────────────────────────────────────────────────────── */
+.p-sol__hero-kicker {
+  margin-bottom: var(--s-5);
+}
+
+.p-sol__hero-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 5.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: var(--s-5);
+}
+
+.p-sol__hero-title .line {
+  display: block;
+}
+
+.p-sol__hero-lede {
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.85;
+  color: var(--mist);
+  max-width: 56ch;
+  margin-bottom: var(--s-6);
+}
+
+/* Hero metrics bar */
+.p-sol__hero-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-7);
+  margin-bottom: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+
+.p-sol__hero-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.p-sol__hero-metric-n {
+  font-family: var(--font-cond);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.p-sol__hero-metric-l {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  text-transform: uppercase;
+}
+
+.p-sol__hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+}
+
+/* ── Hero diagram (right column) ─────────────────────────────────────────── */
+.p-sol__hero-diagram {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-5);
+  background: rgba(18, 25, 34, 0.7);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.p-sol__hero-diagram svg {
+  width: 100%;
+  height: auto;
+  max-width: 440px;
+}
+
+/* hero stagger via animation */
+.p-sol__hero [data-rise] {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+/* ============================================================================
+   §02 — SOLUTION FRAMEWORK GRID
+   ============================================================================ */
+
+.p-sol__framework .section-head {
+  margin-bottom: var(--s-8);
+}
+
+/* Framework rows — stack vertically */
+.p-sol__fw-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.p-sol__fw-row {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: var(--s-5);
+  align-items: start;
+  padding: var(--s-5) var(--s-6);
+  transition:
+    border-color 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+  cursor: default;
+}
+
+.p-sol__fw-row:hover {
+  border-color: var(--line-bright);
+  background: var(--ink-700);
+}
+
+/* Layer index badge */
+.p-sol__fw-index {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  padding-top: 0.18em; /* optical align with h3 */
+  flex: none;
+}
+
+/* Body text */
+.p-sol__fw-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--mist);
+  line-height: 1.25;
+  margin-bottom: var(--s-3);
+  transition: color 0.25s var(--ease);
+}
+
+.p-sol__fw-row:hover .p-sol__fw-name {
+  color: var(--text);
+}
+
+.p-sol__fw-problem {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: var(--s-2);
+}
+
+.p-sol__fw-scope {
+  font-size: 0.84rem;
+  line-height: 1.7;
+  color: var(--fog);
+}
+
+/* Outcome tag — right column */
+.p-sol__fw-outcome {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.2em;
+}
+
+/* L6 row — accent for resilience (highest stakes) */
+.p-sol__fw-row:last-child {
+  border-color: rgba(103, 232, 249, 0.18);
+  background: linear-gradient(135deg, rgba(103, 232, 249, 0.035) 0%, var(--ink-800) 60%);
+}
+
+/* Bottom telemetry */
+.p-sol__fw-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  margin-top: var(--s-6);
+  padding: 10px var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-850);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.p-sol__fw-coord {
+  opacity: 0.55;
+}
+
+/* ============================================================================
+   §03 — SOLUTION BLOCKS (deep-dive cards)
+   ============================================================================ */
+
+.p-sol__blocks {
+  position: relative;
+}
+
+/* Restrained radial glow — one per design system §7 rule 7 */
+.p-sol__blocks-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(50% 55% at 75% 30%, var(--glow-cyan), transparent 65%);
+}
+
+.p-sol__blocks .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* Two-column grid for solution blocks */
+.p-sol__blocks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-6);
+}
+
+/* ── Individual block card ─────────────────────────────────────────────────── */
+.p-sol__block {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: var(--s-6);
+}
+
+/* ── Block header ─────────────────────────────────────────────────────────── */
+.p-sol__block-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+
+.p-sol__block-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+  background: rgba(103, 232, 249, 0.04);
+  flex-shrink: 0;
+  transition:
+    border-color 0.35s var(--ease),
+    background-color 0.35s var(--ease);
+}
+
+.p-sol__block:hover .p-sol__block-icon {
+  border-color: var(--line-bright);
+  background: rgba(103, 232, 249, 0.09);
+}
+
+.p-sol__block-icon svg {
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.p-sol__block-labels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.p-sol__block-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: var(--mist);
+  transition: color 0.35s var(--ease);
+}
+
+.p-sol__block:hover .p-sol__block-name {
+  color: var(--text);
+}
+
+.p-sol__block-en {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  display: block;
+  line-height: 1;
+}
+
+.p-sol__block-share {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  opacity: 0.3;
+  flex: none;
+  transition:
+    opacity 0.35s var(--ease),
+    color 0.35s var(--ease);
+  line-height: 1;
+  padding-top: 0.12em;
+}
+
+.p-sol__block:hover .p-sol__block-share {
+  opacity: 0.7;
+  color: var(--cyan);
+}
+
+/* Divider rule */
+.p-sol__block-rule {
+  margin-bottom: var(--s-5);
+}
+
+/* ── Two-column content body ─────────────────────────────────────────────── */
+.p-sol__block-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-5) var(--s-6);
+  flex: 1;
+}
+
+.p-sol__block-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+/* Section label within block */
+.p-sol__block-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--s-1);
+  margin-top: var(--s-3);
+  line-height: 1;
+}
+
+.p-sol__block-col:first-child .p-sol__block-label:first-child {
+  margin-top: 0;
+}
+
+/* Problem + description text */
+.p-sol__block-text {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--fog);
+}
+
+/* Scope bullet list */
+.p-sol__block-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: 0;
+  margin: 0;
+}
+
+.p-sol__block-list li {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--fog);
+  padding-left: var(--s-5);
+  position: relative;
+}
+
+.p-sol__block-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan-deep);
+  opacity: 0.6;
+}
+
+/* Spec dl */
+.p-sol__block-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-850);
+  overflow: hidden;
+}
+
+.p-sol__block-spec-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--s-2) var(--s-4);
+  align-items: baseline;
+  padding: 9px var(--s-4);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8rem;
+}
+
+.p-sol__block-spec-row:last-child {
+  border-bottom: 0;
+}
+
+.p-sol__block-spec-row dt {
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.p-sol__block-spec-row dd {
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+/* Pills row at bottom of spec column */
+.p-sol__block-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: auto;
+  padding-top: var(--s-4);
+}
+
+/* AI Compute first card — slight hero treatment */
+.p-sol__block:first-child {
+  border-color: rgba(103, 232, 249, 0.18);
+  background: linear-gradient(135deg, rgba(103, 232, 249, 0.05) 0%, var(--ink-700) 50%);
+}
+
+.p-sol__block:first-child::after {
+  content: '';
+  position: absolute;
+  inset-inline: 15%;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--cyan-deep) 25%,
+    var(--cyan-deep) 75%,
+    transparent
+  );
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Footer annotation */
+.p-sol__blocks-foot {
+  margin-top: var(--s-7);
+}
+
+.p-sol__blocks-foot-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding-top: var(--s-4);
+  flex-wrap: wrap;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  opacity: 0.65;
+}
+
+.p-sol__blocks-coord {
+  opacity: 0.45;
+  flex: none;
+}
+
+/* ============================================================================
+   §04 — SLA STRIP
+   ============================================================================ */
+
+.p-sol__sla .section-head {
+  margin-bottom: var(--s-8);
+}
+
+/* Metrics grid — 6-cell bordered panel (same pattern as home #stats) */
+.p-sol__sla-grid {
+  overflow: hidden;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-bottom: var(--s-6);
+}
+
+.p-sol__sla-cell {
+  position: relative;
+  padding: clamp(24px, 3.5vw, 44px) clamp(20px, 3vw, 36px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ink-800);
+  transition: background-color 0.3s var(--ease);
+}
+
+.p-sol__sla-cell:nth-child(3n) {
+  border-right: 0;
+}
+
+.p-sol__sla-cell:nth-last-child(-n + 3) {
+  border-bottom: 0;
+}
+
+.p-sol__sla-cell:hover {
+  background: var(--ink-700);
+}
+
+/* Left phosphor accent bar on hover */
+.p-sol__sla-cell::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  background: var(--cyan);
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease);
+  pointer-events: none;
+}
+
+.p-sol__sla-cell:hover::before {
+  opacity: 0.6;
+  transform: scaleY(1);
+}
+
+.p-sol__sla-annotation {
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  display: block;
+  margin-bottom: var(--s-4);
+  opacity: 0.5;
+}
+
+/* Large SLA number — uses shared .metric__num sizing but smaller to fit grid */
+.p-sol__sla-num {
+  font-size: clamp(2rem, 4vw, 3.5rem) !important;
+  color: var(--text);
+  transition: color 0.25s var(--ease);
+}
+
+.p-sol__sla-cell:hover .p-sol__sla-num {
+  color: var(--cyan-bright);
+}
+
+.p-sol__sla-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: var(--steel);
+}
+
+/* ── Compliance badges ────────────────────────────────────────────────────── */
+.p-sol__sla-compliance {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  flex-wrap: wrap;
+  margin-bottom: var(--s-5);
+  padding: var(--s-4) var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-850);
+}
+
+.p-sol__sla-compliance-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  flex: none;
+}
+
+.p-sol__sla-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* ── Governance line ──────────────────────────────────────────────────────── */
+.p-sol__sla-gov {
+  padding: var(--s-5) var(--s-6);
+}
+
+.p-sol__sla-gov-inner {
+  display: flex;
+  gap: var(--s-5);
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.p-sol__sla-gov-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  flex: none;
+}
+
+.p-sol__sla-gov-text {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--fog);
+}
+
+/* ============================================================================
+   §05 — CLOSING CTA
+   ============================================================================ */
+
+.p-sol__cta {
+  padding-block: clamp(80px, 11vw, 168px);
+}
+
+.p-sol__cta-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(48px, 7vw, 96px) clamp(40px, 6vw, 80px);
+  background: var(--ink-800);
+  border-color: rgba(103, 232, 249, 0.2);
+}
+
+/* Restrained glow inside the CTA panel */
+.p-sol__cta-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 70% at 78% 40%, rgba(103, 232, 249, 0.1), transparent 65%);
+}
+
+.p-sol__cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 72ch;
+}
+
+.p-sol__cta-coord {
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: var(--s-5);
+  display: block;
+}
+
+.p-sol__cta-kicker {
+  margin-bottom: var(--s-4);
+}
+
+.p-sol__cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: var(--s-5);
+}
+
+.p-sol__cta-text {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--mist);
+  margin-bottom: var(--s-7);
+  max-width: 62ch;
+}
+
+.p-sol__cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+}
+
+/* ============================================================================
+   FOOTER SITEMAP — extend shared footer with .footer__sitemap (v2 chrome)
+   ============================================================================ */
+.p-sol .footer__sitemap {
+  display: flex;
+  gap: var(--s-7);
+  flex-wrap: wrap;
+}
+
+.p-sol .footer__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.p-sol .footer__group-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--s-1);
+}
+
+.p-sol .footer__group a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--fog);
+}
+
+.p-sol .footer__group a:hover {
+  color: var(--cyan);
+}
+
+.p-sol .footer__lang {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-block: var(--s-5);
+  padding-block: var(--s-5);
+  border-block: 1px solid var(--line);
+}
+
+.p-sol .footer__lang-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
+/* ============================================================================
+   LANGUAGE SWITCHER — single authoritative definition lives in the SHARED
+   CHROME section (~line 3543, .langswitch segmented control). The former
+   duplicate pill-group block here was dead code (lost the cascade) and has
+   been removed so there is one source of truth across all 7 pages.
+   ============================================================================ */
+
+/* Mobile langswitch — larger targets */
+.langswitch--mobile {
+  margin-block: var(--s-3);
+}
+
+/* ============================================================================
+   RESPONSIVE — 1024 / 768 / 560
+   ============================================================================ */
+
+/* ── 1024px ─────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .p-sol__hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .p-sol__hero-diagram {
+    order: -1;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+
+  .p-sol__blocks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .p-sol__block-body {
+    grid-template-columns: 1fr;
+  }
+
+  .p-sol__sla-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .p-sol__sla-cell:nth-child(3n) {
+    border-right: 1px solid var(--line);
+  }
+
+  .p-sol__sla-cell:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .p-sol__sla-cell:nth-last-child(-n + 3) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .p-sol__sla-cell:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+}
+
+/* ── 768px ─────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .p-sol__fw-row {
+    grid-template-columns: 36px 1fr;
+    gap: var(--s-3);
+  }
+
+  .p-sol__fw-outcome {
+    display: none; /* hide right-column tag on mobile — content is in the text */
+  }
+
+  .p-sol__block-head {
+    flex-wrap: wrap;
+    gap: var(--s-3);
+  }
+
+  .p-sol__cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .p-sol__cta-actions .btn {
+    justify-content: center;
+  }
+
+  .p-sol .footer__top {
+    grid-template-columns: 1fr;
+  }
+
+  .p-sol .footer__sitemap {
+    gap: var(--s-6);
+  }
+
+  .p-sol__blocks-foot-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+
+  .p-sol__sla-compliance {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .p-sol__sla-gov-inner {
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+}
+
+/* ── 560px ─────────────────────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .p-sol__hero-metrics {
+    gap: var(--s-4) var(--s-5);
+  }
+
+  .p-sol__hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .p-sol__hero-cta .btn {
+    justify-content: center;
+  }
+
+  .p-sol__sla-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .p-sol__sla-cell {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .p-sol__sla-cell:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .p-sol__sla-cell:nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .p-sol__sla-cell:last-child {
+    border-bottom: 0;
+  }
+
+  .p-sol__sla-cell::before {
+    display: none;
+  }
+
+  .p-sol__cta-panel {
+    padding: var(--s-7) var(--s-5);
+  }
+
+  .p-sol__fw-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+}
+
+/* ============================================================================
+   PREFERS-REDUCED-MOTION
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .p-sol__hero [data-rise] {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .p-sol__sla-num {
+    transition: none;
+  }
+}
+
+/* === stage2 solutions === */
+/* =========================================================================
+   solutions.css — page-scoped styles for .p-sol (solutions.html)
+   All selectors prefixed .p-sol to avoid collision with shared stylesheet.
+   ========================================================================= */
+
+/* ── SOL·05 · OUTSOURCE VS BUILD IN-HOUSE ─────────────────────────────── */
+
+.p-sol__outsource {
+  background: var(--ink-900);
+}
+
+.p-sol__out-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (max-width: 1024px) {
+  .p-sol__out-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .p-sol__out-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.p-sol__out-card {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.p-sol__out-icon {
+  margin-bottom: 4px;
+}
+
+.p-sol__out-title {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.p-sol__out-en {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--cyan);
+  margin: 0;
+  display: block;
+}
+
+.p-sol__out-body {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--fog);
+  margin: 0;
+  flex: 1;
+}
+
+.p-sol__out-tag {
+  margin-top: 8px;
+}
+
+/* Resolution strip */
+.p-sol__out-resolution {
+  margin-top: 40px;
+  padding: 28px 36px;
+  background: var(--ink-800);
+}
+
+.p-sol__out-res-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.p-sol__out-res-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  flex-shrink: 0;
+}
+
+.p-sol__out-res-text {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--mist);
+  margin: 0;
+  flex: 1;
+  min-width: 240px;
+}
+
+.p-sol__out-res-cta {
+  flex-shrink: 0;
+}
+
+.p-sol__out-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 0.72rem;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .p-sol__out-resolution {
+    padding: 20px 20px;
+  }
+
+  .p-sol__out-res-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .p-sol__out-foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

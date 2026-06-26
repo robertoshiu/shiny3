@@ -1,0 +1,131 @@
+/* ============================================================
+ * utilities.css — Inline-style migration helpers (T11)
+ *
+ * This file holds the CSS infrastructure needed to replace
+ * inline style="..." attributes identified across the 7 source
+ * HTML pages (index, about, solutions, technology, case-studies,
+ * careers, contact).
+ *
+ * The HTML porter (Wave 2b) MUST apply the migration contract
+ * documented at .sisyphus/evidence/task-11-migration-map.md
+ * before these rules become effective.
+ *
+ * Three categories are covered:
+ *   1. animation-delay — delegated to a CSS custom property so
+ *      every [data-rise] element only needs --delay:Xs instead
+ *      of the full animation-delay declaration.
+ *   2. Font-size utilities — one class per distinct rem value
+ *      found across pages; names encode the value × 100.
+ *   3. Structural / display / layout utilities — atomic helpers
+ *      for display, text-align, min-width, vertical-align,
+ *      width, and margin resets.
+ *
+ * Categories that STAY INLINE and are NOT covered here:
+ *   - style="--i:N"        (per-element stagger index, 144 uses)
+ *   - style="--pct:…"      (data-driven bar fill, 20 uses)
+ *   - style="--pos:…"      (timeline milestone position)
+ *   - style="--seg-w:…"    (segment width + delay)
+ *   - style="--phase-pct:…" / flex:N  (phase proportions)
+ * ============================================================ */
+
+/* ─────────────────────────────────────────────────────────────
+ * 1. ANIMATION-DELAY — CSS custom property delegation
+ *    Replaces: style="animation-delay:.XXs"  on [data-rise]
+ *    New pattern: style="--delay:.XXs"
+ * ───────────────────────────────────────────────────────────── */
+
+[data-rise] {
+  animation-delay: var(--delay, 0s);
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * 2. FONT-SIZE UTILITIES
+ *    Naming: .fs-NNN where NNN = rem value × 100 (zero-padded)
+ *    e.g. .fs-078 → font-size: .78rem
+ * ───────────────────────────────────────────────────────────── */
+
+/* .64rem — case-studies crossfab label (1 use) */
+.fs-064 {
+  font-size: 0.64rem;
+}
+
+/* .66rem — about.html compliance kicker (1 use) */
+.fs-066 {
+  font-size: 0.66rem;
+}
+
+/* .7rem  — case-studies table header spans (4 uses) */
+.fs-070 {
+  font-size: 0.7rem;
+}
+
+/* .72rem — index.html MES fact sub-labels (2); about methodology kicker (1) */
+.fs-072 {
+  font-size: 0.72rem;
+}
+
+/* .76rem — about.html ghost btn overrides (2 uses) */
+.fs-076 {
+  font-size: 0.76rem;
+}
+
+/* .78rem — case-studies capex table cell spans (40 uses) */
+.fs-078 {
+  font-size: 0.78rem;
+}
+
+/* .84rem — technology spec p (1); case-studies phase descriptions (4 uses) */
+.fs-084 {
+  font-size: 0.84rem;
+}
+
+/* .9rem  — case-studies timeline phase gate labels (4 uses) */
+.fs-090 {
+  font-size: 0.9rem;
+}
+
+/* NOTE: font-size:clamp(1.4rem,2.8vw,2.2rem) (technology.html ×2)
+   has no utility class — keep those occurrences inline. */
+
+/* ─────────────────────────────────────────────────────────────
+ * 3. DISPLAY UTILITIES
+ * ───────────────────────────────────────────────────────────── */
+
+/* Footer brand sub-label (7 pages) + technology inline SVG (1) */
+.is-inline {
+  display: inline;
+}
+
+/* About leadership section hidden pending credentials (1 use) */
+.is-hidden {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * 4. LAYOUT / STRUCTURAL UTILITIES
+ * ───────────────────────────────────────────────────────────── */
+
+/* case-studies capex table th ×4, td ×40; contact CTA kicker + h2 ×2 */
+.u-text-center {
+  text-align: center;
+}
+
+/* case-studies capex table first column header (1 use) */
+.u-min-w-9rem {
+  min-width: 9rem;
+}
+
+/* technology.html inline SVG baseline alignment (1 use) */
+.u-va-text {
+  vertical-align: -0.15em;
+}
+
+/* about.html s-phase__bar fill (4 uses) */
+.u-w-full {
+  width: 100%;
+}
+
+/* footer brand__sub margin reset, paired with .is-inline (7 uses) */
+.u-m-0 {
+  margin: 0;
+}

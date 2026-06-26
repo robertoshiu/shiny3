@@ -1,0 +1,3060 @@
+@import '../foundation.css';
+@import '../chrome.css';
+@import '../polish.css';
+@import '../utilities.css';
+
+/* === stats === */
+/* ==========================================================================
+   #stats — 02 / BY THE NUMBERS
+   Scope: .s-stats  (every selector prefixed)
+   Reuses shared tokens and components from styles.css; only section-specific
+   rules live here.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Section head layout tweak — left column takes full grid span on desktop
+   -------------------------------------------------------------------------- */
+.s-stats .section-head {
+  align-items: end;
+}
+
+.s-stats__head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Panel wrapper — inherits .panel + .reticle; clips the grid inside it
+   -------------------------------------------------------------------------- */
+.s-stats__panel {
+  /* .panel and .reticle are shared; overflow:hidden clips cell borders cleanly */
+  overflow: hidden;
+  padding: 0; /* remove any inherited padding so grid fills the panel flush */
+}
+
+/* --------------------------------------------------------------------------
+   Metrics Grid — 3 × 2 bordered cells
+   The grid is a direct child of .s-stats__panel so nth-child counts are clean
+   -------------------------------------------------------------------------- */
+.s-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* No gap — hairline borders do the separation */
+  gap: 0;
+}
+
+/* Each cell */
+.s-stats__cell {
+  position: relative;
+  padding: clamp(28px, 4vw, 48px) clamp(24px, 3.5vw, 40px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ink-800);
+  transition:
+    background-color 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+  /* Reserve layout space while reveal is pending */
+  will-change: opacity, transform;
+}
+
+/* Remove right border on last column (grid handles it via outer panel border) */
+.s-stats__cell:nth-child(3n + 3) {
+  border-right: 0;
+}
+
+/* Remove bottom border on last row */
+.s-stats__cell:nth-last-child(-n + 3) {
+  border-bottom: 0;
+}
+
+/* Hover state — lift with accent hairline tint */
+.s-stats__cell:hover {
+  background: var(--ink-700);
+  border-color: rgba(103, 232, 249, 0.18);
+}
+
+/* Subtle left accent bar on hover — phosphor signal */
+.s-stats__cell::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  background: var(--cyan);
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition:
+    opacity 0.35s var(--ease),
+    transform 0.35s var(--ease);
+  pointer-events: none;
+}
+.s-stats__cell:hover::before {
+  opacity: 0.65;
+  transform: scaleY(1);
+}
+
+/* Inner content wrapper */
+.s-stats__cell-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Annotation — // FIG.0X monospace telemetry
+   -------------------------------------------------------------------------- */
+.s-stats__annotation {
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  margin-bottom: var(--s-4);
+  display: block;
+  opacity: 0.55;
+}
+
+/* --------------------------------------------------------------------------
+   Metric number — override to add prefix styling
+   -------------------------------------------------------------------------- */
+.s-stats__prefix {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  align-self: flex-end;
+  padding-bottom: 0.15em;
+  color: var(--fog);
+}
+
+/* Counter span — inherits .metric__num sizing from parent flex */
+.s-stats__counter {
+  /* Number text — inherits font from .metric__num */
+  color: var(--text);
+  transition: color 0.25s var(--ease);
+}
+.s-stats__cell:hover .s-stats__counter {
+  color: var(--cyan-bright);
+}
+
+/* Static (non-counter) large numbers: ≤ 4 hr, ≥ 95% */
+.s-stats__static-num {
+  color: var(--text);
+  transition: color 0.25s var(--ease);
+  letter-spacing: -0.01em;
+}
+.s-stats__cell:hover .s-stats__static-num {
+  color: var(--cyan-bright);
+}
+
+/* Monetary counters brighten to cyan on hover, matching the other cells.
+   Gold is reserved for the single closing CapEx figure + primary-button hover. */
+.s-stats__cell:nth-child(1):hover .s-stats__counter,
+.s-stats__cell:nth-child(2):hover .s-stats__counter {
+  color: var(--cyan-bright);
+}
+
+/* --------------------------------------------------------------------------
+   Meta dl (label + sub-note)
+   -------------------------------------------------------------------------- */
+.s-stats__meta {
+  margin-top: var(--s-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.s-stats__meta .metric__label {
+  /* .metric__label is mono fog from shared; override to cyan for kicker effect */
+  color: var(--cyan);
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.s-stats__sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Decorative hairline line inside each cell (bottom-right ornament)
+   -------------------------------------------------------------------------- */
+.s-stats__cell-line {
+  display: none; /* reserved for possible future tick ruler; omit for now */
+}
+
+/* --------------------------------------------------------------------------
+   Footer telemetry strip
+   -------------------------------------------------------------------------- */
+.s-stats__foot {
+  margin-top: var(--s-7);
+}
+
+.s-stats__foot-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding-top: var(--s-4);
+  flex-wrap: wrap;
+}
+
+.s-stats__coord {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  opacity: 0.45;
+  flex: none;
+}
+
+.s-stats__ref {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--steel);
+  opacity: 0.7;
+  text-align: center;
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Staggered reveal — cells use --i CSS custom property
+   Each child's --i is already set inline (1–6)
+   -------------------------------------------------------------------------- */
+.s-stats__cell.reveal {
+  /* transition-delay already handled by shared .reveal via --i */
+}
+
+/* --------------------------------------------------------------------------
+   Responsive — 1024 / 768 / 560
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .s-stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Restore right border on col 2 → now last of 2-col row needs reset */
+  .s-stats__cell:nth-child(3n + 3) {
+    border-right: 1px solid var(--line);
+  }
+
+  /* Remove right border on every second cell (2-col layout) */
+  .s-stats__cell:nth-child(2n) {
+    border-right: 0;
+  }
+
+  /* Reset 3-col last-row rule then apply 2-col */
+  .s-stats__cell:nth-last-child(-n + 3) {
+    border-bottom: 1px solid var(--line);
+  }
+  .s-stats__cell:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .s-stats__foot-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+
+  .s-stats__ref {
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .s-stats__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Single column: all cells get right border restored, bottom border on all but last */
+  .s-stats__cell {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .s-stats__cell:last-child {
+    border-bottom: 0;
+  }
+
+  /* Disable left accent bar on mobile (touch has no hover) */
+  .s-stats__cell::before {
+    display: none;
+  }
+
+  .s-stats__coord {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced-motion: counters already handled globally; no extra needed here
+   -------------------------------------------------------------------------- */
+
+/* === architecture === */
+/* =========================================================================
+   #architecture — 03 / ARCHITECTURE
+   Scope: .s-arch  (all selectors prefixed to prevent collisions)
+   Reuses shared classes: .wrap, .section, .section-head, .kicker,
+   .section-title, .section-lede, .section-index, .tag, .panel, .mono,
+   .fog, .mist, .accent, .steel
+   ========================================================================= */
+
+/* ── Layout: stack wrapper with rail ─────────────────────────────────────── */
+.s-arch__stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* left padding reserves space for the signal rail */
+  padding-left: 56px;
+}
+
+/* ── Vertical signal rail ─────────────────────────────────────────────────── */
+.s-arch__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 1px;
+  background: var(--line);
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+/* the animated pulse blob traveling down the rail */
+.s-arch__pulse {
+  position: absolute;
+  top: -25%;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--cyan-deep) 30%,
+    var(--cyan) 50%,
+    var(--cyan-deep) 70%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  animation: arch-pulse 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+@keyframes arch-pulse {
+  0% {
+    top: -25%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* rail dot at each layer junction */
+.s-arch__layer::before {
+  content: '';
+  position: absolute;
+  left: -44px; /* 56px stack padding − 12px (dot center offset) */
+  top: 28px; /* vertically centers with header height */
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-800);
+  border: 1px solid var(--line);
+  z-index: 2;
+  transition:
+    background 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.s-arch__layer[data-active='true']::before {
+  background: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow:
+    0 0 8px var(--cyan),
+    0 0 20px var(--line-bright);
+}
+
+/* ── Layer card ───────────────────────────────────────────────────────────── */
+.s-arch__layer {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-800);
+  margin-bottom: 2px; /* tight hairline gap — stack feel */
+  overflow: hidden;
+  transition: border-color 0.3s var(--ease);
+}
+
+.s-arch__layer:first-child {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.s-arch__layer:last-child {
+  border-radius: 0 0 var(--radius) var(--radius);
+  margin-bottom: 0;
+}
+
+.s-arch__layer[data-active='true'] {
+  border-color: rgba(103, 232, 249, 0.28);
+  background: var(--ink-700);
+}
+
+/* left accent bar — glows when active */
+.s-arch__layer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--line-bright);
+  opacity: 0;
+  transition:
+    opacity 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+
+.s-arch__layer[data-active='true']::after {
+  opacity: 1;
+  background: var(--cyan);
+  box-shadow: 2px 0 12px rgba(103, 232, 249, 0.35);
+}
+
+/* ── Header button ────────────────────────────────────────────────────────── */
+.s-arch__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  padding: 18px 24px 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--mist);
+  transition: color 0.25s var(--ease);
+  position: relative;
+  z-index: 1;
+}
+
+.s-arch__header:hover {
+  color: var(--text);
+}
+
+.s-arch__header:hover .s-arch__index {
+  color: var(--cyan-bright);
+}
+
+/* focus ring */
+.s-arch__header:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: -2px;
+  border-radius: var(--radius);
+}
+
+/* layer index (L1–L6) */
+.s-arch__index {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+  flex: none;
+  min-width: 2.4em;
+  transition: color 0.25s var(--ease);
+}
+
+/* TC name + EN tag group */
+.s-arch__names {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+
+.s-arch__name-tc {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: inherit;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+
+.s-arch__name-en {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--fog);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* expand/collapse chevron */
+.s-arch__arrow {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.25s var(--ease),
+    transform 0.35s var(--ease);
+  position: relative;
+  margin-left: auto;
+}
+
+.s-arch__arrow::before,
+.s-arch__arrow::after {
+  content: '';
+  position: absolute;
+  background: var(--steel);
+  transition:
+    background 0.25s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+/* horizontal bar */
+.s-arch__arrow::before {
+  width: 8px;
+  height: 1.5px;
+}
+
+/* vertical bar — hidden when expanded */
+.s-arch__arrow::after {
+  width: 1.5px;
+  height: 8px;
+}
+
+.s-arch__header[aria-expanded='true'] .s-arch__arrow {
+  border-color: var(--line-bright);
+  transform: none;
+}
+
+.s-arch__header[aria-expanded='true'] .s-arch__arrow::after {
+  transform: scaleY(0);
+}
+
+.s-arch__header[aria-expanded='true'] .s-arch__arrow::before,
+.s-arch__header[aria-expanded='true'] .s-arch__arrow::after {
+  background: var(--cyan);
+}
+
+.s-arch__header:hover .s-arch__arrow {
+  border-color: var(--line-bright);
+}
+
+/* ── Expandable body ──────────────────────────────────────────────────────── */
+.s-arch__body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.35s var(--ease),
+    padding 0.35s var(--ease);
+  padding: 0 24px 0 20px;
+}
+
+/* JS removes [hidden] and sets .is-open.
+   Cap is viewport-aware so taller layers (L3/L5) never clip on narrow widths. */
+.s-arch__body.is-open {
+  max-height: min(80vh, 600px);
+  opacity: 1;
+  padding: 0 24px 22px 20px;
+}
+
+/* ── Tech chips ───────────────────────────────────────────────────────────── */
+.s-arch__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+/* accent variant tags (RTO/RPO) */
+.s-arch .tag.accent-tag {
+  border-color: var(--line-bright);
+  color: var(--cyan);
+  background: rgba(103, 232, 249, 0.06);
+}
+
+/* ── Description text ─────────────────────────────────────────────────────── */
+.s-arch__desc {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--fog);
+  max-width: 68ch;
+  margin-bottom: var(--s-3);
+}
+
+/* ── Telemetry meta row ───────────────────────────────────────────────────── */
+.s-arch__meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--steel);
+  text-transform: uppercase;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+/* ── Bottom telemetry annotation ─────────────────────────────────────────── */
+.s-arch__telemetry {
+  margin-top: var(--s-5);
+  padding: 12px var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-850);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  text-transform: uppercase;
+}
+
+.s-arch__coord {
+  opacity: 0.6;
+}
+
+/* ── Section-head left column ─────────────────────────────────────────────── */
+/* section-head uses grid 1fr auto; we need the text column to stack normally */
+.s-arch .section-head__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.s-arch .section-head__text .section-title {
+  margin-top: var(--s-4);
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .s-arch__pulse {
+    animation: none;
+    opacity: 0;
+  }
+
+  .s-arch__body {
+    transition: none;
+  }
+}
+
+/* ── Responsive: tablet 1024px ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .s-arch__stack {
+    padding-left: 44px;
+  }
+  .s-arch__layer::before {
+    left: -34px;
+  }
+}
+
+/* ── Responsive: mobile 768px ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .s-arch__stack {
+    padding-left: 0;
+  }
+
+  /* hide rail on small screens */
+  .s-arch__rail {
+    display: none;
+  }
+
+  .s-arch__layer::before {
+    display: none;
+  }
+
+  .s-arch__header {
+    gap: var(--s-4);
+    padding: 16px;
+  }
+
+  .s-arch__body.is-open {
+    padding: 0 16px 18px 16px;
+  }
+
+  .s-arch__names {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .s-arch__name-en {
+    font-size: 0.68rem;
+  }
+
+  .s-arch__telemetry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+}
+
+/* ── Responsive: mobile 560px ────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .s-arch__chips {
+    gap: var(--s-2);
+  }
+
+  .s-arch__desc {
+    font-size: 0.875rem;
+  }
+
+  /* chips wrap to more rows on mobile — give panels extra vertical room */
+  .s-arch__body.is-open {
+    max-height: 90vh;
+  }
+}
+
+/* === capabilities === */
+/* ==========================================================================
+   #capabilities — 04 / CAPABILITIES
+   Scope class: .s-cap
+   All selectors MUST be prefixed .s-cap to avoid collisions with shared CSS.
+   Shared classes (.card, .card--reticle, .pill, .kicker, .section-head, etc.)
+   are already defined in styles.css and must NOT be redeclared here.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SECTION HEAD — minor layout adjustment for asymmetric head block
+   -------------------------------------------------------------------------- */
+.s-cap .section-head {
+  /* Allow the left column to breathe fully */
+  margin-bottom: var(--s-9);
+}
+
+.s-cap__head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* --------------------------------------------------------------------------
+   CARD GRID — 3 columns desktop, 2 tablet, 1 mobile
+   -------------------------------------------------------------------------- */
+.s-cap__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-5);
+  list-style: none;
+  counter-reset: cap-card;
+}
+
+/* --------------------------------------------------------------------------
+   INDIVIDUAL CAPABILITY CARD
+   -------------------------------------------------------------------------- */
+.s-cap__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-6) var(--s-6) var(--s-7);
+  position: relative;
+  /* stagger reveal handled by shared .reveal rule consuming inline --i */
+}
+
+/* Card counter annotation — top-right corner (behind the reticle tick) */
+.s-cap__card::before {
+  counter-increment: cap-card;
+  content: '0' counter(cap-card);
+  position: absolute;
+  top: var(--s-4);
+  right: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  opacity: 0.5;
+  pointer-events: none;
+  /* Sit behind the top-right tick */
+  z-index: 0;
+}
+
+/* --------------------------------------------------------------------------
+   ICON CONTAINER
+   -------------------------------------------------------------------------- */
+.s-cap__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  background: rgba(103, 232, 249, 0.04);
+  flex-shrink: 0;
+  transition:
+    border-color 0.35s var(--ease),
+    background-color 0.35s var(--ease);
+}
+
+.s-cap__card:hover .s-cap__card-icon {
+  border-color: var(--line-bright);
+  background: rgba(103, 232, 249, 0.08);
+}
+
+/* SVG inherits stroke from CSS for cleaner theming */
+.s-cap__card-icon svg {
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   CARD BODY CONTENT
+   -------------------------------------------------------------------------- */
+.s-cap__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  flex: 1;
+}
+
+/* TC card name — primary heading */
+.s-cap__card-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  color: var(--mist);
+  transition: color 0.35s var(--ease);
+}
+
+.s-cap__card:hover .s-cap__card-name {
+  color: var(--text);
+}
+
+/* EN sub — mono kicker beneath TC name */
+.s-cap__card-en {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  display: block;
+  margin-bottom: var(--s-3);
+}
+
+/* One-line blurb */
+.s-cap__card-blurb {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--fog);
+  flex: 1;
+}
+
+/* Spec pill — already uses shared .pill; add a small top margin to push to bottom */
+.s-cap__card-spec {
+  align-self: flex-start;
+  margin-top: var(--s-4);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+
+/* --------------------------------------------------------------------------
+   FAINT SHARE PERCENTAGE — corner label
+   -------------------------------------------------------------------------- */
+.s-cap__card-share {
+  position: absolute;
+  bottom: var(--s-5);
+  right: var(--s-6);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  opacity: 0.35;
+  transition:
+    opacity 0.35s var(--ease),
+    color 0.35s var(--ease);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.s-cap__card:hover .s-cap__card-share {
+  opacity: 0.65;
+  color: var(--cyan);
+}
+
+/* --------------------------------------------------------------------------
+   FIRST CARD ACCENT — AI Compute is the hero capability, add faint glow
+   -------------------------------------------------------------------------- */
+.s-cap__card:first-child {
+  border-color: rgba(103, 232, 249, 0.18);
+  background: linear-gradient(140deg, rgba(103, 232, 249, 0.04) 0%, var(--ink-700) 55%);
+}
+
+.s-cap__card:first-child .s-cap__card-name {
+  color: var(--text);
+}
+
+/* Subtle top-edge accent line on the hero card */
+.s-cap__card:first-child::after {
+  content: '';
+  position: absolute;
+  inset-inline: 20%;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--cyan-deep) 30%,
+    var(--cyan-deep) 70%,
+    transparent
+  );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION FOOTER ANNOTATION
+   -------------------------------------------------------------------------- */
+.s-cap__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.s-cap__fig {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+}
+
+.s-cap__note {
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — 2 columns @ 1024px, 1 column @ 620px
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .s-cap__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .s-cap__grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+  }
+
+  .s-cap__card-share {
+    /* On mobile, nudge share above the reticle tick */
+    bottom: var(--s-6);
+    right: var(--s-7);
+  }
+
+  .s-cap__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PREFERS-REDUCED-MOTION — no extra work needed; shared rules handle it.
+   Card hover lift is a transition (not animation) — it respects the shared
+   .001ms transition-duration override in the global reduced-motion block.
+   -------------------------------------------------------------------------- */
+
+/* === compute === */
+/* ==========================================================================
+   #compute — 05 / AI COMPUTE
+   Scope class: .s-compute
+   All selectors MUST be prefixed with .s-compute to avoid collisions.
+   Reuses shared tokens from styles.css; adds only section-specific rules.
+   ========================================================================== */
+
+/* ── Radial glow (one, restrained — design system §7 rule 7) ─────────────── */
+.s-compute__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(55% 60% at 72% 44%, var(--glow-cyan), transparent 68%);
+}
+
+/* Ensure children sit above the glow */
+.s-compute .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section head tweak: keep left-right split clean ─────────────────────── */
+.s-compute__head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Two-column body grid ────────────────────────────────────────────────── */
+.s-compute__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+/* ── Left column ─────────────────────────────────────────────────────────── */
+.s-compute__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+/* ── Hero stat — big condensed "248" ─────────────────────────────────────── */
+.s-compute__hero-stat {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--s-4);
+  padding-bottom: var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.s-compute__hero-num {
+  font-family: var(--font-cond);
+  font-size: clamp(5rem, 10vw, 8.5rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  /* subtle cyan text-shadow for phosphor depth */
+  text-shadow:
+    0 0 40px rgba(103, 232, 249, 0.25),
+    0 0 80px rgba(103, 232, 249, 0.1);
+  user-select: none;
+}
+
+.s-compute__hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding-bottom: 0.12em; /* align baseline with numeral */
+}
+
+.s-compute__hero-unit {
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+}
+
+.s-compute__hero-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+/* ── Spec panel ─────────────────────────────────────────────────────────── */
+.s-compute__spec-panel {
+  padding: var(--s-5);
+}
+
+.s-compute__spec-head {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  margin-bottom: var(--s-4);
+}
+
+.s-compute__spec-rule {
+  margin-bottom: var(--s-4);
+}
+
+.s-compute__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.s-compute__spec-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--s-3) var(--s-5);
+  align-items: center;
+  padding-block: var(--s-4);
+}
+
+/* dividers between spec rows — replaces invalid <hr> direct children of <dl> */
+.s-compute__spec-row + .s-compute__spec-row {
+  border-top: 1px solid var(--line);
+}
+
+.s-compute__spec-key {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.s-compute__spec-val {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.s-compute__spec-badge {
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  color: var(--fog);
+}
+
+/* ── Cooling note ─────────────────────────────────────────────────────────── */
+.s-compute__cooling-note {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--fog);
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  border: 1px solid rgba(103, 232, 249, 0.18);
+  border-radius: var(--radius);
+  background: rgba(103, 232, 249, 0.03);
+}
+
+.s-compute__cooling-icon {
+  color: var(--cyan);
+  flex: none;
+  font-style: normal;
+}
+
+/* ── Right column ─────────────────────────────────────────────────────────── */
+.s-compute__right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+/* ── Telemetry annotation above the grid ─────────────────────────────────── */
+.s-compute__telem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  opacity: 0.5;
+}
+
+.s-compute__telem-coord {
+  letter-spacing: 0.08em;
+}
+
+/* ── Dot grid wrapper panel ───────────────────────────────────────────────── */
+.s-compute__grid-wrap {
+  position: relative;
+  padding: var(--s-6);
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* subtle inner-shadow for depth */
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Dot grid (the actual cells, laid out by JS flex-wrap) ───────────────── */
+.s-compute__dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-content: flex-start;
+  width: 100%;
+}
+
+/* Individual GPU cell — defaults (overridden by .is-cyan / .is-gold in JS) */
+.s-compute__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px; /* square-ish, slight radius — "precision chip" */
+  flex: none;
+  opacity: 0; /* start hidden; JS fades in via stagger */
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.4s var(--ease),
+    box-shadow 0.3s var(--ease);
+  cursor: default;
+  transform: scale(0.7) rotate(5deg); /* starts slightly rotated/small */
+}
+
+/* Revealed state (added by JS after stagger) */
+.s-compute__dot.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hover micro-pulse on individual dots */
+.s-compute__dot:hover {
+  transform: scale(1.35);
+  z-index: 2;
+}
+
+/* Cyan variant — GB300 NVL72 */
+.s-compute__dot.is-cyan {
+  background: var(--cyan-deep);
+  box-shadow: 0 0 5px rgba(103, 232, 249, 0.35);
+}
+.s-compute__dot.is-cyan.is-visible:hover {
+  box-shadow:
+    0 0 10px rgba(103, 232, 249, 0.7),
+    0 0 20px rgba(103, 232, 249, 0.25);
+}
+
+/* Inference variant — HGX B300. Desaturated steel fill + cyan hairline ring
+   so the tier reads as distinct from GB300 without spending gold (DESIGN.md §4). */
+.s-compute__dot.is-gold {
+  background: var(--steel);
+  box-shadow: inset 0 0 0 1px rgba(103, 232, 249, 0.55);
+}
+.s-compute__dot.is-gold.is-visible:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(103, 232, 249, 0.85),
+    0 0 10px rgba(103, 232, 249, 0.4);
+}
+
+/* ── Legend ──────────────────────────────────────────────────────────────── */
+.s-compute__legend {
+  display: flex;
+  gap: var(--s-6);
+  align-items: center;
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.012);
+  width: fit-content;
+}
+
+.s-compute__legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+
+.s-compute__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.s-compute__legend-dot--cyan {
+  background: var(--cyan-deep);
+  box-shadow: 0 0 6px rgba(103, 232, 249, 0.5);
+}
+
+.s-compute__legend-dot--gold {
+  background: var(--steel);
+  box-shadow: inset 0 0 0 1px rgba(103, 232, 249, 0.55);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .s-compute__body {
+    grid-template-columns: 1fr;
+    gap: var(--s-7);
+  }
+
+  .s-compute__right {
+    align-items: center;
+  }
+
+  .s-compute__grid-wrap {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 768px) {
+  .s-compute__hero-num {
+    font-size: clamp(4rem, 18vw, 6rem);
+  }
+
+  .s-compute__spec-row {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+    padding-block: var(--s-3);
+  }
+
+  .s-compute__grid-wrap {
+    aspect-ratio: auto;
+    padding: var(--s-5);
+  }
+
+  .s-compute__dots {
+    gap: 4px;
+  }
+
+  .s-compute__dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .s-compute__legend {
+    flex-wrap: wrap;
+    gap: var(--s-4);
+  }
+}
+
+@media (max-width: 560px) {
+  .s-compute__hero-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+
+  .s-compute__telem {
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .s-compute__dot {
+    transition: none;
+    opacity: 0; /* still controlled by JS but no transition */
+  }
+
+  .s-compute__dot.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .s-compute__hero-num {
+    text-shadow: none;
+  }
+}
+
+/* === mes === */
+/* =========================================================================
+   #mes — 06 / MES · FAB300
+   Scope class: .s-mes — ALL selectors must be prefixed.
+   Reuses: .section, .section--alt, .section-head, .kicker, .section-title,
+           .section-lede, .section-index, .panel, .tag, .pill, .hairline,
+           .rule, .mono, .fog, .mist, .accent, .gold, .steel, .tick (reticle)
+   ========================================================================= */
+
+/* ── COMPACT OVERRIDE: reduce section vertical padding for a tight band ─── */
+.s-mes {
+  padding-block: clamp(48px, 6vw, 96px);
+}
+
+/* ── section-head: tighten bottom margin for compact band ─────────────────── */
+.s-mes .section-head {
+  margin-bottom: clamp(24px, 3.5vw, 40px);
+}
+
+/* line break visible on wide, hidden on narrow */
+.s-mes__br {
+  display: inline;
+}
+
+/* ── TWO-COLUMN BODY LAYOUT ────────────────────────────────────────────────── */
+.s-mes__body {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: var(--s-5);
+  align-items: start;
+}
+
+/* ── MODULES PANEL (left) ───────────────────────────────────────────────────── */
+.s-mes__modules {
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  position: relative; /* already set by .panel, reinforce */
+}
+
+/* panel sub-head row */
+.s-mes__panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+
+.s-mes__sub-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.s-mes__sub-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* module chip grid: wrap tightly */
+.s-mes__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  padding-bottom: var(--s-4);
+}
+
+/* individual chips — build on .tag base */
+.s-mes__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  background: rgba(103, 232, 249, 0.03);
+  border-color: rgba(147, 164, 179, 0.18);
+  transition:
+    background-color 0.28s var(--ease),
+    border-color 0.28s var(--ease),
+    color 0.28s var(--ease);
+  cursor: default;
+}
+
+.s-mes__chip:hover {
+  background: rgba(103, 232, 249, 0.08);
+  border-color: var(--line-bright);
+  color: var(--mist);
+}
+
+/* EAP/SECS-GEM chip gets a brighter cyan accent (deepest-integration module).
+   Gold is reserved per DESIGN.md §4. */
+.s-mes__chip--gem {
+  border-color: rgba(103, 232, 249, 0.28);
+  background: rgba(103, 232, 249, 0.04);
+  color: var(--mist);
+}
+
+.s-mes__chip--gem:hover {
+  background: rgba(103, 232, 249, 0.08);
+  border-color: var(--line-bright);
+  color: var(--cyan-bright);
+}
+
+/* dot glyph inside each chip */
+.s-mes__chip-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cyan-deep);
+  opacity: 0.7;
+  flex: none;
+}
+
+.s-mes__chip-dot--gold {
+  background: var(--cyan-bright);
+  box-shadow: 0 0 5px rgba(103, 232, 249, 0.6);
+}
+
+/* bottom rule + coordinate annotation */
+.s-mes__rule {
+  margin-top: var(--s-3);
+}
+
+.s-mes__coord {
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  margin-top: var(--s-2);
+  opacity: 0.45;
+}
+
+/* reticle tick marks — shared .tick classes from styles.css */
+.s-mes__modules .tick,
+.s-mes__facts .tick {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  border-color: var(--line-bright);
+  border-style: solid;
+  border-width: 0;
+  opacity: 0.45;
+  transition:
+    opacity 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+.s-mes__modules .tick--tl,
+.s-mes__facts .tick--tl {
+  top: 6px;
+  left: 6px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+.s-mes__modules .tick--tr,
+.s-mes__facts .tick--tr {
+  top: 6px;
+  right: 6px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+.s-mes__modules .tick--bl,
+.s-mes__facts .tick--bl {
+  bottom: 6px;
+  left: 6px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+.s-mes__modules .tick--br,
+.s-mes__facts .tick--br {
+  bottom: 6px;
+  right: 6px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.s-mes__modules:hover .tick,
+.s-mes__facts:hover .tick {
+  opacity: 1;
+  border-color: var(--cyan);
+}
+
+/* ── FACTS PANEL (right column) ─────────────────────────────────────────────── */
+.s-mes__facts {
+  padding: var(--s-5);
+  position: relative;
+}
+
+.s-mes__fact-list {
+  margin-top: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* .s-mes__fact-divider removed — replaced by CSS border on subsequent rows */
+
+.s-mes__fact-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-2);
+}
+
+/* dividers between fact rows — replaces invalid <div role="separator"> inside <dl> */
+.s-mes__fact-row + .s-mes__fact-row {
+  margin-top: calc(var(--s-3) * 2);
+  padding-top: calc(var(--s-3) * 2);
+  border-top: 1px solid var(--line);
+}
+
+.s-mes__fact-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+  line-height: 1;
+}
+
+.s-mes__fact-val {
+  line-height: 1.35;
+}
+
+/* big fact number */
+.s-mes__fact-num {
+  font-family: var(--font-cond);
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+/* unit label beside number */
+.s-mes__fact-unit {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  margin-left: 0.25em;
+  vertical-align: text-bottom;
+}
+
+/* accent badge "實證" */
+.s-mes__fact-badge {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(103, 232, 249, 0.28);
+  border-radius: 2px;
+  padding: 2px 6px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.s-mes__fact-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+/* pill badges row */
+.s-mes__badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+
+/* ── BOTTOM ANNOTATION STRIP ─────────────────────────────────────────────── */
+.s-mes__annotation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.s-mes__anno-right {
+  text-align: right;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .s-mes__body {
+    grid-template-columns: 1fr 260px;
+    gap: var(--s-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .s-mes__body {
+    grid-template-columns: 1fr;
+  }
+
+  .s-mes__facts {
+    /* facts panel becomes a compact strip below modules on mobile */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3) var(--s-5);
+  }
+
+  .s-mes__facts .s-mes__sub-kicker {
+    grid-column: 1 / -1;
+  }
+
+  .s-mes__fact-list {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3) var(--s-5);
+    margin-top: 0;
+  }
+
+  .s-mes__fact-divider {
+    display: none;
+  }
+
+  .s-mes__badge-row {
+    grid-column: 1 / -1;
+  }
+
+  .s-mes__br {
+    display: none;
+  }
+
+  .s-mes__annotation {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-1);
+  }
+
+  .s-mes__anno-right {
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .s-mes__panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .s-mes__facts {
+    grid-template-columns: 1fr;
+  }
+
+  .s-mes__fact-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── PREFERS-REDUCED-MOTION ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .s-mes__chip,
+  .s-mes__chip--gem,
+  .s-mes__modules .tick,
+  .s-mes__facts .tick {
+    transition: none;
+  }
+}
+
+/* === delivery === */
+/* ==========================================================================
+   #delivery — 07 / DELIVERY
+   Scope: .s-delivery — ALL selectors prefixed here.
+   Reuses shared tokens + classes from styles.css; only adds truly
+   section-specific layout / bar animation / flourishes.
+   ========================================================================== */
+
+/* ── Section reticle corner marks ────────────────────────────────────────── */
+.s-delivery {
+  overflow: hidden; /* contain absolute ticks */
+}
+.s-delivery > .tick {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  border-color: var(--line-bright);
+  border-style: solid;
+  border-width: 0;
+  opacity: 0.35;
+  transition: opacity 0.6s var(--ease);
+}
+.s-delivery.is-in > .tick {
+  opacity: 0.65;
+}
+.s-delivery > .tick--tl {
+  top: 20px;
+  left: 20px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+.s-delivery > .tick--tr {
+  top: 20px;
+  right: 20px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+.s-delivery > .tick--bl {
+  bottom: 20px;
+  left: 20px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+.s-delivery > .tick--br {
+  bottom: 20px;
+  right: 20px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+/* ── Section head sub-layout ─────────────────────────────────────────────── */
+.s-delivery .section-head__body {
+  /* title + lede in one flex column, index sits in the grid's auto column */
+}
+
+/* ── Month ruler ─────────────────────────────────────────────────────────── */
+.s-delivery__ruler {
+  position: relative;
+  height: 20px;
+  margin-bottom: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+.s-delivery__ruler-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.s-delivery__month {
+  position: absolute;
+  bottom: 4px;
+  left: var(--pos);
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  white-space: nowrap;
+}
+/* tick mark above each month label */
+.s-delivery__month::before {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 4px;
+  background: var(--line-bright);
+  opacity: 0.6;
+}
+
+/* ── Timeline flex container ─────────────────────────────────────────────── */
+.s-delivery__timeline {
+  display: flex;
+  gap: clamp(8px, 1.2vw, 16px);
+  align-items: stretch;
+  margin-bottom: var(--s-6);
+}
+
+/* ── Phase column (panel card) ───────────────────────────────────────────── */
+.s-delivery__phase {
+  /* flex-grow driven by --phase-pct inline var; min so small columns stay readable */
+  flex-grow: var(--phase-pct, 1);
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: clamp(80px, 10vw, 120px);
+  padding: var(--s-5) var(--s-4) var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  position: relative;
+  background: var(--ink-800);
+  border: 1px solid var(--line);
+  transition:
+    border-color 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+.s-delivery__phase:hover {
+  border-color: var(--line-bright);
+  background: var(--ink-700);
+}
+/* primary phase (装机期) gets a subtle cyan left accent */
+.s-delivery__phase--primary {
+  border-left-color: rgba(103, 232, 249, 0.35);
+  background:
+    linear-gradient(135deg, rgba(103, 232, 249, 0.03) 0%, transparent 60%), var(--ink-800);
+}
+.s-delivery__phase--primary:hover {
+  border-left-color: var(--cyan-deep);
+}
+
+/* ── Phase head: index + gate label ─────────────────────────────────────── */
+.s-delivery__phase-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+.s-delivery__phase-index {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+}
+.s-delivery__phase-gate {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--fog);
+  white-space: nowrap;
+}
+
+/* ── Phase name & month range ────────────────────────────────────────────── */
+.s-delivery__phase-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.s-delivery__phase-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+  line-height: 1;
+}
+
+/* ── Proportional bar ────────────────────────────────────────────────────── */
+.s-delivery__bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-block: var(--s-2);
+}
+/* the track */
+.s-delivery__bar {
+  flex: 1;
+  height: 5px;
+  background: rgba(147, 164, 179, 0.09);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+/* animated fill — width:0 → --pct on .is-in */
+.s-delivery__bar-fill {
+  display: block;
+  height: 100%;
+  width: 0; /* default: collapsed */
+  background: linear-gradient(to right, var(--cyan-deep), var(--cyan));
+  border-radius: 2px;
+  transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 80ms + 200ms);
+}
+/* when section enters view, expand fill to --pct */
+.s-delivery.is-in .s-delivery__bar-fill {
+  width: var(--pct);
+}
+/* primary phase fill is slightly brighter */
+.s-delivery__phase--primary .s-delivery__bar-fill {
+  background: linear-gradient(to right, var(--cyan-deep), var(--cyan-bright));
+  box-shadow: 0 0 8px rgba(103, 232, 249, 0.35);
+}
+.s-delivery__bar-pct {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  white-space: nowrap;
+  min-width: 3.4ch;
+  text-align: right;
+}
+
+/* ── Amount block ────────────────────────────────────────────────────────── */
+.s-delivery__amount {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+.s-delivery__amount-prefix {
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--steel);
+}
+.s-delivery__amount-num {
+  font-family: var(--font-cond);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+/* primary phase: emphasized in cyan (gold reserved for the closing CapEx sum) */
+.s-delivery__phase--primary .s-delivery__amount-num {
+  color: var(--cyan-bright);
+}
+.s-delivery__amount-unit {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+}
+
+/* ── Milestone list ──────────────────────────────────────────────────────── */
+.s-delivery__milestones {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--fog);
+  line-height: 1.4;
+}
+.s-delivery__milestones li {
+  padding-left: 12px;
+  position: relative;
+}
+.s-delivery__milestones li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 4px;
+  height: 4px;
+  border: 1px solid var(--cyan-deep);
+  border-radius: 1px;
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+
+/* ── Badge (OpEx / DR pill) ─────────────────────────────────────────────── */
+.s-delivery__badge {
+  margin-top: auto;
+  padding-top: var(--s-2);
+}
+.s-delivery__badge .pill {
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-color: rgba(103, 232, 249, 0.22);
+  color: var(--cyan-bright);
+}
+
+/* ── Total bar (scale reference) ─────────────────────────────────────────── */
+.s-delivery__total-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+  border-top: 1px solid var(--line);
+  margin-bottom: var(--s-6);
+}
+.s-delivery__total-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  white-space: nowrap;
+  min-width: 9ch;
+}
+.s-delivery__total-bar {
+  flex: 1;
+  height: 3px;
+  display: flex;
+  gap: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.s-delivery__total-seg {
+  height: 100%;
+  width: 0; /* start collapsed */
+  background: rgba(92, 107, 120, 0.4);
+  border-radius: 1px;
+  transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--seg-delay, 0ms);
+}
+.s-delivery__total-seg--primary {
+  background: var(--cyan-deep);
+}
+.s-delivery__total-seg--mid {
+  background: rgba(103, 232, 249, 0.5);
+}
+.s-delivery__total-seg--dim {
+  background: rgba(103, 232, 249, 0.2);
+}
+
+.s-delivery.is-in .s-delivery__total-seg {
+  width: var(--seg-w);
+}
+.s-delivery__total-sum {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* ── Footnote ────────────────────────────────────────────────────────────── */
+.s-delivery__fn-rule {
+  margin-bottom: var(--s-4);
+}
+.s-delivery__footnote {
+  position: relative;
+}
+.s-delivery__fn-text {
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--steel);
+  line-height: 1.8;
+}
+.s-delivery__fn-sep {
+  display: inline-block;
+  margin-inline: 0.6em;
+  color: var(--line-bright);
+  opacity: 0.7;
+}
+.s-delivery__fn-coord {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+  opacity: 0.45;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .s-delivery__timeline {
+    flex-wrap: wrap;
+    gap: var(--s-3);
+  }
+  .s-delivery__phase {
+    /* on tablet: pair into 2 per row */
+    min-width: calc(48% - var(--s-3));
+    flex-basis: calc(48% - var(--s-3));
+    flex-grow: 0;
+  }
+  .s-delivery__total-row {
+    flex-wrap: wrap;
+    gap: var(--s-3);
+  }
+  .s-delivery__total-bar {
+    width: 100%;
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .s-delivery__ruler {
+    display: none;
+  }
+  .s-delivery__timeline {
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+  .s-delivery__phase {
+    min-width: 0;
+    flex-basis: auto;
+    flex-grow: 1;
+  }
+  .s-delivery__phase--primary {
+    order: -1; /* most important phase first on mobile */
+  }
+  .s-delivery__fn-coord {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .s-delivery__amount-num {
+    font-size: 1.5rem;
+  }
+  .s-delivery__phase-name {
+    font-size: 1rem;
+  }
+  .s-delivery__total-row {
+    display: none; /* too cramped on very small screens */
+  }
+}
+
+/* ── prefers-reduced-motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .s-delivery__bar-fill,
+  .s-delivery__total-seg {
+    transition-duration: 0.001ms !important;
+  }
+  /* show final values immediately */
+  .s-delivery__bar-fill {
+    width: var(--pct);
+  }
+  .s-delivery__total-seg {
+    width: var(--seg-w);
+  }
+}
+
+/* === assurance === */
+/* ==========================================================================
+   #assurance — 08 / ASSURANCE & GOVERNANCE
+   Scope class: .s-assurance
+   All selectors prefixed. Shared classes (.panel, .metric, .pill, etc.)
+   used as-is from styles.css; only section-specific layout here.
+   ========================================================================== */
+
+/* ── Section head override: keep index overlapping right ─────────────────── */
+.s-assurance .section-head {
+  margin-bottom: var(--s-8);
+}
+
+.s-assurance__head-main {
+  /* holds kicker + title + lede; index sits in the auto column */
+}
+
+/* ── SLA metrics band ────────────────────────────────────────────────────── */
+.s-assurance__sla-band {
+  padding: 0;
+  margin-bottom: var(--s-7);
+  overflow: hidden;
+}
+
+/* reticle ticks inside the sla-band (reticle wrapper) */
+.s-assurance__sla-band > .tick--tl {
+  top: 10px;
+  left: 10px;
+}
+.s-assurance__sla-band > .tick--tr {
+  top: 10px;
+  right: 10px;
+}
+.s-assurance__sla-band > .tick--bl {
+  bottom: 10px;
+  left: 10px;
+}
+.s-assurance__sla-band > .tick--br {
+  bottom: 10px;
+  right: 10px;
+}
+
+.s-assurance__sla-rule {
+  padding: var(--s-4) var(--s-6) var(--s-3);
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.s-assurance__rule-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--steel);
+  white-space: nowrap;
+  flex: none;
+}
+
+.s-assurance__sla-rule .rule {
+  flex: 1;
+  min-width: 0;
+}
+
+/* grid: 5 equal columns on wide, wrap gracefully */
+.s-assurance__sla-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* last cell spans wider on its own row if below 5 fit */
+}
+
+.s-assurance__sla-item {
+  padding: var(--s-6) var(--s-6) var(--s-5);
+  position: relative;
+  /* hairline dividers between columns */
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  transition: background-color 0.35s var(--ease);
+}
+
+.s-assurance__sla-item:last-child {
+  border-right: 0;
+}
+
+.s-assurance__sla-item:hover {
+  background: rgba(103, 232, 249, 0.03);
+}
+
+/* accent operator glyph ( ≤ / ≥ ) before the numeral */
+.s-assurance__operator {
+  font-family: var(--font-cond);
+  font-size: 0.52em;
+  font-weight: 500;
+  color: var(--cyan);
+  align-self: flex-end;
+  margin-bottom: 0.1em;
+  margin-right: -0.05em;
+  letter-spacing: 0;
+}
+
+/* yield/SLO operators now use the shared .accent (cyan); kept as cyan for
+   any residual use — gold is reserved per DESIGN.md §4 */
+.s-assurance__op--gold {
+  color: var(--cyan);
+}
+
+.s-assurance__sla-sub {
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+}
+
+/* "100%" — the 5th cell, accent the numeral in cyan since no operator */
+.s-assurance__sla-item--wide .metric__num {
+  color: var(--cyan-bright);
+}
+
+/* ── Lower section: two-column grid ─────────────────────────────────────── */
+.s-assurance__lower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-6);
+  align-items: start;
+}
+
+/* ── Governance panel ───────────────────────────────────────────────────── */
+.s-assurance__gov {
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.s-assurance__gov-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.s-assurance__gov-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.15;
+  color: var(--mist);
+}
+
+.s-assurance__gov-divider {
+  margin: 0; /* uses .hairline from foundation */
+}
+
+.s-assurance__gov-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.s-assurance__gov-item {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: var(--s-3) var(--s-4);
+  align-items: start;
+}
+
+.s-assurance__gov-icon {
+  font-size: 0.9rem;
+  margin-top: 0.15em;
+  line-height: 1;
+}
+
+.s-assurance__gov-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--mist);
+  margin-bottom: var(--s-1);
+}
+
+.s-assurance__gov-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--fog);
+}
+
+.s-assurance__gov-tel {
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* ── Compliance panel ───────────────────────────────────────────────────── */
+.s-assurance__compliance {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.s-assurance__comp-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.s-assurance__comp-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.15;
+  color: var(--mist);
+}
+
+.s-assurance__comp-lede {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--fog);
+  max-width: 54ch;
+}
+
+/* badge row */
+.s-assurance__badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+}
+
+.s-assurance__badge {
+  /* extends .pill from foundation */
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  transition:
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease),
+    background-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.s-assurance__badge:hover {
+  border-color: var(--line-bright);
+  color: var(--cyan-bright);
+  background: rgba(103, 232, 249, 0.06);
+  box-shadow: 0 0 12px -4px rgba(103, 232, 249, 0.25);
+}
+
+/* highlighted variant for 密評 — cyan accent (gold reserved per DESIGN.md §4) */
+.s-assurance__badge--gold::before {
+  background: var(--cyan-deep);
+  box-shadow: 0 0 6px var(--cyan-deep);
+}
+
+.s-assurance__badge--gold {
+  border-color: rgba(103, 232, 249, 0.28);
+  color: var(--cyan-bright);
+}
+
+.s-assurance__badge--gold:hover {
+  border-color: var(--cyan);
+  color: var(--cyan-bright);
+  background: rgba(103, 232, 249, 0.07);
+  box-shadow: 0 0 12px -4px var(--line-bright);
+}
+
+/* standard detail rows */
+.s-assurance__std-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.s-assurance__std-row {
+  /* extends .panel */
+  display: grid;
+  grid-template-columns: 9.5rem 1fr;
+  gap: var(--s-4);
+  align-items: baseline;
+  padding: var(--s-4) var(--s-5);
+  transition:
+    border-color 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+}
+
+.s-assurance__std-row:hover {
+  border-color: var(--line-bright);
+  background: var(--ink-700);
+}
+
+.s-assurance__std-name {
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.s-assurance__std-desc {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--fog);
+}
+
+.s-assurance__coord {
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  padding-top: var(--s-3);
+  text-transform: uppercase;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .s-assurance__sla-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* 4th and 5th metrics wrap to second row */
+  .s-assurance__sla-item:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .s-assurance__sla-item--wide {
+    border-top: 1px solid var(--line);
+    border-right: 0;
+    grid-column: span 2;
+  }
+
+  .s-assurance__sla-item:nth-child(3) {
+    border-right: 0;
+  }
+
+  .s-assurance__lower {
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+  }
+}
+
+@media (max-width: 768px) {
+  .s-assurance__sla-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .s-assurance__sla-item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* reset nth-child overrides, set clean 2-col flow */
+  .s-assurance__sla-item:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+
+  .s-assurance__sla-item:nth-child(even) {
+    border-right: 0;
+  }
+
+  .s-assurance__sla-item--wide {
+    grid-column: 1 / -1;
+    border-right: 0;
+    border-top: none;
+  }
+
+  .s-assurance__sla-item:nth-child(3) {
+    border-right: 0;
+  }
+
+  .s-assurance__std-row {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+
+  .s-assurance__rule-label {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .s-assurance__sla-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .s-assurance__sla-item {
+    padding: var(--s-5) var(--s-4);
+  }
+
+  .s-assurance__gov-item {
+    grid-template-columns: 1fr;
+  }
+
+  .s-assurance__gov-icon {
+    display: none;
+  }
+
+  .s-assurance__badge-grid {
+    gap: var(--s-2);
+  }
+}
+
+/* === contact === */
+/* ==========================================================================
+   #contact — 09 / ENGAGE
+   Scope class: .s-contact
+   All selectors prefixed with .s-contact to avoid collisions.
+   Reuses shared tokens and classes from styles.css — only section-specific
+   rules are defined here.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   RADIAL GLOW — atmospheric background; one restrained pool of cyan
+   -------------------------------------------------------------------------- */
+.s-contact {
+  overflow: hidden;
+}
+
+.s-contact__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(55% 60% at 50% 70%, var(--glow-cyan), transparent 72%),
+    radial-gradient(30% 32% at 82% 18%, rgba(231, 181, 103, 0.045), transparent 68%);
+}
+
+/* Keep content above glow */
+.s-contact .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   MONO TELEMETRY ROW — coordinate annotation above the panel
+   -------------------------------------------------------------------------- */
+.s-contact__telemetry {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+  margin-bottom: var(--s-6);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  opacity: 0.6;
+}
+
+.s-contact__tel-div {
+  display: inline-block;
+  width: 1px;
+  height: 10px;
+  background: var(--line-bright);
+  opacity: 0.4;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   MAIN CTA PANEL — heavy border, reticle ticks, inner glow
+   -------------------------------------------------------------------------- */
+.s-contact__panel {
+  /* override panel base for a more dramatic treatment */
+  background: var(--ink-800);
+  border-color: var(--line-bright);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease);
+}
+
+.s-contact__panel:hover {
+  border-color: rgba(103, 232, 249, 0.5);
+}
+
+/* upsize the reticle ticks for a panel this prominent */
+.s-contact__panel > .tick {
+  width: 20px;
+  height: 20px;
+  opacity: 0.65;
+}
+
+.s-contact__panel > .tick--tl {
+  top: 12px;
+  left: 12px;
+}
+.s-contact__panel > .tick--tr {
+  top: 12px;
+  right: 12px;
+}
+.s-contact__panel > .tick--bl {
+  bottom: 12px;
+  left: 12px;
+}
+.s-contact__panel > .tick--br {
+  bottom: 12px;
+  right: 12px;
+}
+
+.s-contact__panel:hover > .tick {
+  opacity: 1;
+  border-color: var(--cyan);
+}
+
+/* subtle inner radial glow focused at the bottom-centre — draws eye to email */
+.s-contact__panel-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(50% 55% at 50% 100%, rgba(103, 232, 249, 0.07), transparent 70%);
+}
+
+.s-contact__panel-inner {
+  position: relative;
+  z-index: 1;
+  padding: clamp(48px, 6vw, 88px) clamp(32px, 5vw, 72px) clamp(40px, 5vw, 72px);
+}
+
+/* --------------------------------------------------------------------------
+   CLOSING STATEMENT — bold mission declaration
+   -------------------------------------------------------------------------- */
+.s-contact__statement {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.8vw, 2.55rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-align: center;
+  max-width: 26ch;
+  margin-inline: auto;
+  margin-bottom: var(--s-7);
+}
+
+/* --------------------------------------------------------------------------
+   SPEC STRIP — mono SLA facts row, hairline-separated
+   -------------------------------------------------------------------------- */
+.s-contact__spec-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-4);
+  margin-bottom: var(--s-7);
+  padding: var(--s-4) 0;
+  border-block: 1px solid var(--line);
+}
+
+.s-contact__spec-item {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  opacity: 0.75;
+}
+
+.s-contact__spec-dot {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--cyan-deep);
+  opacity: 0.45;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   ACTIONS — email + CTA buttons
+   -------------------------------------------------------------------------- */
+.s-contact__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-6);
+  margin-bottom: var(--s-7);
+}
+
+/* email label micro-kicker */
+.s-contact__email-label {
+  display: block;
+  text-align: center;
+  margin-bottom: var(--s-3);
+  font-size: 0.68rem;
+  opacity: 0.7;
+}
+
+/* the email address — prominent, mono, cyan */
+.s-contact__email {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  transition:
+    color 0.3s var(--ease),
+    text-shadow 0.3s var(--ease);
+}
+
+.s-contact__email::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  right: 100%;
+  height: 1px;
+  background: var(--cyan);
+  transition: right 0.4s var(--ease);
+}
+
+.s-contact__email:hover {
+  color: var(--cyan-bright);
+  text-shadow: 0 0 24px rgba(103, 232, 249, 0.35);
+}
+
+.s-contact__email:hover::after {
+  right: 0;
+}
+
+/* buttons row */
+.s-contact__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   BOTTOM RULE + ANNOTATION
+   -------------------------------------------------------------------------- */
+.s-contact__hr {
+  margin-bottom: var(--s-4);
+}
+
+.s-contact__bottom-anno {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  opacity: 0.45;
+}
+
+/* --------------------------------------------------------------------------
+   LARGE COORDINATE FLOURISH — below the panel, full-width mono display
+   -------------------------------------------------------------------------- */
+.s-contact__coord-block {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-6);
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  user-select: none;
+  pointer-events: none;
+}
+
+.s-contact__coord-num {
+  font-family: var(--font-cond);
+  font-size: clamp(2.2rem, 5.5vw, 5rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--steel);
+  opacity: 0.18;
+  line-height: 1;
+}
+
+.s-contact__coord-sep {
+  display: inline-block;
+  width: 1px;
+  height: clamp(2rem, 5vw, 4.5rem);
+  background: var(--line-bright);
+  opacity: 0.22;
+  align-self: center;
+  flex: none;
+}
+
+.s-contact__coord-note {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  opacity: 0.35;
+  align-self: center;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — 768 / 560
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .s-contact__telemetry {
+    gap: var(--s-2);
+  }
+
+  .s-contact__tel-div {
+    display: none;
+  }
+
+  .s-contact__statement {
+    font-size: clamp(1.35rem, 4.5vw, 1.9rem);
+  }
+
+  .s-contact__spec-strip {
+    gap: var(--s-2) var(--s-3);
+  }
+
+  .s-contact__email {
+    font-size: clamp(1rem, 4.5vw, 1.4rem);
+  }
+
+  .s-contact__bottom-anno {
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  .s-contact__coord-num {
+    font-size: clamp(1.8rem, 8vw, 3rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .s-contact__panel-inner {
+    padding-inline: var(--s-5);
+  }
+
+  .s-contact__btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .s-contact__btns .btn {
+    justify-content: center;
+  }
+
+  .s-contact__coord-block {
+    gap: var(--s-2) var(--s-4);
+  }
+
+  .s-contact__coord-sep {
+    display: none;
+  }
+
+  .s-contact__coord-note {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PREFERS-REDUCED-MOTION — all transitions already covered by global rule;
+   nothing additional needed here.
+   -------------------------------------------------------------------------- */
+
+/* =============================================================
+   home.css — page-scoped overrides for .p-home
+   (appended from build-css/home.css, Stage-2 pivot)
+   ============================================================= */
+/* home.css — page-scoped overrides for index.html (.p-home)
+   No additional overrides required for the direct-to-fab pivot.
+   All layout, typography, and colour rules remain in styles.css. */
+
+/* ============================================================
+   HERO — full-bleed video (init.mp4) + logo brand mark   [hero v3]
+   ============================================================ */
+.hero--video {
+  min-height: clamp(600px, 92svh, 940px);
+  display: flex;
+  align-items: center;
+  padding-bottom: clamp(64px, 9vw, 120px);
+  background: var(--ink-900) url('poster.jpg') center/cover no-repeat; /* T27: was #07090c (hardcoded dark caused low-contrast in light theme) */
+}
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(7, 9, 12, 0.95) 0%,
+      rgba(7, 9, 12, 0.82) 34%,
+      rgba(7, 9, 12, 0.46) 66%,
+      rgba(7, 9, 12, 0.3) 100%
+    ),
+    linear-gradient(to top, rgba(7, 9, 12, 0.92) 0%, rgba(7, 9, 12, 0.15) 44%, transparent 72%),
+    linear-gradient(to bottom, rgba(7, 9, 12, 0.8) 0%, transparent 17%);
+}
+.hero--video .hero__glow {
+  z-index: 1;
+}
+.hero--video .hero__grid-overlay {
+  z-index: 1;
+  opacity: 0.55;
+}
+.hero--video .hero__inner {
+  display: block;
+  z-index: 2;
+}
+.hero--video .hero__copy {
+  max-width: min(760px, 94%);
+}
+.hero__logo {
+  display: block;
+  width: clamp(72px, 8.5vw, 108px);
+  margin-bottom: clamp(18px, 2.4vw, 30px);
+}
+.hero__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 26px rgba(103, 232, 249, 0.28))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+}
+.hero__telemetry {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(16px, 2.4vw, 28px);
+  z-index: 2;
+  text-align: center;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--steel);
+  pointer-events: none;
+}
+.hero--video > .tick {
+  z-index: 2;
+}
+
+/* wafer SVG positioned right-side within the video hero — DESIGN.md §7.3 */
+.hero--video .hero__wafer {
+  position: absolute;
+  top: 50%;
+  right: clamp(4%, 10vw, 100px);
+  transform: translateY(-54%);
+  width: clamp(260px, 38vw, 520px);
+  max-width: 520px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+@media (max-width: 1024px) {
+  .hero--video .hero__wafer {
+    opacity: 0.18;
+    right: -10%;
+    width: clamp(200px, 55vw, 360px);
+  }
+}
+@media (max-width: 768px) {
+  .hero--video .hero__wafer {
+    display: none;
+  }
+}
+
+/* nav brand logo */
+.brand {
+  gap: var(--s-3);
+}
+.brand__logo {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+.brand__logo img {
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+
+@media (max-width: 768px) {
+  .hero--video {
+    min-height: auto;
+    padding-top: calc(var(--strip-h) + var(--nav-h) + clamp(48px, 12vw, 90px));
+    padding-bottom: clamp(56px, 12vw, 90px);
+  }
+  .hero__video {
+    display: none;
+  } /* skip the 18MB video on mobile — poster bg shows */
+  .hero__telemetry {
+    display: none;
+  }
+  .brand__logo img {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__video {
+    display: none;
+  } /* static poster instead of motion */
+  .hero [data-rise] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
