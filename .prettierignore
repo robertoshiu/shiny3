@@ -13,3 +13,4 @@ DESIGN.md
 *.md
 # Hand-authored / ported entry HTML — prettier reformatting risks whitespace-sensitive rendering drift in inline markup; eslint/stylelint do not touch HTML.
 *.html
+apps-script
