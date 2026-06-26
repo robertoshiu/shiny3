@@ -1,0 +1,15 @@
+dist
+node_modules
+pnpm-lock.yaml
+public
+src/i18n/dict.js
+*.min.*
+playwright-report
+test-results
+.opencode
+.sisyphus
+CLAUDE.md
+DESIGN.md
+*.md
+# Hand-authored / ported entry HTML — prettier reformatting risks whitespace-sensitive rendering drift in inline markup; eslint/stylelint do not touch HTML.
+*.html

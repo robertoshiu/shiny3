@@ -1,0 +1,32 @@
+{
+  "name": "shinylogic-v3",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ShinyLogic corporate website v3",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "playwright test",
+    "lint": "eslint . && stylelint \"src/**/*.css\" && prettier --check .",
+    "lint:fix": "eslint . --fix && stylelint \"src/**/*.css\" --fix && prettier --write .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.2",
+    "postcss-nested": "^6.2.0",
+    "postcss-preset-env": "^9.6.0",
+    "prettier": "^3.8.4",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^36.0.1",
+    "vite": "^5.4.21"
+  }
+}

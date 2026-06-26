@@ -1,0 +1,12 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+*.local
+.gstack/
+
+# Local agent / orchestration tooling (not part of the website)
+.opencode/
+.sisyphus/evidence/
+.sisyphus/drafts/
+.sisyphus/run-continuation/
