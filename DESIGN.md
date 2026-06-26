@@ -425,7 +425,7 @@ but not bloated (each ~4-6 screens).
 - SVG icons only (no emoji); consistent 24px viewBox. Visible `:focus-visible` rings everywhere.
 - Touch targets ≥ 44px (nav tabs, lang buttons, form controls). Body ≥ 16px on mobile.
 - Form: every input has an associated `<label for>`; inquiry type is a real `<select>`; clear error/help
-  text; submit is a `<button type="submit">` (static demo — on submit, show an inline confirmation, no backend).
+  text; submit is a `<button type="submit">` (on submit, POSTs to a no-self-hosted-backend serverless endpoint — Google Apps Script → Google Sheet + email, see apps-script/SETUP.md; inline confirmation on success, inline error on failure; falls back to demo mode with no save when data-endpoint is unset).
 - `cursor:pointer` on all interactive elements; transitions 150-300ms; respect `prefers-reduced-motion`.
 - Cross-page consistency: identical nav/footer, same max-width, same active-state convention.
 
