@@ -192,46 +192,22 @@
           </div>
         </div>
 
-        <!-- Right: 六層 framework diagram (SVG) -->
+        <!-- Right: fab-process motif — DESIGN.md §7 -->
         <div class="p-sol__hero-diagram reticle" data-rise style="--delay:.32s" aria-hidden="true">
           <span class="tick tick--tl"></span>
           <span class="tick tick--tr"></span>
           <span class="tick tick--bl"></span>
           <span class="tick tick--br"></span>
-          <svg viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="六層架構解決方案框架示意圖">
-            <!-- vertical signal rail -->
-            <line x1="32" y1="20" x2="32" y2="380" stroke="rgba(147,164,179,.18)" stroke-width="1"/>
-            <!-- rail dot at each layer -->
-            <circle cx="32" cy="47"  r="4" fill="#67E8F9" opacity=".9"/>
-            <circle cx="32" cy="113" r="3" fill="rgba(103,232,249,.5)"/>
-            <circle cx="32" cy="179" r="3" fill="rgba(103,232,249,.5)"/>
-            <circle cx="32" cy="245" r="3" fill="rgba(103,232,249,.5)"/>
-            <circle cx="32" cy="311" r="3" fill="rgba(103,232,249,.5)"/>
-            <circle cx="32" cy="377" r="3" fill="rgba(103,232,249,.5)"/>
-            <!-- L1 bar — active / accent -->
-            <rect x="52" y="30" width="252" height="34" rx="3" fill="rgba(103,232,249,.08)" stroke="rgba(103,232,249,.35)" stroke-width="1"/>
-            <text x="64" y="52" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="2" fill="#67E8F9">L1  INPUT  輸入層</text>
-            <!-- L2 -->
-            <rect x="52" y="96" width="252" height="34" rx="3" fill="rgba(147,164,179,.04)" stroke="rgba(147,164,179,.15)" stroke-width="1"/>
-            <text x="64" y="118" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="2" fill="#8C9DAB">L2  DATA  數據層</text>
-            <!-- L3 -->
-            <rect x="52" y="162" width="252" height="34" rx="3" fill="rgba(147,164,179,.04)" stroke="rgba(147,164,179,.15)" stroke-width="1"/>
-            <text x="64" y="184" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="2" fill="#8C9DAB">L3  COMPUTE  算力層</text>
-            <!-- L4 -->
-            <rect x="52" y="228" width="252" height="34" rx="3" fill="rgba(147,164,179,.04)" stroke="rgba(147,164,179,.15)" stroke-width="1"/>
-            <text x="64" y="250" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="2" fill="#8C9DAB">L4  APPLICATION  應用層</text>
-            <!-- L5 -->
-            <rect x="52" y="294" width="252" height="34" rx="3" fill="rgba(147,164,179,.04)" stroke="rgba(147,164,179,.15)" stroke-width="1"/>
-            <text x="64" y="316" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="2" fill="#8C9DAB">L5  GOVERNANCE  治理層</text>
-            <!-- L6 -->
-            <rect x="52" y="360" width="252" height="34" rx="3" fill="rgba(147,164,179,.04)" stroke="rgba(147,164,179,.15)" stroke-width="1"/>
-            <text x="64" y="382" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="2" fill="#8C9DAB">L6  RESILIENCE  備援層</text>
-            <!-- flow arrows right edge -->
-            <line x1="304" y1="47" x2="316" y2="47" stroke="#67E8F9" stroke-width="1" opacity=".6"/>
-            <polyline points="312,43 316,47 312,51" stroke="#67E8F9" stroke-width="1" fill="none" opacity=".6"/>
-            <!-- coordinate annotation -->
-            <text x="52" y="16" font-family="IBM Plex Mono,monospace" font-size="8" letter-spacing="1.5" fill="#5C6B78">DECISION PIPELINE · L1 → L6</text>
+          <svg class="fab-motif__rings" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="185" stroke="var(--sage-500)" stroke-width="0.5" opacity="0.06"/>
+            <circle cx="200" cy="200" r="148" stroke="var(--clay-500)" stroke-width="0.5" opacity="0.07"/>
+            <circle cx="200" cy="200" r="112" stroke="var(--sage-500)" stroke-width="0.5" opacity="0.06"/>
+            <circle cx="200" cy="200" r="76"  stroke="var(--clay-500)" stroke-width="0.5" opacity="0.05"/>
+            <circle cx="200" cy="200" r="40"  stroke="var(--sage-500)" stroke-width="0.5" opacity="0.04"/>
           </svg>
+          <div class="fab-motif__blob fab-motif__blob--1"></div>
+          <div class="fab-motif__blob fab-motif__blob--2"></div>
+          <div class="fab-motif__blob fab-motif__blob--3"></div>
         </div>
       </div>
     </section>

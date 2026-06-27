@@ -27,8 +27,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(52% 48% at 82% 28%, var(--glow-cyan), transparent 70%),
-    radial-gradient(36% 36% at 10% 90%, rgba(231, 181, 103, 0.04), transparent 70%);
+    radial-gradient(52% 48% at 82% 28%, rgba(224,122,95,.07), transparent 70%),
+    radial-gradient(36% 36% at 10% 90%, rgba(233,196,106,.05), transparent 70%);
 }
 
 .p-tech .tech-hero__grid {
@@ -37,10 +37,11 @@
   z-index: 0;
   pointer-events: none;
   background:
-    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
-    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 80px);
-  -webkit-mask-image: radial-gradient(75% 75% at 80% 35%, #000, transparent 85%);
-  mask-image: radial-gradient(75% 75% at 80% 35%, #000, transparent 85%);
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 59px,
+      rgba(129,166,132,.04) 59px 60px
+    );
 }
 
 .p-tech .tech-hero__inner {

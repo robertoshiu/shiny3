@@ -431,15 +431,18 @@ b {
 .reveal {
   opacity: 0;
   transform: translateY(14px);
+  filter: blur(4px);
   transition:
-    opacity 0.7s var(--ease),
-    transform 0.7s var(--ease);
+    opacity var(--t-slow) var(--ease-soft),
+    transform var(--t-slow) var(--ease-soft),
+    filter var(--t-slow) var(--ease-soft);
   transition-delay: calc(var(--i, 0) * 70ms);
-  will-change: opacity, transform;
+  will-change: opacity, transform, filter;
 }
 .reveal.is-in {
   opacity: 1;
   transform: none;
+  filter: blur(0);
 }
 
 /* =========================================================================
@@ -663,8 +666,8 @@ b {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(60% 55% at 78% 32%, var(--glow-cyan), transparent 70%),
-    radial-gradient(40% 40% at 12% 88%, rgba(231, 181, 103, 0.05), transparent 70%);
+    radial-gradient(55% 50% at 75% 30%, rgba(224,122,95,.08), transparent 70%),
+    radial-gradient(35% 35% at 18% 82%, rgba(233,196,106,.06), transparent 70%);
 }
 .hero__grid-overlay {
   position: absolute;
@@ -672,10 +675,11 @@ b {
   z-index: 0;
   pointer-events: none;
   background:
-    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
-    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 80px);
-  -webkit-mask-image: radial-gradient(70% 70% at 70% 40%, #000, transparent 80%);
-  mask-image: radial-gradient(70% 70% at 70% 40%, #000, transparent 80%);
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 59px,
+      rgba(129,166,132,.04) 59px 60px
+    );
 }
 .hero__inner {
   position: relative;
@@ -749,7 +753,7 @@ b {
   gap: var(--s-4);
 }
 
-/* wafer motif column */
+/* fab-process motif column */
 .hero__wafer {
   position: relative;
   display: flex;
@@ -757,26 +761,53 @@ b {
   justify-content: center;
   aspect-ratio: 1/1;
 }
-.hero__wafer svg {
+.fab-motif__rings {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  max-width: 520px;
-  overflow: visible;
+  height: 100%;
 }
-.wafer-scan {
-  transform-origin: center;
-  animation: waferspin 26s linear infinite;
+.fab-motif__blob {
+  position: absolute;
+  border-radius: var(--r-blob);
+  animation: blobDrift var(--t-drift) var(--ease-inout) infinite alternate;
 }
-@keyframes waferspin {
-  to {
-    transform: rotate(360deg);
+.fab-motif__blob--1 {
+  width: 52%;
+  height: 52%;
+  top: 8%;
+  left: 12%;
+  background: var(--clay-500);
+  opacity: 0.11;
+  animation-delay: 0s;
+}
+.fab-motif__blob--2 {
+  width: 40%;
+  height: 40%;
+  bottom: 10%;
+  right: 8%;
+  background: var(--sage-500);
+  opacity: 0.09;
+  animation-delay: -6s;
+}
+.fab-motif__blob--3 {
+  width: 30%;
+  height: 30%;
+  top: 46%;
+  left: 48%;
+  background: var(--sun-500);
+  opacity: 0.08;
+  animation-delay: -12s;
+}
+@keyframes blobDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
-}
-.wafer-coord {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  fill: var(--steel);
+  100% {
+    transform: translate(8%, 6%) scale(1.03);
+    border-radius: 40% 60% 70% 30% / 30% 70% 40% 60%;
+  }
 }
 
 /* =========================================================================
@@ -1012,8 +1043,9 @@ b {
   .reveal {
     opacity: 1;
     transform: none;
+    filter: blur(0);
   }
-  .wafer-scan {
+  .fab-motif__blob {
     animation: none;
   }
   .marquee__track {

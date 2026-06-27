@@ -171,49 +171,20 @@
           </div>
         </div>
 
-        <!-- decorative: small wafer reticle motif, right column -->
+        <!-- decorative: fab-process motif, right column — DESIGN.md §7 -->
         <div class="about-hero__visual reticle" data-rise style="--delay:.34s" aria-hidden="true">
           <span class="tick tick--tl"></span><span class="tick tick--tr"></span>
           <span class="tick tick--bl"></span><span class="tick tick--br"></span>
-          <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="顯藝科技定位示意：為晶圓廠直接交付 IT/OT+AI 全棧">
-            <defs>
-              <radialGradient id="abtWafer" cx="50%" cy="44%" r="60%">
-                <stop offset="0%" stop-color="#0F1A24"/>
-                <stop offset="100%" stop-color="#07090C"/>
-              </radialGradient>
-            </defs>
-            <!-- wafer body -->
-            <circle cx="180" cy="180" r="154" fill="url(#abtWafer)" stroke="rgba(103,232,249,.3)" stroke-width="1"/>
-            <path d="M 180 334 m -20 0 a 20 20 0 0 1 40 0" fill="#07090C" stroke="rgba(103,232,249,.35)" stroke-width="1"/>
-            <!-- concentric rings -->
-            <circle cx="180" cy="180" r="116" fill="none" stroke="var(--line)" stroke-width="1"/>
-            <circle cx="180" cy="180" r="78"  fill="none" stroke="var(--line)" stroke-width="1"/>
-            <circle cx="180" cy="180" r="42"  fill="none" stroke="rgba(103,232,249,.2)" stroke-width="1"/>
-            <!-- rotating scan line -->
-            <g class="wafer-scan">
-              <line x1="180" y1="180" x2="180" y2="26" stroke="#67E8F9" stroke-width="1.2" opacity=".7"/>
-              <path d="M 180 180 L 180 26 A 154 154 0 0 1 248 48 Z" fill="rgba(103,232,249,.06)"/>
-              <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 180 180" to="360 180 180" dur="26s" repeatCount="indefinite"/>
-            </g>
-            <!-- center hub -->
-            <circle cx="180" cy="180" r="5" fill="#67E8F9"/>
-            <circle cx="180" cy="180" r="12" fill="none" stroke="rgba(103,232,249,.4)" stroke-width="1"/>
-            <!-- die grid lines -->
-            <g stroke="var(--line)" stroke-width=".75" opacity=".6">
-              <line x1="56" y1="130" x2="304" y2="130"/>
-              <line x1="56" y1="180" x2="304" y2="180"/>
-              <line x1="56" y1="230" x2="304" y2="230"/>
-              <line x1="130" y1="48" x2="130" y2="312"/>
-              <line x1="180" y1="36" x2="180" y2="324"/>
-              <line x1="230" y1="48" x2="230" y2="312"/>
-            </g>
-            <!-- coordinate annotations -->
-            <text font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing=".1em" fill="#5C6B78">
-              <tspan x="36" y="32">Ø300mm</tspan>
-              <tspan x="36" y="338">X:0180 Y:0180</tspan>
-              <tspan x="264" y="338" text-anchor="end">FAB300</tspan>
-            </text>
+          <svg class="fab-motif__rings" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="185" stroke="var(--sage-500)" stroke-width="0.5" opacity="0.06"/>
+            <circle cx="200" cy="200" r="148" stroke="var(--clay-500)" stroke-width="0.5" opacity="0.07"/>
+            <circle cx="200" cy="200" r="112" stroke="var(--sage-500)" stroke-width="0.5" opacity="0.06"/>
+            <circle cx="200" cy="200" r="76"  stroke="var(--clay-500)" stroke-width="0.5" opacity="0.05"/>
+            <circle cx="200" cy="200" r="40"  stroke="var(--sage-500)" stroke-width="0.5" opacity="0.04"/>
           </svg>
+          <div class="fab-motif__blob fab-motif__blob--1"></div>
+          <div class="fab-motif__blob fab-motif__blob--2"></div>
+          <div class="fab-motif__blob fab-motif__blob--3"></div>
         </div>
       </div>
     </section>

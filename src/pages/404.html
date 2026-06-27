@@ -165,31 +165,18 @@
           <!-- large display code -->
           <h1 class="p-404__code" id="err-heading">404</h1>
 
-          <!-- wafer motif SVG — semantic-decorative, aria-hidden -->
+          <!-- fab-process motif — semantic-decorative, aria-hidden — DESIGN.md §7 -->
           <div class="p-404__wafer" aria-hidden="true">
-            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="p-404__wafer-svg">
-              <!-- 300 mm wafer outline with notch at bottom -->
-              <!-- Wafer circle center (60,60) radius 53 -->
-              <!-- Flat chord at y=106: x from ~33.7 to ~86.3 -->
-              <path d="M 60 7 A 53 53 0 0 1 86.3 106 L 33.7 106 A 53 53 0 0 1 60 7 Z" stroke="rgba(103,232,249,.22)" stroke-width="1.5" fill="none"/>
-              <!-- concentric die-grid reference rings -->
-              <circle cx="60" cy="60" r="40" stroke="rgba(103,232,249,.09)" stroke-width="1"/>
-              <circle cx="60" cy="60" r="26" stroke="rgba(103,232,249,.13)" stroke-width="1"/>
-              <circle cx="60" cy="60" r="12" stroke="rgba(103,232,249,.18)" stroke-width="1"/>
-              <!-- crosshair hairlines -->
-              <line x1="60" y1="30" x2="60" y2="90" stroke="rgba(103,232,249,.06)" stroke-width="1"/>
-              <line x1="30" y1="60" x2="90" y2="60" stroke="rgba(103,232,249,.06)" stroke-width="1"/>
-              <!-- cardinal tick marks at wafer edge -->
-              <line x1="60" y1="7"  x2="60" y2="15"  stroke="rgba(103,232,249,.30)" stroke-width="1.2"/>
-              <line x1="113" y1="60" x2="105" y2="60" stroke="rgba(103,232,249,.30)" stroke-width="1.2"/>
-              <line x1="7"   y1="60" x2="15"  y2="60" stroke="rgba(103,232,249,.30)" stroke-width="1.2"/>
-              <!-- scan arc: frozen mid-sweep (fault state) -->
-              <path d="M 60 20 A 40 40 0 0 1 95.6 72" stroke="rgba(103,232,249,.45)" stroke-width="1.2" stroke-linecap="round"/>
-              <!-- scan head position indicator -->
-              <circle cx="95.6" cy="72" r="2.5" fill="#67E8F9" opacity=".65"/>
-              <!-- center origin dot -->
-              <circle cx="60" cy="60" r="2" fill="#67E8F9" opacity=".45"/>
+            <svg class="fab-motif__rings" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="200" cy="200" r="185" stroke="var(--sage-500)" stroke-width="0.5" opacity="0.06"/>
+              <circle cx="200" cy="200" r="148" stroke="var(--clay-500)" stroke-width="0.5" opacity="0.07"/>
+              <circle cx="200" cy="200" r="112" stroke="var(--sage-500)" stroke-width="0.5" opacity="0.06"/>
+              <circle cx="200" cy="200" r="76"  stroke="var(--clay-500)" stroke-width="0.5" opacity="0.05"/>
+              <circle cx="200" cy="200" r="40"  stroke="var(--sage-500)" stroke-width="0.5" opacity="0.04"/>
             </svg>
+            <div class="fab-motif__blob fab-motif__blob--1"></div>
+            <div class="fab-motif__blob fab-motif__blob--2"></div>
+            <div class="fab-motif__blob fab-motif__blob--3"></div>
           </div>
 
           <!-- telemetry readout -->

@@ -26,8 +26,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(55% 65% at 82% 28%, var(--glow-cyan), transparent 68%),
-    radial-gradient(35% 45% at 10% 90%, rgba(231, 181, 103, 0.04), transparent 70%);
+    radial-gradient(55% 65% at 82% 28%, rgba(224,122,95,.07), transparent 68%),
+    radial-gradient(35% 45% at 10% 90%, rgba(233,196,106,.05), transparent 70%);
 }
 
 .p-about .about-hero__inner {
