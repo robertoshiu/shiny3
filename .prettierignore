@@ -15,3 +15,5 @@ DESIGN.md
 *.html
 apps-script
 ui/
+.design-sync
+ds-bundle

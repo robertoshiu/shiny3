@@ -26,8 +26,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(55% 65% at 82% 28%, rgba(224,122,95,.07), transparent 68%),
-    radial-gradient(35% 45% at 10% 90%, rgba(233,196,106,.05), transparent 70%);
+    radial-gradient(55% 65% at 82% 28%, rgba(224, 122, 95, 0.07), transparent 68%),
+    radial-gradient(35% 45% at 10% 90%, rgba(233, 196, 106, 0.05), transparent 70%);
 }
 
 .p-about .about-hero__inner {
@@ -339,7 +339,7 @@
 
 .p-about .s-gov__card:hover .s-gov__icon {
   border-color: var(--border-strong);
-  background: rgba(224, 122, 95, 0.10);
+  background: rgba(224, 122, 95, 0.1);
 }
 
 .p-about .s-gov__card-title {
@@ -587,8 +587,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(55% 65% at 50% 30%, rgba(224,122,95,.07), transparent 68%),
-    radial-gradient(35% 45% at 50% 85%, rgba(233,196,106,.05), transparent 70%);
+    radial-gradient(55% 65% at 50% 30%, rgba(224, 122, 95, 0.07), transparent 68%),
+    radial-gradient(35% 45% at 50% 85%, rgba(233, 196, 106, 0.05), transparent 70%);
 }
 
 .p-about .s-about-cta__panel {
