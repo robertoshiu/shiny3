@@ -116,6 +116,51 @@ WCAG-verified (sRGB). **Rule of the system: dark espresso ink rides on light/acc
 
 **Verified contrast cheat-sheet:** `--ink` on canvas/surface/sand 14.6/15.5/13.1 (AAA) · `--ink-2` 7.4 · `--ink-3` 3.9 (large/UI only) · `--clay-ink` on light 5.1 · `--sage-ink` 6.4 · `--ink` on clay fill **5.34** (button label) · `--ink` on sun 9.4 · `--ink` on sage 5.8 · `--ink-inverse` on espresso 15.9 · **white on clay 2.95 — FORBIDDEN.**
 
+### Espresso Clay — `[data-theme="dark"]`
+
+```css
+[data-theme="dark"] {
+  /* ---------- BACKGROUNDS / SURFACES ---------- */
+  --bg-canvas:      #1C1611; /* deep espresso */
+  --bg-sunken:      #15100C; /* sunken well */
+  --surface:        #271F18; /* card surface */
+  --surface-raised: #322619; /* raised card */
+  --surface-ink:    #0F0B08; /* deepest inverted */
+
+  /* ---------- INK / TEXT HIERARCHY ---------- */
+  --ink:           #F3EADD; /* primary text */
+  --ink-2:         #CDBFAF; /* secondary */
+  --ink-3:         #9C8E7E; /* tertiary */
+  --ink-inverse:   #2A211B; /* text on light surfaces */
+
+  /* ---------- ACCENT RAMPS (lighter steps for dark bg) ---------- */
+  --clay-500: #E07A5F; --clay-700: #EFA88E; --clay-800: #F4BBA4;
+  --sage-500: #81A684; --sage-700: #A9C9AB;
+  --sun-500:  #E9C46A; --sun-700:  #E9C46A;
+
+  --clay: var(--clay-500); --clay-ink: var(--clay-700); --clay-deep: var(--clay-800);
+  --sage: var(--sage-500); --sage-ink: var(--sage-700);
+  --sun:  var(--sun-500);  --sun-ink:  var(--sun-700);
+
+  /* ---------- SEMANTIC ---------- */
+  --success: #A9C9AB; --success-tint: #21302A;
+  --warning: #E9C46A; --warning-tint: #2E2615;
+  --danger:  #E8917F; --danger-tint:  #33211C;
+  --info:    #8FB6C4; --info-tint:    #16242A;
+
+  /* ---------- BORDERS / LINES ---------- */
+  --border:        rgba(243,234,221,.12);
+  --border-strong: rgba(243,234,221,.20);
+  --border-field:  rgba(243,234,221,.34);
+  --focus-ring:    #EFA88E;
+
+  /* ---------- SHADOW TINT ---------- */
+  --shadow-rgb: 10 6 3;
+}
+```
+
+Both themes share fill hues; dark uses lighter text-accent steps. Contrast targets verified in restyle Phase 1.
+
 **Usage rule:** Background is overwhelmingly cream (~75–85%). Clay is the single dominant accent (links, active marks, key data, focus ring). Sage and sun appear sparingly — secondary accents and highlight. Accents punctuate; they never flood.
 
 ---
