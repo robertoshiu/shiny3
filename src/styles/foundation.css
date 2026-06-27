@@ -4,7 +4,7 @@
    only add scoped CSS prefixed by their section scope (e.g. .s-arch ...).
    ========================================================================= */
 
-/* --font-display is kept as pure Saira (no Roboto). The v3 apple-system+Roboto override at source styles.css:9735 is intentionally NOT ported here — DESIGN.md §3 forbids Roboto. The rest of the v3 polish layer lives in polish.css. */
+/* --font-display uses Fraunces (soft-serif display, per DESIGN.md §5). Saira and Roboto are both retired; the v3 apple-system+Roboto override at source styles.css:9735 is intentionally NOT ported here. The rest of the v3 polish layer lives in polish.css. */
 /* ----- 4. COLOR TOKENS + 5. FONT VARS + SPACING SCALE -------------------- */
 :root {
   /* ===== Soft Organic Clay — Clay Light (default) ===== */

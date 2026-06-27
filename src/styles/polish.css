@@ -417,7 +417,7 @@ a:not([class*='btn']) {
     margin-top: 1cm;
     padding-top: 0.5cm;
     border-top: 1px solid #000;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 9pt;
     text-align: center;
     color: #000;
