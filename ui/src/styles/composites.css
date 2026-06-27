@@ -1,0 +1,748 @@
+/* Extracted page-scoped composite CSS for the ui library.
+   Source of truth: src/styles/pages/home.css. Keep in sync on change. */
+
+/* ---- Accordion: src/styles/pages/home.css  .s-arch__* ------------------- */
+/* COPY every rule block whose selector starts with `.s-arch` from
+   src/styles/pages/home.css into here verbatim, EXCEPT change the selector
+   `.s-arch .tag.accent-tag` (home.css:589) to the de-scoped `.tag.accent-tag`
+   so the accent chip renders outside the original section wrapper. */
+
+/* ── Layout: stack wrapper with rail ─────────────────────────────────────── */
+.s-arch__stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* left padding reserves space for the signal rail */
+  padding-left: 56px;
+}
+
+/* ── Vertical signal rail ─────────────────────────────────────────────────── */
+.s-arch__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 1px;
+  background: var(--line);
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+/* the animated pulse blob traveling down the rail */
+.s-arch__pulse {
+  position: absolute;
+  top: -25%;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--cyan-deep) 30%,
+    var(--cyan) 50%,
+    var(--cyan-deep) 70%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  animation: arch-pulse 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+@keyframes arch-pulse {
+  0% {
+    top: -25%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* rail dot at each layer junction */
+.s-arch__layer::before {
+  content: '';
+  position: absolute;
+  left: -44px; /* 56px stack padding − 12px (dot center offset) */
+  top: 28px; /* vertically centers with header height */
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-800);
+  border: 1px solid var(--line);
+  z-index: 2;
+  transition:
+    background 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.s-arch__layer[data-active='true']::before {
+  background: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow:
+    0 0 8px var(--cyan),
+    0 0 20px var(--line-bright);
+}
+
+/* ── Layer card ───────────────────────────────────────────────────────────── */
+.s-arch__layer {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-800);
+  margin-bottom: 2px; /* tight hairline gap — stack feel */
+  overflow: hidden;
+  transition: border-color 0.3s var(--ease);
+}
+
+.s-arch__layer:first-child {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.s-arch__layer:last-child {
+  border-radius: 0 0 var(--radius) var(--radius);
+  margin-bottom: 0;
+}
+
+.s-arch__layer[data-active='true'] {
+  border-color: rgba(103, 232, 249, 0.28);
+  background: var(--ink-700);
+}
+
+/* left accent bar — glows when active */
+.s-arch__layer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--line-bright);
+  opacity: 0;
+  transition:
+    opacity 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+
+.s-arch__layer[data-active='true']::after {
+  opacity: 1;
+  background: var(--cyan);
+  box-shadow: 2px 0 12px rgba(103, 232, 249, 0.35);
+}
+
+/* ── Header button ────────────────────────────────────────────────────────── */
+.s-arch__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  padding: 18px 24px 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--mist);
+  transition: color 0.25s var(--ease);
+  position: relative;
+  z-index: 1;
+}
+
+.s-arch__header:hover {
+  color: var(--text);
+}
+
+.s-arch__header:hover .s-arch__index {
+  color: var(--cyan-bright);
+}
+
+/* focus ring */
+.s-arch__header:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: -2px;
+  border-radius: var(--radius);
+}
+
+/* layer index (L1–L6) */
+.s-arch__index {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+  flex: none;
+  min-width: 2.4em;
+  transition: color 0.25s var(--ease);
+}
+
+/* TC name + EN tag group */
+.s-arch__names {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+
+.s-arch__name-tc {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: inherit;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+
+.s-arch__name-en {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--fog);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* expand/collapse chevron */
+.s-arch__arrow {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.25s var(--ease),
+    transform 0.35s var(--ease);
+  position: relative;
+  margin-left: auto;
+}
+
+.s-arch__arrow::before,
+.s-arch__arrow::after {
+  content: '';
+  position: absolute;
+  background: var(--steel);
+  transition:
+    background 0.25s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+/* horizontal bar */
+.s-arch__arrow::before {
+  width: 8px;
+  height: 1.5px;
+}
+
+/* vertical bar — hidden when expanded */
+.s-arch__arrow::after {
+  width: 1.5px;
+  height: 8px;
+}
+
+.s-arch__header[aria-expanded='true'] .s-arch__arrow {
+  border-color: var(--line-bright);
+  transform: none;
+}
+
+.s-arch__header[aria-expanded='true'] .s-arch__arrow::after {
+  transform: scaleY(0);
+}
+
+.s-arch__header[aria-expanded='true'] .s-arch__arrow::before,
+.s-arch__header[aria-expanded='true'] .s-arch__arrow::after {
+  background: var(--cyan);
+}
+
+.s-arch__header:hover .s-arch__arrow {
+  border-color: var(--line-bright);
+}
+
+/* ── Expandable body ──────────────────────────────────────────────────────── */
+.s-arch__body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.35s var(--ease),
+    padding 0.35s var(--ease);
+  padding: 0 24px 0 20px;
+}
+
+/* JS removes [hidden] and sets .is-open.
+   Cap is viewport-aware so taller layers (L3/L5) never clip on narrow widths. */
+.s-arch__body.is-open {
+  max-height: min(80vh, 600px);
+  opacity: 1;
+  padding: 0 24px 22px 20px;
+}
+
+/* ── Tech chips ───────────────────────────────────────────────────────────── */
+.s-arch__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+/* accent variant tags (RTO/RPO) */
+.tag.accent-tag {
+  border-color: var(--line-bright);
+  color: var(--cyan);
+  background: rgba(103, 232, 249, 0.06);
+}
+
+/* ── Description text ─────────────────────────────────────────────────────── */
+.s-arch__desc {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--fog);
+  max-width: 68ch;
+  margin-bottom: var(--s-3);
+}
+
+/* ── Telemetry meta row ───────────────────────────────────────────────────── */
+.s-arch__meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--steel);
+  text-transform: uppercase;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+/* ── Bottom telemetry annotation ─────────────────────────────────────────── */
+.s-arch__telemetry {
+  margin-top: var(--s-5);
+  padding: 12px var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ink-850);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  text-transform: uppercase;
+}
+
+.s-arch__coord {
+  opacity: 0.6;
+}
+
+/* ── Section-head left column ─────────────────────────────────────────────── */
+/* section-head uses grid 1fr auto; we need the text column to stack normally */
+.s-arch .section-head__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.s-arch .section-head__text .section-title {
+  margin-top: var(--s-4);
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .s-arch__pulse {
+    animation: none;
+    opacity: 0;
+  }
+
+  .s-arch__body {
+    transition: none;
+  }
+}
+
+/* ── Responsive: tablet 1024px ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .s-arch__stack {
+    padding-left: 44px;
+  }
+  .s-arch__layer::before {
+    left: -34px;
+  }
+}
+
+/* ── Responsive: mobile 768px ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .s-arch__stack {
+    padding-left: 0;
+  }
+
+  /* hide rail on small screens */
+  .s-arch__rail {
+    display: none;
+  }
+
+  .s-arch__layer::before {
+    display: none;
+  }
+
+  .s-arch__header {
+    gap: var(--s-4);
+    padding: 16px;
+  }
+
+  .s-arch__body.is-open {
+    padding: 0 16px 18px 16px;
+  }
+
+  .s-arch__names {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .s-arch__name-en {
+    font-size: 0.68rem;
+  }
+
+  .s-arch__telemetry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-2);
+  }
+}
+
+/* ── Responsive: mobile 560px ────────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .s-arch__chips {
+    gap: var(--s-2);
+  }
+
+  .s-arch__desc {
+    font-size: 0.875rem;
+  }
+
+  /* chips wrap to more rows on mobile — give panels extra vertical room */
+  .s-arch__body.is-open {
+    max-height: 90vh;
+  }
+}
+
+/* ---- CapabilityCard: src/styles/pages/home.css  .s-cap__* --------------- */
+/* COPY every rule block whose selector starts with `.s-cap` (including the
+   responsive blocks) from src/styles/pages/home.css into here verbatim. */
+
+/* --------------------------------------------------------------------------
+   SECTION HEAD — minor layout adjustment for asymmetric head block
+   -------------------------------------------------------------------------- */
+.s-cap .section-head {
+  /* Allow the left column to breathe fully */
+  margin-bottom: var(--s-9);
+}
+
+.s-cap__head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* --------------------------------------------------------------------------
+   CARD GRID — 3 columns desktop, 2 tablet, 1 mobile
+   -------------------------------------------------------------------------- */
+.s-cap__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-5);
+  list-style: none;
+  counter-reset: cap-card;
+}
+
+/* --------------------------------------------------------------------------
+   INDIVIDUAL CAPABILITY CARD
+   -------------------------------------------------------------------------- */
+.s-cap__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-6) var(--s-6) var(--s-7);
+  position: relative;
+  /* stagger reveal handled by shared .reveal rule consuming inline --i */
+}
+
+/* Card counter annotation — top-right corner (behind the reticle tick) */
+.s-cap__card::before {
+  counter-increment: cap-card;
+  content: '0' counter(cap-card);
+  position: absolute;
+  top: var(--s-4);
+  right: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  opacity: 0.5;
+  pointer-events: none;
+  /* Sit behind the top-right tick */
+  z-index: 0;
+}
+
+/* --------------------------------------------------------------------------
+   ICON CONTAINER
+   -------------------------------------------------------------------------- */
+.s-cap__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  background: rgba(103, 232, 249, 0.04);
+  flex-shrink: 0;
+  transition:
+    border-color 0.35s var(--ease),
+    background-color 0.35s var(--ease);
+}
+
+.s-cap__card:hover .s-cap__card-icon {
+  border-color: var(--line-bright);
+  background: rgba(103, 232, 249, 0.08);
+}
+
+/* SVG inherits stroke from CSS for cleaner theming */
+.s-cap__card-icon svg {
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   CARD BODY CONTENT
+   -------------------------------------------------------------------------- */
+.s-cap__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  flex: 1;
+}
+
+/* TC card name — primary heading */
+.s-cap__card-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  color: var(--mist);
+  transition: color 0.35s var(--ease);
+}
+
+.s-cap__card:hover .s-cap__card-name {
+  color: var(--text);
+}
+
+/* EN sub — mono kicker beneath TC name */
+.s-cap__card-en {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  display: block;
+  margin-bottom: var(--s-3);
+}
+
+/* One-line blurb */
+.s-cap__card-blurb {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--fog);
+  flex: 1;
+}
+
+/* Spec pill — already uses shared .pill; add a small top margin to push to bottom */
+.s-cap__card-spec {
+  align-self: flex-start;
+  margin-top: var(--s-4);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+
+/* --------------------------------------------------------------------------
+   FAINT SHARE PERCENTAGE — corner label
+   -------------------------------------------------------------------------- */
+.s-cap__card-share {
+  position: absolute;
+  bottom: var(--s-5);
+  right: var(--s-6);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  opacity: 0.35;
+  transition:
+    opacity 0.35s var(--ease),
+    color 0.35s var(--ease);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.s-cap__card:hover .s-cap__card-share {
+  opacity: 0.65;
+  color: var(--cyan);
+}
+
+/* --------------------------------------------------------------------------
+   FIRST CARD ACCENT — AI Compute is the hero capability, add faint glow
+   -------------------------------------------------------------------------- */
+.s-cap__card:first-child {
+  border-color: rgba(103, 232, 249, 0.18);
+  background: linear-gradient(140deg, rgba(103, 232, 249, 0.04) 0%, var(--ink-700) 55%);
+}
+
+.s-cap__card:first-child .s-cap__card-name {
+  color: var(--text);
+}
+
+/* Subtle top-edge accent line on the hero card */
+.s-cap__card:first-child::after {
+  content: '';
+  position: absolute;
+  inset-inline: 20%;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--cyan-deep) 30%,
+    var(--cyan-deep) 70%,
+    transparent
+  );
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION FOOTER ANNOTATION
+   -------------------------------------------------------------------------- */
+.s-cap__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.s-cap__fig {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+}
+
+.s-cap__note {
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — 2 columns @ 1024px, 1 column @ 620px
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .s-cap__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .s-cap__grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-4);
+  }
+
+  .s-cap__card-share {
+    /* On mobile, nudge share above the reticle tick */
+    bottom: var(--s-6);
+    right: var(--s-7);
+  }
+
+  .s-cap__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---- SpecList: src/styles/pages/home.css  .s-compute__spec* ------------- */
+/* COPY the rule blocks for .s-compute__spec-panel, .s-compute__spec-head,
+   .s-compute__spec-rule, .s-compute__specs, .s-compute__spec-row,
+   .s-compute__spec-row + .s-compute__spec-row, .s-compute__spec-key,
+   .s-compute__spec-val, .s-compute__spec-badge (home.css:1069-1122) and their
+   responsive block (home.css:~1296) verbatim. */
+
+/* ── Spec panel ─────────────────────────────────────────────────────────── */
+.s-compute__spec-panel {
+  padding: var(--s-5);
+}
+
+.s-compute__spec-head {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  margin-bottom: var(--s-4);
+}
+
+.s-compute__spec-rule {
+  margin-bottom: var(--s-4);
+}
+
+.s-compute__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.s-compute__spec-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--s-3) var(--s-5);
+  align-items: center;
+  padding-block: var(--s-4);
+}
+
+/* dividers between spec rows — replaces invalid <hr> direct children of <dl> */
+.s-compute__spec-row + .s-compute__spec-row {
+  border-top: 1px solid var(--line);
+}
+
+.s-compute__spec-key {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.s-compute__spec-val {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.s-compute__spec-badge {
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  color: var(--fog);
+}
+
+@media (max-width: 768px) {
+  .s-compute__spec-row {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+    padding-block: var(--s-3);
+  }
+}

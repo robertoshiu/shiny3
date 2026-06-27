@@ -1,0 +1,13 @@
+/* Brand webfonts MUST be the very first rule so they stay first in the built
+   file. The site loads these only via an HTML <link>; the CSS layer ships none,
+   so without this @import every preview renders in fallback system-ui. */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&family=Saira:wght@300;400;500;600;700;800&family=Saira+Condensed:wght@500;600;700&display=swap");
+
+/* Shared design layer — imported verbatim (single source of truth). */
+@import "../../../src/styles/foundation.css";
+@import "../../../src/styles/chrome.css";
+@import "../../../src/styles/polish.css";
+@import "../../../src/styles/utilities.css";
+
+/* Page-scoped composite CSS, extracted. */
+@import "./composites.css";
