@@ -1,0 +1,41 @@
+{
+  "name": "ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "vite": "^5.4.21",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite-plugin-dts": "^4.3.0",
+    "@microsoft/api-extractor": "^7.47.11",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "jsdom": "^25.0.1"
+  }
+}

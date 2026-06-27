@@ -1,4 +1,4 @@
-﻿> This is the design system source of truth for ShinyLogic v3. Read before any visual/UI decision.
+> This is the design system source of truth for ShinyLogic v3. Read before any visual/UI decision.
 
 # DESIGN.md — 顯藝科技 ShinyLogic
 
@@ -15,7 +15,7 @@
 
 ShinyLogic 為高量產（HVM）晶圓廠設計並交付**從設備數據、到 AI 決策閉環、再到異地備援**的完整六層技術堆疊。我們不只供應硬體，而是承擔授權、責任與業務連續性。
 
-**Flagship reference build — “FAB300”**：以 Applied SmartFactory FAB300 為 MES 核心、3 × NVIDIA GB300 NVL72（248 顆 AI GPU）為算力底座的全方位智能晶圓廠建置。網站以此案為代表性能力證明（capability proof），而非單純預算文件。
+**Flagship reference build — "FAB300"**：以 Applied SmartFactory FAB300 為 MES 核心、3 × NVIDIA GB300 NVL72（248 顆 AI GPU）為算力底座的全方位智能晶圓廠建置。網站以此案為代表性能力證明（capability proof），而非單純預算文件。
 
 **One-line brand promise:** 把設備數據，鍛造成可決策的智能。
 **Descriptor (EN):** We build the intelligence layer of the modern wafer fab.
@@ -25,55 +25,143 @@ ShinyLogic 為高量產（HVM）晶圓廠設計並交付**從設備數據、到 
 ## 2. Voice & Language
 
 - **Body copy: 繁體中文（Traditional Chinese）.** The deck source is Simplified; convert all marketing copy to Traditional Chinese.
-- **Kickers / section labels / technical annotations: English, monospace, UPPERCASE** (e.g. `INTELLIGENT FAB INFRASTRUCTURE`, `// FIG.03`). Mirrors the deck's English section headers.
+- **Kickers / section labels: English, tracked UPPERCASE eyebrow (Nunito Sans, color clay-ink); technical annotations / data labels: Spline Sans Mono (monospace) reserved for data / lab-report lines.** (e.g. `INTELLIGENT FAB INFRASTRUCTURE`, `// FIG.03`). Mirrors the deck's English section headers.
 - **Keep verbatim, never translate:** product & standard names — NVIDIA GB300 NVL72, HGX B300, Blackwell Ultra, Quantum-X800, Spectrum-X, ConnectX-8, Applied SmartFactory FAB300 (AMAT FAB300), AVEVA PI, Omniverse, Claroty, Nozomi, SECS-GEM, GEM300, OPC UA, IEC 62443, SEMI E187, ISA-95, 等保 2.0, RTO/RPO/SLO/WSPM/PUE.
 - **Tone:** precise, confident, engineering-grade, restrained. Lead with concrete numbers. No hype adjectives, no exclamation marks, no emoji.
 - Numbers use thin grouping; currency shown as `RMB 4.35 億` / `RMB 43,459 萬`. Always note unit.
 
 ---
 
-## 3. Aesthetic Direction — “Lithographic Precision”
+## 3. Aesthetic Direction — "Soft Organic Clay"
 
-A dark, engineering-grade instrument panel inspired by semiconductor lithography and the
-cleanroom. Deep graphite, phosphor-cyan signal, fine hairline linework, monospace
-telemetry, reticle/registration alignment marks, and a 300 mm-wafer motif. Refined and
-dense — precision instrument, not “cyberpunk gamer.” Restraint over glow.
+> **Soft Organic Clay** — *Hand-formed, never soft-headed.* The calm warmth of pressed clay wrapped around the exacting spine of fab-grade engineering.
 
-**Forbidden (AI slop):** Inter / Roboto / Arial / system-ui as a display face, purple-on-white
-gradients, generic SaaS hero with a centered headline + two buttons + floating cards,
-emoji icons, stocky drop shadows, evenly-distributed rainbow palettes.
+This is the deliberate, total inverse of the retired **"Lithographic Precision"** (graphite/cyan, condensed industrial sans + mono telemetry, 4px reticle corners, cold hairlines, dense asymmetry). Every axis flips — *coherently*. Authority no longer comes from coldness and density; it comes from **a deep espresso-ink anchor, editorial restraint, precise data, and generous air** beneath a warm skin.
+
+**Why organic is the right language for a wafer fab (the credibility keystone).** The soft forms are not decoration borrowed from a wellness app — they are the *actual shapes of the physics we build around*. Epitaxial growth is crystalline accretion; dopant diffusion is a soft gradient; photolithography is light interference; CMP is planarization to a smoothed stone; ion implantation is particle scatter. Our motifs map 1:1 onto these processes (§7). That mapping is what earns "clay" its seriousness: the warmth is a skin; the structure underneath is semiconductor process control.
+
+**The inversion map (every axis flipped):**
+
+| Axis | Retired: Lithographic Precision | New: Soft Organic Clay |
+|---|---|---|
+| Base | Graphite `#07090C`, dark/cold | Warm cream `#FAF6F0`, light |
+| Accent | Phosphor-cyan `#67E8F9` | Clay `#E07A5F` / sage `#81A684` / sun `#E9C46A` |
+| Type | Saira condensed + IBM Plex Mono | Fraunces soft-serif + Nunito Sans rounded |
+| Radius | 4px sharp + L-reticle ticks | 8–40px + asymmetric leaf corner |
+| Depth | 1px hairlines + radial glows | Soft warm double drop-shadows |
+| Layout | Asymmetric, dense | Centered, floating cards, structured air |
+| Motif | Wafer / grid / grain | Fab-process organic forms (strata, diffraction, delta, stone, scatter) |
+| Motion | Snappy reveals, count-ups, pulse | Long settling drifts, slow counts, breathing |
+| Ethos | "Restraint over glow" | "Warmth with no loss of rigor" |
+
+**Forbidden (AI slop):** Inter / Roboto / Arial / system-ui as a display face, white text on clay/sage (fails contrast — white-on-clay 2.95:1), candy/neon pastels, sharp 4px corners + reticle ticks, cyan or condensed industrial sans, generic SaaS hero with a centered headline + two buttons + floating cards, emoji icons, cold drop shadows, rainbow palettes.
 
 ---
 
 ## 4. Color Tokens  (define as CSS variables on `:root`)
 
+WCAG-verified (sRGB). **Rule of the system: dark espresso ink rides on light/accent surfaces; cream rides on deep surfaces. Never white text on clay/sage/sun.** (White-on-clay = 2.95:1, FAIL.)
+
+```css
+:root {
+  /* ---------- BACKGROUNDS / SURFACES ---------- */
+  --bg-canvas:      #FAF6F0; /* page base, warm cream */
+  --bg-sunken:      #F2E9DE; /* alt sections / wells (sand) */
+  --surface:        #FFFDFB; /* cards (warm near-white) */
+  --surface-raised: #FFFFFF; /* top floating cards (use sparingly) */
+  --surface-ink:    #241C16; /* deep "espresso" inverted section */
+
+  /* ---------- INK / TEXT HIERARCHY ---------- */
+  --ink:           #2A211B; /* primary text — 14.6:1 on canvas (AAA) */
+  --ink-2:         #5A4F47; /* secondary text — 7.4:1 (AAA) */
+  --ink-3:         #857A6E; /* tertiary — 3.9:1, ≥18px or UI glyphs only (AA large) */
+  --ink-inverse:   #FFF8F0; /* text on --surface-ink — 15.9:1 (AAA) */
+  --ink-inverse-2: #C9BCB0; /* muted on ink — 9.0:1 (AAA) */
+
+  /* ---------- ACCENT RAMPS (50→900; *-700/800 are the text-safe roles) ---------- */
+  /* CLAY (brand) */
+  --clay-50:  #FCEDE7;  --clay-100: #F8E5DD; /* tint wash */
+  --clay-300: #EFA88E;  --clay-500: #E07A5F; /* brand fill — ink text only */
+  --clay-700: #B0492A;  /* TEXT/LINK on light — 5.1:1 (AA)  [role: clay-ink] */
+  --clay-800: #8A3A21;  /* emphasis / on-tint / on-dark-fill — 7.2:1 (AAA) [role: clay-deep] */
+  --clay-900: #6E2E1A;
+  /* SAGE (secondary) */
+  --sage-100: #E5EDE2; /* tint */  --sage-500: #81A684; /* fill — ink text only */
+  --sage-700: #3F6248; /* TEXT on light — 6.4:1 (AA) */  --sage-800: #33503B; /* 8.3:1 (AAA) */
+  /* SUN (tertiary / highlight) */
+  --sun-100: #FBEFCF; /* tint */  --sun-500: #E9C46A; /* fill — ink text (9.4:1) */
+  --sun-700: #8A5A00; /* "amber" TEXT on light — 5.5:1 (AA) */
+
+  /* convenience aliases used across components */
+  --clay: var(--clay-500); --clay-ink: var(--clay-700); --clay-deep: var(--clay-800);
+  --sage: var(--sage-500); --sage-ink: var(--sage-700);
+  --sun:  var(--sun-500);  --sun-ink:  var(--sun-700);
+
+  /* ---------- SEMANTIC ---------- */
+  --success: #3F6248; --success-fill: #81A684; --success-tint: #E5EDE2;
+  --warning: #8A5A00; --warning-fill: #E9C46A; --warning-tint: #FBEFCF;
+  --danger:  #B23A28; --danger-tint:  #F8E0DB; /* warm red, distinct from brand clay — 5.5:1 */
+  --info:    #2E5866; --info-tint:    #E0EBEE; /* the system's single cool note (dusty teal) — 7.2:1 */
+
+  /* ---------- BORDERS / LINES ---------- */
+  --border:        #EBDFCF; /* decorative divider (non-load-bearing) */
+  --border-strong: #DCCBB4; /* card edge emphasis */
+  --border-field:  #9C886B; /* INTERACTIVE inputs — 3.2:1 vs surface (WCAG 1.4.11) */
+  --focus-ring:    #B0492A; /* = clay-700, 5.1:1 vs canvas (>3:1) */
+
+  /* ---------- SHADOW TINT (warm brown, never neutral grey) ---------- */
+  --shadow-rgb: 83 60 42;
+}
 ```
---ink-900:    #07090C;   /* page base — near-black blue graphite        */
---ink-850:    #0A0D11;   /* alt section base                            */
---ink-800:    #0D1217;   /* raised panel                                */
---ink-700:    #121922;   /* card                                        */
---ink-600:    #18222D;   /* card hover / elevated                       */
 
---text:       #EAF1F6;   /* primary text                                */
---mist:       #C4D0D9;   /* secondary headings / strong labels          */
---fog:        #8C9DAB;   /* body secondary text                         */
---steel:      #5C6B78;   /* muted / disabled / faint labels             */
+**Verified contrast cheat-sheet:** `--ink` on canvas/surface/sand 14.6/15.5/13.1 (AAA) · `--ink-2` 7.4 · `--ink-3` 3.9 (large/UI only) · `--clay-ink` on light 5.1 · `--sage-ink` 6.4 · `--ink` on clay fill **5.34** (button label) · `--ink` on sun 9.4 · `--ink` on sage 5.8 · `--ink-inverse` on espresso 15.9 · **white on clay 2.95 — FORBIDDEN.**
 
---cyan:       #67E8F9;   /* PRIMARY accent (from deck #67E8F9) — phosphor*/
---cyan-bright:#A5F3FC;   /* highlight / hover text                      */
---cyan-deep:  #22D3EE;   /* deeper cyan for fills/borders               */
---gold:       #E7B567;   /* SECONDARY warm accent — use SPARINGLY        */
---good:       #5EE6A8;   /* status dot only (online/pass)               */
+### Espresso Clay — `[data-theme="dark"]`
 
---line:       rgba(147,164,179,.12);   /* hairlines                     */
---line-bright:rgba(103,232,249,.30);   /* active/accent hairline        */
---grid:       rgba(147,164,179,.045);  /* blueprint micro-grid          */
---glow-cyan:  rgba(103,232,249,.16);   /* radial glow                   */
+```css
+[data-theme="dark"] {
+  /* ---------- BACKGROUNDS / SURFACES ---------- */
+  --bg-canvas:      #1C1611; /* deep espresso */
+  --bg-sunken:      #15100C; /* sunken well */
+  --surface:        #271F18; /* card surface */
+  --surface-raised: #322619; /* raised card */
+  --surface-ink:    #0F0B08; /* deepest inverted */
+
+  /* ---------- INK / TEXT HIERARCHY ---------- */
+  --ink:           #F3EADD; /* primary text */
+  --ink-2:         #CDBFAF; /* secondary */
+  --ink-3:         #9C8E7E; /* tertiary */
+  --ink-inverse:   #2A211B; /* text on light surfaces */
+
+  /* ---------- ACCENT RAMPS (lighter steps for dark bg) ---------- */
+  --clay-500: #E07A5F; --clay-700: #EFA88E; --clay-800: #F4BBA4;
+  --sage-500: #81A684; --sage-700: #A9C9AB;
+  --sun-500:  #E9C46A; --sun-700:  #E9C46A;
+
+  --clay: var(--clay-500); --clay-ink: var(--clay-700); --clay-deep: var(--clay-800);
+  --sage: var(--sage-500); --sage-ink: var(--sage-700);
+  --sun:  var(--sun-500);  --sun-ink:  var(--sun-700);
+
+  /* ---------- SEMANTIC ---------- */
+  --success: #A9C9AB; --success-tint: #21302A;
+  --warning: #E9C46A; --warning-tint: #2E2615;
+  --danger:  #E8917F; --danger-tint:  #33211C;
+  --info:    #8FB6C4; --info-tint:    #16242A;
+
+  /* ---------- BORDERS / LINES ---------- */
+  --border:        rgba(243,234,221,.12);
+  --border-strong: rgba(243,234,221,.20);
+  --border-field:  rgba(243,234,221,.34);
+  --focus-ring:    #EFA88E;
+
+  /* ---------- SHADOW TINT ---------- */
+  --shadow-rgb: 10 6 3;
+}
 ```
 
-**Usage rule:** Background is overwhelmingly graphite. Cyan is the single dominant accent
-(links, active marks, key data, focus rings). Gold appears only on a few hero/CTA numerals
-and the primary button hover — treat it as a rare highlight. Green is status dots only.
+Both themes share fill hues; dark uses lighter text-accent steps. Contrast targets verified in restyle Phase 1.
+
+**Usage rule:** Background is overwhelmingly cream (~75–85%). Clay is the single dominant accent (links, active marks, key data, focus ring). Sage and sun appear sparingly — secondary accents and highlight. Accents punctuate; they never flood.
 
 ---
 
@@ -81,59 +169,96 @@ and the primary button hover — treat it as a rare highlight. Green is status d
 
 Load via Google Fonts `<link>` (preconnect + display=swap):
 
-- **Display / headings (Latin):** `Saira` — weights 300, 400, 500, 600, 700, 800.
-- **Big stat numerals:** `Saira Condensed` — weights 500, 600, 700 (tall, dramatic).
-- **Mono / kickers / annotations / data labels:** `IBM Plex Mono` — weights 400, 500, 600.
-- **CJK body & headings:** `Noto Sans TC` — weights 300, 400, 500, 700.
+- **Display / headings (Latin):** `Fraunces` — variable (`opsz,wght,SOFT,WONK`).
+- **Body / UI (Latin):** `Nunito Sans` — variable (`opsz,wght` axes), weights 200–900, rounded.
+- **Wordmark only:** `Varela Round` — single weight 400. Logotype only — cannot carry hierarchy.
+- **Data / code / lab-report:** `Spline Sans Mono` — rounded mono; tabular figures.
+- **CJK display:** `Noto Serif TC` / `Noto Serif SC` — weights 600–900.
+- **CJK body:** `Noto Sans TC` / `Noto Sans SC` — weights 400–700.
 
-```
---font-display: "Saira", "Noto Sans TC", system-ui, sans-serif;
---font-cond:    "Saira Condensed", "Saira", "Noto Sans TC", sans-serif;
---font-mono:    "IBM Plex Mono", ui-monospace, "Cascadia Code", monospace;
---font-body:    "Noto Sans TC", "Saira", system-ui, sans-serif;
+```css
+:root {
+  --font-display: "Fraunces", "Noto Serif TC", "Noto Serif SC", Georgia, serif;
+  --font-body:    "Nunito Sans", "Noto Sans TC", "Noto Sans SC", system-ui, sans-serif;
+  --font-mark:    "Varela Round", var(--font-body);
+  --font-mono:    "Spline Sans Mono", ui-monospace, monospace;
+  --fraunces-set: "opsz" 144, "SOFT" 50, "WONK" 0; /* soft + editorial, not wonky */
+  --tnum: "tnum" 1, "lnum" 1; /* tabular figures so metrics never jump */
+}
 ```
 
-**Scale** (fluid where noted):
-- Hero headline: `clamp(2.6rem, 6vw, 5.25rem)`, `--font-display`, weight 600–700, line-height .98, letter-spacing -0.02em. CJK lines use `--font-body` weight 700.
-- Section title: `clamp(1.9rem, 3.4vw, 3rem)`, weight 600.
-- Section index number (big faint): `clamp(3rem, 7vw, 6rem)`, `--font-cond`, color `--steel` @ ~14% opacity, sits behind/beside title.
-- Stat numeral: `clamp(2.6rem, 5vw, 4.5rem)`, `--font-cond`, weight 600.
-- Body: 1rem–1.0625rem, line-height 1.75, color `--fog` (CJK needs generous leading).
-- Kicker / mono label: .72–.8rem, `--font-mono`, letter-spacing .22em, uppercase, color `--cyan` or `--steel`.
-- Lede: 1.05–1.2rem, color `--mist`.
+**Scale** (fluid `clamp`, 16px root):
+- Hero headline: `--t-hero` Fraunces 600 `clamp(2.6rem,6vw,4.5rem)` / line-height 1.05 / letter-spacing −0.02em. CJK lines use Noto Serif TC 700.
+- H1: `--t-h1` Fraunces 600 `clamp(2rem,4vw,3rem)` / 1.1.
+- H2: `--t-h2` Fraunces 600 `clamp(1.6rem,3vw,2.25rem)` / 1.15.
+- H3: `--t-h3` Nunito 800 22px / 1.25 (rounded sans at component scale).
+- Eyebrow / kicker: `--t-eyebrow` Nunito 700 13px / letter-spacing 0.12em UPPERCASE, color `--clay-ink`.
+- Lede: `--t-lead` Nunito 400 `clamp(1.125rem,1.6vw,1.25rem)` / 1.7, color `--ink-2`.
+- Body: `--t-body` 16px / 1.7.
+- Small: `--t-small` 14px / 1.6.
+- Stat / metric numeral: `--t-metric` Nunito 800 + `--tnum` `clamp(2.5rem,5vw,3.75rem)` / 1.0.
+- Section index (big faint): Fraunces `clamp(3rem,7vw,6rem)`, color `--ink-3` @ low opacity, sits behind/beside title.
+- Button: `--t-button` Nunito 700 16px.
+
+**CJK rules:** headlines → Noto Serif TC/SC 700–900; body → Noto Sans TC/SC 400–500; CJK `line-height:1.85`, `letter-spacing:0.02em`; never apply Latin negative tracking to CJK runs.
+
+**CJK performance:** Full CJK weights are 15–60 MB. Load only ONE CJK locale per page (the page's `lang`), and subset via `unicode-range` / self-host (Fontsource) rather than pulling all three locales' full faces. Hard perf rule.
 
 ---
 
 ## 6. Spacing, Grid, Layout
 
-- 8px base scale: 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 128.
-- Container: `.wrap` max-width 1200px, side padding `clamp(20px, 5vw, 64px)`, centered.
-- Section vertical padding: `clamp(80px, 11vw, 168px)`.
-- Generous negative space at section heads; controlled density inside data panels.
-- Embrace asymmetry: section headers left-aligned with a big faint index number offset to
-  the right or overlapping; let some panels break the grid / overlap hairlines.
-- Breakpoints: 1024 (tablet), 768 (stack), 560 (mobile). Mobile: single column, reduced
-  type scale, hamburger nav.
+```css
+:root {
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px; --s-11:160px;
+  --container:1200px; --container-text:720px;
+  --gutter: clamp(20px,5vw,40px); --section-y: clamp(80px,11vw,160px); --card-pad: clamp(24px,3vw,36px);
+}
+```
+
+- Container: `.wrap` max-width 1200px, side padding `--gutter`, centered.
+- Section vertical padding: `--section-y`.
+- **Structured Softness (layout law):** softness is *zoned*, not uniform. Structural chrome (nav, footer, data tables, form scaffolding) stays tighter and more rigid (smaller radii, aligned columns, precise gutters). Expressive surfaces (hero, feature cards, accordions) go fully organic (24–40px radii, leaf corners, float). Content is centered in `--container`; sections alternate canvas → sand → tinted panel → canvas; cards *float* (shadow + tint), not boxes-touching density.
+- **Density = authority too.** Generous air carries ~75% of the surface, but data is dense and exact: tabular figures, aligned columns, tight metric blocks. Air frames rigor; it does not replace it.
+- Breakpoints: 1024 (tablet), 768 (stack), 560 (mobile). Mobile: single column, reduced type scale, hamburger nav.
+
+### Shape Language
+
+```css
+:root {
+  --r-xs:8px; --r-sm:12px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-2xl:40px; --r-pill:999px;
+  /* SIGNATURE: asymmetric leaf/petal corner — the new reticle-tick analogue */
+  --r-leaf:     32px 32px 32px 8px;   /* default leaf */
+  --r-leaf-alt: 40px 8px 40px 8px;    /* petal — hero/brand moments */
+  --r-blob:     60% 40% 30% 70% / 60% 30% 70% 40%; /* living blob */
+
+  /* Soft warm double-shadow + elevation scale */
+  --elev-1: 0 1px 2px rgb(var(--shadow-rgb)/.06), 0 2px 6px rgb(var(--shadow-rgb)/.05);
+  --elev-2: 0 2px 4px rgb(var(--shadow-rgb)/.05), 0 14px 30px -10px rgb(var(--shadow-rgb)/.14);
+  --elev-3: 0 4px 8px rgb(var(--shadow-rgb)/.06), 0 28px 56px -14px rgb(var(--shadow-rgb)/.20);
+  --shadow-clay: 0 20px 44px -14px rgb(var(--shadow-rgb)/.22), inset 0 1px 0 rgb(255 255 255/.65);
+  --shadow-focus: 0 0 0 3px rgb(176 73 42/.35);
+}
+```
+
+**Corner treatment:** uniform large radii on expressive surfaces; **exactly one leaf corner per major composition** (hero, key feature, contact panel) — the brand's recognizable gesture, never random. **Border treatment:** mostly borderless — separation via shadow + background tint. Lines only when needed: `--border` (decorative), `--border-strong` (card edge), `--border-field` 1.5px (inputs, meets 3:1). Focus = `--shadow-focus` + 2px offset, never removed.
 
 ---
 
-## 7. Signature Motifs & Textures  (this is what makes it memorable — use throughout)
+## 7. Signature Motifs & Textures  (fab-process mapping — this is what makes it memorable)
 
-1. **Blueprint micro-grid** — fixed faint grid (`--grid`) as a background layer on `body`
-   (e.g. two repeating-linear-gradients, 40px cell). Very subtle.
-2. **Reticle / registration corner marks** — small L-shaped cyan ticks at the four corners
-   of key panels & the hero (lithography alignment marks). Implement via `.reticle` wrapper
-   with `::before/::after` + extra spans, or a shared utility. Brighten on hover.
-3. **300 mm wafer motif** — an SVG in the hero: concentric circles + a flat/notch + faint
-   radial scan line that slowly rotates (respect reduced-motion). Subtle cyan stroke.
-4. **Monospace telemetry** — small mono annotations everywhere: `// FIG.0X`, coordinate
-   ticks (`X:0420  Y:1080`), unit tags (`RMB 萬`), `[ ACTIVE ]` style brackets.
-5. **Hairline system** — 1px `--line` dividers, ticked rulers, and bordered panels. Linework
-   does a lot of the design's work; keep it crisp.
-6. **Grain / noise overlay** — a fixed full-page SVG `feTurbulence` noise at ~3–5% opacity,
-   `mix-blend-mode: overlay`, `pointer-events:none`. Adds analog depth.
-7. **Radial glow** — one or two restrained `--glow-cyan` radial gradients behind the hero
-   and the AI-compute spotlight. Do not scatter glows everywhere.
+Each organic motif is the visual of a real fab process — the softness reads as domain fluency, not whimsy:
+
+| Retired motif | New carrier | Fab process it encodes |
+|---|---|---|
+| Wafer / concentric circles | **Drifting "pebble" blobs** (clay/sage/sun, 8–14% opacity, `--r-blob`) | CMP planarization → smoothed stone; dopant diffusion → soft gradient |
+| Reticle corner ticks | **Asymmetric leaf corner** `--r-leaf` + small hand-drawn sprout glyph (section marker) | Crystalline / epitaxial growth |
+| Mono telemetry | **Tabular-figure data** (Nunito `--tnum`) + quiet Spline Sans Mono lab-report line | Real numbers, warm voice |
+| Blueprint micro-grid | **Faint geological strata + light-diffraction rings** (0.5px, ≤6% opacity sage) | Epitaxial layering; photolithography interference |
+| Hard grain overlay | **Subtle warm paper grain ≤3%** (optional — keep very faint or omit) | Tactile surface, not grunge |
+
+Plus **river-delta branching paths** (etching) and **particle-scatter fields** (ion implantation) as section dividers / decorative SVG. Brand recognition now lives in: the leaf corner, drifting blobs, the sprout section marker, puffy warm-shadow cards, and Fraunces headlines.
 
 ---
 
@@ -144,22 +269,27 @@ builders must use them and only add **scoped** CSS (selectors prefixed by the se
 scope class, e.g. `.s-arch ...`) to avoid collisions.
 
 - `.wrap` — container.
-- `.section` — vertical rhythm; `.section--alt` — uses `--ink-850` base.
+- `.section` — vertical rhythm; `.section--alt` — uses `--bg-sunken` (sand) base.
 - `.section-head` — header block. Contains:
-  - `.kicker` — mono uppercase label (cyan).
-  - `.section-index` — big faint `--font-cond` number (e.g. `03`).
-  - `.section-title` — display title.
-  - `.section-lede` — `--mist` intro paragraph.
-- `.panel` — bordered graphite surface (`--ink-800`, 1px `--line`, radius 4px).
-- `.card` — `--ink-700` surface; `.card--reticle` adds corner marks; hover lifts + brightens hairline.
-- `.hairline` — 1px divider; `.rule` — ticked ruler variant (optional).
-- `.metric` / `.metric__num` (`--font-cond`) / `.metric__unit` / `.metric__label` (mono).
-- `.btn` / `.btn--primary` (cyan outline → gold on hover) / `.btn--ghost`.
-- `.pill` / `.tag` — small mono labels with hairline border.
-- `.mono`, `.fog`, `.mist`, `.accent` (cyan text), `.gold` (gold text) — text utilities.
-- `.reticle` — corner-mark wrapper utility.
-- Animation hooks: `.reveal` (JS toggles `.is-in` on scroll). Counters use
+  - `.kicker` — tracked UPPERCASE eyebrow (Nunito Sans, color `--clay-ink`).
+  - `.section-index` — big faint Fraunces number (e.g. `03`), color `--ink-3`.
+  - `.section-title` — display title (Fraunces, `--font-display`).
+  - `.section-lede` — `--ink-2` intro paragraph.
+- `.panel` — `--bg-sunken` or tint surface, `--r-2xl`, floats on canvas with `--elev-2` shadow, generous interior padding.
+- `.card` — `--surface`, `--r-lg`, `--card-pad`, `--elev-2`; `.card--reticle` adds one leaf corner (`--r-leaf`); interactive hover lifts −4px + `--elev-3`.
+- `.hairline` — 1px `--border` divider; `.rule` — ticked ruler variant (optional).
+- `.metric` / `.metric__num` (Nunito tabular, `--tnum`, `--t-metric`) / `.metric__unit` / `.metric__label` (`--t-eyebrow` Nunito or `--font-mono` lab-report line).
+- `.btn` / `.btn--primary` (`--clay` fill + `--ink` label, 5.34:1 AA; `--r-md`, `--elev-2`; hover: lift −2px + `--elev-3`; on-dark variant: `--clay-deep` fill + `--ink-inverse` label) / `.btn--ghost` (1.5px `--clay-ink` border, `--r-pill`; hover: `--clay-100` fill).
+- `.pill` / `.tag` — `--r-pill` / `--r-sm`; tint bg + matching deep text (e.g. `--success-tint` + `--success`).
+- `.mono`, `.fog`, `.mist`, `.accent` (`--clay-ink` text), `.gold` (`--sun-ink` text) — text utilities.
+- `.reticle` — leaf corner wrapper utility (`--r-leaf` applied to target corner).
+- Animation hooks: `.reveal` (JS toggles `.is-in` on scroll; blur-dissolve + rise 16px over `--t-slow` `--ease-soft`). Counters use
   `data-count="<number>"`, optional `data-suffix`, `data-prefix`, `data-decimals`.
+
+**New component patterns:**
+- **Floating pill nav:** `--surface` at `rgba(255,253,251,0.85)` + `backdrop-filter:blur(12px)`, `--r-pill`, `--elev-2`, inset 16px from top; wordmark in `--font-mark`.
+- **Leaf-corner card (hero / feature):** `--r-xl` base + one `--r-leaf` corner + `--shadow-clay`.
+- **Lab-report mono footnote:** a single `--font-mono` `--ink-3` line at the card/panel bottom (e.g. `SLO 99.95% · LOG 04:21Z · REF FAB300`) — keeps warm surfaces analytically honest.
 
 ### Placeholder markers (Foundation writes these into `index.html`, IN THIS ORDER):
 ```
@@ -178,28 +308,45 @@ Each section root = `<section id="<id>" class="section reveal s-<scope>">…</se
 
 ## 9. Motion
 
-- **Hero load:** staggered reveal — kicker → headline line 1 → line 2 → lede → metrics → wafer,
-  via `animation-delay` (60–90ms steps), translateY(14px)+opacity. ~700ms cubic-bezier(.2,.7,.2,1).
-- **Scroll reveal:** IntersectionObserver adds `.is-in`; default fade+rise; stagger children
-  with incremental `--i` custom property * delay.
-- **Counters:** count-up from 0 → value over ~1.4s ease-out when section enters view (once).
-- **Architecture stack:** hovering/clicking a layer expands its detail (max-height + opacity);
-  a vertical “signal pulse” travels top→bottom of the stack on a loop. Keyboard accessible
-  (accordion: `button` headers, `aria-expanded`).
-- **Capability cards:** hover → lift 4px, hairline → `--line-bright`, reticle marks brighten.
-- **Timeline:** phase bars animate width from 0 → their budget % when in view.
-- **prefers-reduced-motion: reduce** → disable wafer rotation, signal pulse, count-up
-  (show final value), and translate reveals (use instant opacity only).
+Inverts snappy/pulse — every transition **long, settling, organic**, decelerating to rest like clay relaxing into shape.
+
+```css
+:root {
+  --ease-soft:   cubic-bezier(0.22,1,0.36,1);   /* default settle */
+  --ease-inout:  cubic-bezier(0.65,0,0.35,1);
+  --ease-spring: cubic-bezier(0.34,1.28,0.64,1);/* slight overshoot — ONE moment only */
+  --t-fast:200ms; --t-base:360ms; --t-slow:600ms; --t-amble:900ms; --t-drift:18s;
+}
+```
+
+- **Hero load:** staggered reveal — kicker → headline line 1 → line 2 → lede → metrics → motif, via `animation-delay` (80ms steps), `translateY(16px)` + opacity + `blur(4px)→0`. ~600ms `--ease-soft`.
+- **Scroll reveal:** IntersectionObserver adds `.is-in`; fade + rise 16px + blur-dissolve (`filter:blur(4px)→0`) over `--t-slow` `--ease-soft`; stagger children with `--i` custom property × 80ms delay.
+- **Counters:** slow count-up 1200ms `ease-out` + soft fade; tabular figures prevent digit jump.
+- **Ambient blobs:** clay/sage/sun blobs drift + morph (`--r-blob` keyframe, translate/scale 1→1.03) over `--t-drift` (18s); key cards "breathe" subtly. Replaces the cyan pulse.
+- **Capability cards / feature cards:** hover → lift −4px + `--elev-3`; leaf corner subtly warms on hover.
+- **Architecture stack:** hovering/clicking a layer expands its detail (max-height + opacity) over `--t-base` `--ease-soft`; settling drift replaces the signal pulse as the ambient cue. Keyboard accessible (accordion: `button` headers, `aria-expanded`).
+- **Timeline:** phase bars animate width from 0 → their budget % when in view over `--t-amble`.
+- `--ease-spring` rationed to a single beat (nav logo / primary CTA press).
+- **prefers-reduced-motion: reduce** → disable blob drift, breathing, parallax; count-ups show final value; translate reveals use instant opacity only (≤200ms fades).
+
+### Iconography
+
+Line icons, **1.75–2px stroke, fully rounded caps + joins**, 24px grid (Lucide with rounded joins, or Phosphor "regular") — roundness matches the type. Duotone option: `--ink` stroke + 12% clay/sage tint fill. Brand glyph set: hand-drawn sprout / leaf / droplet / pebble for section markers + empty states. No sharp wireframe glyphs, no thin cold 1px icons, no emoji anywhere.
+
+### Do / Don't
+
+**Do** — anchor every layout in `--ink` espresso; let cream + air carry ~75–85%. Put **dark ink on clay/sage/sun fills**; cream text only on `--surface-ink`. Keep data dense and exact under the soft skin (tabular figures, aligned columns, the mono lab-report line). Use **one** leaf corner and **≤3 accent hues** per viewport. Make motion long and settling; ration the spring to one beat. Zone softness (structural chrome tighter, expressive surfaces organic). Tie each motif to its fab process.
+
+**Don't** — no pure `#FFFFFF` page bg, no pure-black text (everything warm). **No white text on clay/sage** (2.95 / 2.72 FAIL). No cold/navy ink or blue focus rings. No candy/neon pastels, kids-app gradients, rainbow chips, glossy 3D bubbles. No Varela Round below the wordmark (single weight — can't build hierarchy). No fast snap reveals or pulse glows; no bouncy spring everywhere. No sharp 4px corners, reticle ticks, cyan, or condensed industrial sans. No emoji; no thin cold technical glyphs.
 
 ---
 
 ## 10. Accessibility & Quality Bar
 
 - Semantic landmarks: `header`/`nav`/`main`/`section`/`footer`; one `h1` (hero), section `h2`.
-- All interactive elements keyboard-operable; visible `:focus-visible` ring in `--cyan`.
+- All interactive elements keyboard-operable; visible `:focus-visible` ring using `--focus-ring` (clay).
 - Decorative SVG/motifs `aria-hidden="true"`; meaningful images get alt text.
-- Body text meets contrast on graphite (use `--text`/`--mist` for content, `--fog` for
-  secondary only). Don't put `--steel` on body copy.
+- Body text meets contrast on cream (use `--ink`/`--ink-2` for content, `--ink-3` for large text / UI glyphs only).
 - Mobile nav toggles with a button (`aria-expanded`, `aria-controls`).
 - No layout shift from counters (reserve width). Valid HTML5. No console errors.
 
@@ -211,12 +358,12 @@ Each section root = `<section id="<id>" class="section reveal s-<scope>">…</se
 > the Traditional-Chinese voice. English kickers stay English.
 
 ### NAV (Foundation)
-- Left: wordmark `SHINYLOGIC` (Saira, 700, tight) with sub `顯藝科技` (mono, steel, small).
-  A `--good` status dot + `[ FAB300 ]` mono tag is a nice touch.
+- Left: wordmark `SHINYLOGIC` (`--font-mark` Varela Round, tight) with sub `顯藝科技` (`--font-body`, `--ink-2`, small).
+  A `--success` (sage) status dot + `[ FAB300 ]` tag (quiet `--font-mono` lab-report) is a nice touch.
 - Links: `架構` (#architecture) · `能力` (#capabilities) · `算力` (#compute) · `交付` (#delivery) · `治理` (#assurance).
 - CTA button `啟動建置規劃` (#contact).
-- Fixed; gains a hairline border + blur backdrop after scroll. Mobile hamburger.
-- A thin top status strip (mono, steel) above nav:
+- Floating pill bar; gains a warm shadow (`--elev-2`) + blur backdrop after scroll. Mobile hamburger.
+- A thin top status strip (quiet `--font-mono` lab-report line, `--ink-2`) above nav:
   `顯藝科技 SHINYLOGIC` · `INTELLIGENT WAFER FAB SYSTEMS` · `規劃匯率 USD 1 = RMB 7.2` · `金額單位 RMB 萬`.
 
 ### HERO (Foundation)
@@ -224,11 +371,11 @@ Each section root = `<section id="<id>" class="section reveal s-<scope>">…</se
 - Headline (two lines, CJK display):
   line 1 — `把設備數據，`
   line 2 — `鍛造成可決策的智能。`
-  (treat the second clause / a key noun in `--cyan`)
+  (treat the second clause / a key noun in `--clay-ink`)
 - Lede: `從 8 大工藝機台的訊號，到 AI 決策閉環，再到跨區域異地備援 — 顯藝科技為高量產晶圓廠交付完整六層技術堆疊，承擔授權、責任與業務連續性。`
 - Inline hero metrics (4): `248 AI GPU` · `4PB 數據湖` · `RTO ≤ 4hr` · `六層架構`.
 - CTAs: `啟動建置規劃` (primary → #contact) · `查看系統架構` (ghost → #architecture).
-- Right / background: wafer SVG motif + reticle corners + grid + one radial glow.
+- Right / background: fab-process motif (diffraction rings + drifting blobs).
 
 ### MARQUEE strip (Foundation, between hero & stats)
 - Slow mono marquee of technology partners/standards (text only, hairline top/bottom):
@@ -237,7 +384,7 @@ Each section root = `<section id="<id>" class="section reveal s-<scope>">…</se
   · `ISA-95`. Pauses on hover.
 
 ### `#stats` — 02 / BY THE NUMBERS
-Animated counters in a bordered grid (6 cells). Each: big `--font-cond` number + mono label.
+Animated counters in a bordered grid (6 cells). Each: big `--t-metric tabular number` + tracked eyebrow / quiet lab-report mono line.
 - `RMB 4.35 億` — CapEx 一次性建置 (`data-count="4.35" data-decimals="2" data-suffix=" 億"` w/ `RMB ` prefix shown statically)
 - `RMB 6.07 億` — 3 年 TCO（CapEx + 3 年 OpEx）
 - `248` — AI GPU（3 × GB300 NVL72 + 4 × HGX B300）
@@ -257,8 +404,8 @@ Interactive vertical stack (accordion, top→bottom signal flow). Six layers:
 Each layer header shows index (L1–L6), TC name, EN tag; expanded body shows the bullet tech list as `.tag` chips. First layer open by default.
 
 ### `#capabilities` — 04 / CAPABILITIES
-Title `從矽到決策的全棧能力`. Grid of 6 `.card--reticle` cards. Each: inline-SVG line icon
-(stroke `--cyan`, 1.5px, geometric — NO emoji), TC name, EN sub, one-line blurb, a key spec,
+Title `從矽到決策的全棧能力`. Grid of 6 leaf-corner cards. Each: inline-SVG line icon
+(stroke `--clay-ink`, 1.5px, geometric — NO emoji), TC name, EN sub, one-line blurb, a key spec,
 and a faint share % (from CapEx mix). Cards:
 1. **AI 算力與儲存** / AI COMPUTE & STORAGE — `NVIDIA Blackwell Ultra 世代；GB300 NVL72 + HGX B300，承接設備高頻數據與 Digital Twin 資產。` spec `248 GPU · 4PB NVMe` · `36.1%`
 2. **製造執行 MES** / MANUFACTURING EXECUTION — `Applied SmartFactory FAB300 — 實證 300K WSPM 的高量產旗艦，與設備自動化深度整合。` spec `AMAT FAB300` · `平台軟體 20.4%`
@@ -267,10 +414,10 @@ and a faint share % (from CapEx mix). Cards:
 5. **異地備援 DR** / RESILIENCE — `溫備援跨區域、異步複製、SD-WAN 雙 ISP；關鍵系統 RTO ≤ 4hr、RPO ≤ 15min。` spec `RTO ≤ 4hr` · `6.0%`
 6. **企業整合** / ENTERPRISE INTEGRATION — `打通 ISA-95 L3↔L4：ERP/PLM 接口、AMHS/MCS、LIMS、FMCS。` spec `ISA-95 L3↔L4` · `5.1%`
 
-### `#compute` — 05 / AI COMPUTE  (spotlight, has radial glow)
+### `#compute` — 05 / AI COMPUTE  (spotlight, has settling drift)
 Title `Blackwell Ultra 算力底座`. Lede: `3 × GB300 NVL72 構成 AI Fabric，HGX B300 承擔推理，Quantum-X800 全互聯 — 為 Digital Twin 與 Agentic RAG 提供決策算力。`
 Two-column: left = narrative + spec list; right = a visual (GPU dot-grid of 248 dots, or
-3 stacked rack bars). Spec rows (mono): `GB300 NVL72 × 3 — 216 GPU · ~132kW/柜 · 液冷`;
+3 stacked rack bars). Spec rows (quiet lab-report mono line): `GB300 NVL72 × 3 — 216 GPU · ~132kW/柜 · 液冷`;
 `HGX B300 × 4 — 32 GPU 推理`; `Quantum-X800 InfiniBand — 800Gb/s XDR`; `Spectrum-X — SN5600 800Gb/s`;
 `儲存 — 4PB NVMe 數據湖`. Big number `248` `AI GPU`. Note `GB300 NVL72 必須液冷，機房約 400kW`.
 
@@ -298,8 +445,8 @@ Compliance badges (`.pill`): `等保 2.0 三級` · `密評` · `IEC 62443` · `
 ### `#contact` — 09 / ENGAGE
 Title `規劃您的智能晶圓廠`. Bold closing statement: `顯藝科技不是只交付硬體 — 而是拿授權、拿責任，並以異地備援守住業務連續性。`
 Contact panel: email `hello@shinylogic.tech` (mailto), a `下載建置藍圖` ghost CTA (href="#"),
-and a short static form is optional. Keep it a striking bordered CTA panel with reticle marks
-and a radial glow. Big mono coordinate flourish allowed.
+and a short static form is optional. Keep it a striking bordered CTA panel with leaf corner
+and settling drift. Big mono coordinate flourish allowed.
 
 ### FOOTER (Foundation)
 - Wordmark + descriptor; quick nav links; the deck-style technical line:
@@ -412,12 +559,11 @@ but not bloated (each ~4-6 screens).
   `og:type=website`, `og:site_name=顯藝科技 ShinyLogic`, `og:image=og-image.png` (+`og:image:width=1200`,
   `og:image:height=630`, `og:image:alt`), `og:locale=zh_Hant` + `og:locale:alternate` en_US & zh_Hans;
   `twitter:card=summary_large_image` + `twitter:title/description/image`. Also `<meta name="theme-color"
-  content="#07090C">` and a canonical `<link rel="canonical">`.
-- **favicon**: `favicon.svg` — a minimal mark on `--ink-900`: a concentric-ring wafer glyph or a tight
-  `SL` monogram in `--cyan`, with one reticle tick. Link `<link rel="icon" href="favicon.svg"
+  content="#FAF6F0">` and a canonical `<link rel="canonical">`.
+- **favicon**: `favicon.svg` — a sprout/leaf glyph or SL monogram in clay (#E07A5F) on cream (#FAF6F0). Link `<link rel="icon" href="favicon.svg"
   type="image/svg+xml">` (+ a `<link rel="mask-icon">` is optional). No emoji.
 - **OG image** `og-image.png` (1200×630): generated by rendering `og-card.html` (a self-contained card
-  in the brand language — graphite, wafer motif, SHINYLOGIC wordmark, tagline 把設備數據，鍛造成可決策的智能。,
+  in the brand language — cream + warm clay, fab-process motif (diffraction rings / drifting blobs), SHINYLOGIC wordmark, tagline 把設備數據，鍛造成可決策的智能。,
   a few key metrics) and screenshotting it. Foundation builds `og-card.html`; the OG PNG is produced
   during verification.
 

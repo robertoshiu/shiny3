@@ -6,7 +6,7 @@
 /* === 404 — Wafer Stage Calibration Error ===
    Root class: .p-404
    Selectors prefixed with .p-404 to avoid collisions.
-   Shared tokens/components (.panel, .reticle, .tick, .btn, .kicker, .mono)
+   Shared tokens/components (.panel, .btn, .kicker, .mono)
    are inherited from foundation — only page-specific layout goes here.
    ========================================================================= */
 
@@ -22,13 +22,35 @@
   overflow: hidden;
 }
 
-/* restrained single radial glow (§7 rule 7 — one per page spotlight) */
+/* warm clay blob ambient (replaces hero glow — blob/contour motif per §7) */
 .p-404 .p-404__glow {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(ellipse 56% 48% at 50% 38%, var(--glow-cyan) 0%, transparent 70%);
+  background: radial-gradient(ellipse 56% 48% at 50% 38%, var(--clay-100) 0%, transparent 70%);
+  opacity: 0.45;
+}
+
+/* sage contour ring (photolithography diffraction — second ambient layer) */
+.p-404 .p-404__glow::before {
+  content: '';
+  position: absolute;
+  width: 380px;
+  height: 300px;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: var(--r-blob);
+  background: var(--sage-100);
+  opacity: 0.3;
+  animation: blobDrift var(--t-drift) var(--ease-soft) infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-404 .p-404__glow::before {
+    animation: none;
+  }
 }
 
 /* ── ERROR PANEL ─────────────────────────────────────────────────────────── */
@@ -39,6 +61,9 @@
   margin: 0 auto;
   text-align: center;
   padding: clamp(32px, 5vw, 56px) clamp(24px, 4vw, 48px);
+  background: var(--surface);
+  border-radius: var(--r-leaf);
+  box-shadow: var(--shadow-clay);
 }
 
 /* ── KICKER ──────────────────────────────────────────────────────────────── */
@@ -54,11 +79,11 @@
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: var(--text);
+  color: var(--ink);
   margin: 0 0 var(--s-4);
 }
 
-/* ── WAFER MOTIF ─────────────────────────────────────────────────────────── */
+/* ── FAB-PROCESS MOTIF (blob + diffraction ring — replaces wafer SVG) ───── */
 .p-404 .p-404__wafer {
   display: flex;
   align-items: center;
@@ -66,11 +91,38 @@
   margin: var(--s-4) auto var(--s-3);
   width: 112px;
   height: 112px;
+  position: relative;
 }
 
+/* hide retired wafer SVG; blob motif lives in pseudo-elements below */
 .p-404 .p-404__wafer-svg {
-  width: 100%;
-  height: 100%;
+  display: none;
+}
+
+/* clay blob (CMP planarization / dopant diffusion motif) */
+.p-404 .p-404__wafer::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: var(--r-blob);
+  background: var(--clay-100);
+  animation: blobDrift var(--t-drift) var(--ease-soft) infinite alternate;
+}
+
+/* outer diffraction ring (photolithography interference motif) */
+.p-404 .p-404__wafer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--clay);
+  opacity: 0.3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-404 .p-404__wafer::before {
+    animation: none;
+  }
 }
 
 /* ── TELEMETRY READOUT ───────────────────────────────────────────────────── */
@@ -81,7 +133,7 @@
   align-items: center;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
-  color: var(--steel);
+  color: var(--ink-3);
   margin: 0 0 var(--s-5);
   flex-wrap: wrap;
 }
@@ -91,14 +143,14 @@
   font-family: var(--font-body);
   font-size: clamp(1.05rem, 2.4vw, 1.35rem);
   font-weight: 500;
-  color: var(--mist);
+  color: var(--ink-2);
   margin: 0 0 var(--s-4);
   letter-spacing: 0.01em;
 }
 
 /* ── LEDE ────────────────────────────────────────────────────────────────── */
 .p-404 .p-404__lede {
-  color: var(--fog);
+  color: var(--ink-2);
   font-size: 1rem;
   line-height: 1.7;
   margin: 0 0 var(--s-6);
@@ -108,7 +160,7 @@
   display: block;
   font-size: 0.875rem;
   margin-top: var(--s-2);
-  color: var(--steel);
+  color: var(--ink-3);
 }
 
 /* ── MONO REF ────────────────────────────────────────────────────────────── */
@@ -117,7 +169,7 @@
   margin-top: var(--s-5);
   font-size: 0.68rem;
   letter-spacing: 0.18em;
-  color: var(--steel);
+  color: var(--ink-3);
 }
 
 /* ── RESPONSIVE ──────────────────────────────────────────────────────────── */

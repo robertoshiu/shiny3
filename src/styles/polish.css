@@ -10,159 +10,63 @@
    prefers-reduced-motion: reduce must kill all new animation.
    =========================================================================== */
 
-/* --- Task 2 + 3 + 4 + 5 + 6: foundation tokens (append-only :root) ------- */
-:root {
-  /* Task 2 — Apple easing curves (ADDITIONS; --ease is untouched above) */
-  --ease-decelerate: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-button: cubic-bezier(0.4, 0, 0.6, 1);
-  --ease-spring: cubic-bezier(0.5, 1.15, 0.4, 1);
-  --ease-sharp: cubic-bezier(0.32, 0.72, 0, 1);
-
-  /* Task 2 — duration tokens */
-  --t-fast: 0.1s;
-  --t-base: 0.24s;
-  --t-slow: 0.32s;
-
-  /* Task 3 — pill + card radii (ADDITIONS; --radius:4px is untouched above) */
-  --radius-card: 12px;
-  --radius-cta: 980px;
-
-  /* Task 4 — semantic surface tokens, DARK values (match existing literals) */
-  --scrim: rgba(7, 9, 12, 0.85);
-  --nav-bg: transparent;
-  --nav-bg-scrolled: rgba(7, 9, 12, 0.72);
-  --mobile-panel-bg: rgba(10, 13, 17, 0.97);
-
-  /* Task 5 — prepend system font stack to --font-display (append-only
-     redefinition; later :root declaration wins via the cascade, so this
-     prepends Apple/system fonts without an in-place edit. SF Pro renders
-     natively on Apple devices — NO @font-face is added, per licensing). */
-
-  /* Task 6 — opt into native light/dark UA rendering */
-  color-scheme: light dark;
-}
-
-/* Task 6 — explicit per-theme color-scheme (fixes axe-core dark contrast
-   false-positives: axe-core#4608, #3605) */
-[data-theme='dark'] {
-  color-scheme: dark;
-}
-[data-theme='light'] {
-  color-scheme: light;
-}
-
-/* --- Task 7: light-mode color tokens (19 color + 4 semantic) ------------- */
-/* T27 WCAG-AA audit: 6 tokens were below AA on their darkest relevant surface.
-   All values below are verified pass AA on ink-900/ink-850/ink-700 as applicable.
-   Dark theme is NOT touched — only light overrides live in this block.
-   T27 changes:
-     --fog        #6e6e73 → #616166  (ink-700 card body text: 3.71→4.50:1)
-     --steel      #86868b → #6a6a6e  (ink-850 small-mono labels: 3.07→4.56:1)
-     --cyan       #0e7490 → #0d6a84  (ink-700 link/kicker: 3.92→4.50:1)
-     --cyan-bright #0891b2 → #067590 (ink-900 a:hover: 3.38→4.88:1)
-     --gold       #b45309 → #9e4908  (ink-700 btn hover: 3.67→4.50:1)
-     --line-bright α0.4→0.76 + RGB matched to new --cyan
-                                     (ink-900 btn border: 1.77→3.54:1 [1.4.11]) */
-[data-theme='light'] {
-  --ink-900: #f5f5f7;
-  --ink-850: #ececee;
-  --ink-800: #e5e5e7;
-  --ink-700: #dcdce0;
-  --ink-600: #d0d0d5;
-  --text: #1d1d1f;
-  --mist: #3a3a3c;
-  --fog: #616166; /* T27: was #6e6e73 (3.71:1 on ink-700); now 4.50:1 */
-  --steel: #606063; /* T27: was #86868b→#6a6a6e; now 4.58:1 on ink-700 / 4.99:1 on ink-800 */
-  --cyan: #0d6a84; /* T27: was #0e7490 (3.92:1 on ink-700); now 4.50:1 */
-  --cyan-bright: #067590; /* T27: was #0891b2 (3.38:1 on ink-900); now 4.88:1 */
-  --cyan-deep: #155e75;
-  --gold: #9e4908; /* T27: was #b45309 (3.67:1 on ink-700); now 4.50:1 */
-  --good: #047857;
-  --line: rgba(60, 60, 67, 0.18);
-  --line-bright: rgba(
-    13,
-    106,
-    132,
-    0.76
-  ); /* T27: was rgba(14,116,144,0.4) (1.77:1 btn border); now 3.54:1 on ink-900, 3.05:1 on ink-700 */
-  --grid: rgba(60, 60, 67, 0.08);
-  --glow-cyan: rgba(13, 106, 132, 0.2); /* T27: RGB updated to match new --cyan (decorative) */
-  /* semantic surface tokens — light (--nav-bg stays transparent) */
-  --scrim: rgba(245, 245, 247, 0.85);
-  --nav-bg-scrolled: rgba(245, 245, 247, 0.72);
-  --mobile-panel-bg: rgba(245, 245, 247, 0.97);
-}
-
-/* --- Task 13: frosted-glass nav on scroll -------------------------------- */
-/* Higher-specificity additions over the base .nav.is-scrolled (line ~405).
-   backdrop-filter itself is NOT transitioned (GPU-costly); only
-   background-color / border-color animate, on the Apple decelerate curve. */
+/* --- Task 13: frosted-glass pill nav on scroll -------------------------------- */
+/* Higher-specificity additions over the base .nav.is-scrolled.
+   Pill nav gains stronger shadow + blur on scroll. */
 .nav {
   transition:
-    background-color var(--t-slow) var(--ease-decelerate),
-    border-color var(--t-slow) var(--ease-decelerate);
+    background-color var(--t-base) var(--ease-soft),
+    box-shadow var(--t-base) var(--ease-soft);
 }
 .nav.is-scrolled {
-  background: var(--nav-bg-scrolled);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  backdrop-filter: blur(16px) saturate(180%);
-  border-bottom-color: var(--line);
+  background: color-mix(in srgb, var(--bg-canvas) 85%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: var(--elev-3);
   transition:
-    background-color var(--t-slow) var(--ease-decelerate),
-    border-color var(--t-slow) var(--ease-decelerate);
+    background-color var(--t-base) var(--ease-soft),
+    box-shadow var(--t-base) var(--ease-soft);
 }
 
-/* --- Task 14: CTA pill radius + button curve + refined shadow ------------ */
-/* .btn--ghost keeps the industrial --radius:4px; only primary becomes a pill.
-   Existing cyan->gold hover color logic is preserved (only motion + shadow). */
+/* --- Task 14: CTA motion + refined shadow (clay theme) ------------ */
+/* .btn--ghost keeps pill radius from foundation; primary uses --r-md.
+   Warm clay shadows replace the retired cyan glow. */
 .btn {
   transition:
-    color var(--t-base) var(--ease-button),
-    border-color var(--t-base) var(--ease-button),
-    background-color var(--t-base) var(--ease-button),
-    box-shadow var(--t-base) var(--ease-button),
-    transform var(--t-base) var(--ease-button);
+    transform var(--t-fast) var(--ease-soft),
+    box-shadow var(--t-fast) var(--ease-soft),
+    background-color var(--t-fast) var(--ease-soft);
 }
 .btn--primary {
-  border-radius: var(--radius-cta);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 4px 12px -2px rgba(103, 232, 249, 0.1);
+  border-radius: var(--r-md);
+  box-shadow: var(--elev-2);
 }
 .btn--primary:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.06),
-    0 8px 24px -4px rgba(103, 232, 249, 0.18),
-    0 0 0 1px var(--line-bright);
+  transform: translateY(-2px);
+  box-shadow: var(--elev-3);
 }
 .btn--primary:active {
   transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06) inset;
+  box-shadow: var(--elev-1);
 }
 
-/* --- Task 15: card floating feel + spring hover ------------------------- */
-/* Only the base .card is touched; the ~13 card subclasses inherit. Reticle
-   corner ticks (.tick--*) are untouched. Existing 4px hover lift kept. */
+/* --- Task 15: card floating feel + spring hover (clay theme) ------------------------- */
+/* Warm shadows replace cold black; leaf-corner card gets shadow-clay.
+   Foundation defines .card--reticle as leaf-corner; polish keeps hover motion. */
 .card {
-  border-radius: var(--radius-card);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.03),
-    0 4px 12px -4px rgba(0, 0, 0, 0.08);
+  border-radius: var(--r-lg);
+  box-shadow: var(--elev-2);
   transition:
-    transform var(--t-slow) var(--ease-spring),
-    border-color var(--t-slow) var(--ease-spring),
-    background-color var(--t-slow) var(--ease-spring),
-    box-shadow var(--t-slow) var(--ease-spring);
+    transform var(--t-fast) var(--ease-soft),
+    box-shadow var(--t-fast) var(--ease-soft);
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.06),
-    0 16px 32px -8px rgba(0, 0, 0, 0.16);
+  box-shadow: var(--elev-3);
 }
 .card--reticle {
-  border-radius: var(--radius-card);
+  border-radius: var(--r-leaf);
+  box-shadow: var(--shadow-clay);
 }
 
 /* --- Task 16: whitespace rhythm (roomier section padding) --------------- */
@@ -253,7 +157,7 @@
 .nav__mobile a:hover,
 .nav__mobile .langswitch__btn:hover,
 .nav__mobile .theme-toggle:hover {
-  background-color: var(--ink-700);
+  background-color: var(--clay-100);
 }
 
 /* --- Wave 5 reduced-motion guard: kill the new sheet/springboard motion - */
@@ -296,16 +200,13 @@
 }
 
 /* === Task 31: focus / cursor / selection polish ==========================
-   Global :focus-visible ring on the brand cyan; keyboard users see it,
-   mouse users do not (:focus:not(:focus-visible) suppresses it). Reuses
-   --cyan (flips per theme via the Task 7 light block) and --ease-button. */
+   Global :focus-visible ring using clay shadow-focus; keyboard users see it,
+   mouse users do not (:focus:not(:focus-visible) suppresses it). */
 :focus-visible {
-  outline: 2px solid var(--cyan);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: var(--shadow-focus);
   border-radius: inherit;
-  transition:
-    outline-offset 0.12s var(--ease-button),
-    outline-color 0.12s var(--ease-button);
+  transition: box-shadow 0.12s var(--ease-button);
 }
 :focus:not(:focus-visible) {
   outline: none;
@@ -323,16 +224,16 @@ a:not([class*='btn']) {
   cursor: pointer;
 }
 
-/* Apple-style selection color that flips per theme. */
+/* Selection color that flips per theme — warm clay accent. */
 [data-theme='dark'] ::selection,
 [data-theme='dark'] ::-moz-selection {
-  background: var(--line-bright);
-  color: var(--text);
+  background: var(--clay);
+  color: var(--ink);
 }
 [data-theme='light'] ::selection,
 [data-theme='light'] ::-moz-selection {
-  background: rgba(14, 116, 144, 0.25);
-  color: var(--text);
+  background: var(--clay-100);
+  color: var(--ink);
 }
 
 /* Mobile bottom-sheet: contain overscroll so iOS pull-to-refresh does not
@@ -350,14 +251,14 @@ a:not([class*='btn']) {
 
 /* === Task 32: form micro-states (contact.html) ===========================
    CSS only — the IIFE #6 lifecycle JS lives in script.js (HTML agent).
-   Soft 8px input radius + animated focus underline drawn via background-size
-   (no backdrop-filter transition; safe). */
+   Soft 12px input radius + animated focus underline drawn via background-size
+   (no backdrop-filter transition; safe). Clay fill replaces cyan. */
 .p-contact .s-form__input,
 .p-contact .s-form__select,
 .p-contact .s-form__textarea {
-  border-radius: 8px;
-  background-color: var(--ink-900);
-  background-image: linear-gradient(var(--cyan), var(--cyan));
+  border-radius: var(--r-sm);
+  background-color: var(--surface);
+  background-image: linear-gradient(var(--clay-ink), var(--clay-ink));
   background-position: 50% 100%;
   background-size: 0% 2px;
   background-repeat: no-repeat;
@@ -372,11 +273,11 @@ a:not([class*='btn']) {
   background-size: 100% 2px;
 }
 
-/* Invalid state: warm gold border (on-brand, not red). */
+/* Invalid state: warm danger border (distinct from brand clay). */
 .p-contact .s-form__input:invalid:not(:placeholder-shown),
 .p-contact .s-form__textarea:invalid:not(:placeholder-shown) {
-  border-color: rgba(231, 181, 103, 0.55);
-  box-shadow: 0 0 0 2px rgba(231, 181, 103, 0.1);
+  border-color: var(--danger);
+  box-shadow: 0 0 0 2px rgba(178, 58, 40, 0.12);
 }
 
 /* Submit button: disabled / submitting state. */
@@ -515,7 +416,7 @@ a:not([class*='btn']) {
     margin-top: 1cm;
     padding-top: 0.5cm;
     border-top: 1px solid #000;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 9pt;
     text-align: center;
     color: #000;
@@ -578,26 +479,21 @@ a:not([class*='btn']) {
   display: block;
 }
 
-/* === Task 17 follow-up: light-mode hero scrim override ===================
-   The hero scrim keeps literal dark gradients for the default (dark) theme.
-   Light mode needs a light scrim so the hero copy stays legible and the
-   presentation matches the rest of the light theme. Append-only override. */
+/* === Task 17 follow-up: hero scrim override for Clay Light theme =========
+   Cream scrim so the hero copy stays legible on the warm canvas. */
+.hero__scrim,
 [data-theme='light'] .hero__scrim {
+  /* Clay Light: keep the wash cream-dominant across the WHOLE hero so the
+     dark video reads only as a faint warm texture, not a cold island on the
+     right. Floors raised from 0.30/0.46 → 0.80+. */
   background:
     linear-gradient(
       100deg,
-      rgba(245, 245, 247, 0.95) 0%,
-      rgba(245, 245, 247, 0.82) 34%,
-      rgba(245, 245, 247, 0.46) 66%,
-      rgba(245, 245, 247, 0.3) 100%
+      rgba(250, 246, 240, 0.97) 0%,
+      rgba(250, 246, 240, 0.9) 45%,
+      rgba(250, 246, 240, 0.82) 100%
     ),
-    linear-gradient(
-      to top,
-      rgba(245, 245, 247, 0.92) 0%,
-      rgba(245, 245, 247, 0.15) 44%,
-      transparent 72%
-    ),
-    linear-gradient(to bottom, rgba(245, 245, 247, 0.8) 0%, transparent 17%);
+    linear-gradient(to bottom, rgba(250, 246, 240, 0.72) 0%, rgba(250, 246, 240, 0.86) 100%);
 }
 
 /* === Task 9 follow-up reduced-motion guard for the toggle ================ */

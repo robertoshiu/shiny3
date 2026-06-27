@@ -27,8 +27,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(52% 48% at 82% 28%, var(--glow-cyan), transparent 70%),
-    radial-gradient(36% 36% at 10% 90%, rgba(231, 181, 103, 0.04), transparent 70%);
+    radial-gradient(52% 48% at 82% 28%, rgba(224, 122, 95, 0.07), transparent 70%),
+    radial-gradient(36% 36% at 10% 90%, rgba(233, 196, 106, 0.05), transparent 70%);
 }
 
 .p-tech .tech-hero__grid {
@@ -36,11 +36,11 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
-    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 80px);
-  -webkit-mask-image: radial-gradient(75% 75% at 80% 35%, #000, transparent 85%);
-  mask-image: radial-gradient(75% 75% at 80% 35%, #000, transparent 85%);
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 59px,
+    rgba(129, 166, 132, 0.04) 59px 60px
+  );
 }
 
 .p-tech .tech-hero__inner {
@@ -63,8 +63,8 @@
 }
 
 .p-tech .tech-hero__title {
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: clamp(2.4rem, 5.5vw, 4.75rem);
   line-height: 1.06;
   letter-spacing: -0.015em;
@@ -102,8 +102,8 @@
 }
 
 .p-tech .tech-hero__metric .n {
-  font-family: var(--font-cond);
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-weight: 800;
   font-size: clamp(1.4rem, 2.2vw, 2rem);
   color: var(--text);
   line-height: 1;
@@ -152,7 +152,7 @@
   gap: var(--s-4);
   padding: var(--s-3) var(--s-4);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-sm);
   background: var(--ink-900);
   transition:
     border-color 0.3s var(--ease),
@@ -167,8 +167,8 @@
 }
 
 .p-tech .tech-hero__stack-row:first-child {
-  border-color: rgba(103, 232, 249, 0.22);
-  background: rgba(103, 232, 249, 0.04);
+  border-color: rgba(224, 122, 95, 0.22);
+  background: rgba(224, 122, 95, 0.04);
 }
 
 .p-tech .tech-hero__stack-idx {
@@ -212,7 +212,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(55% 60% at 72% 44%, var(--glow-cyan), transparent 68%);
+  background: radial-gradient(55% 60% at 72% 44%, rgba(224, 122, 95, 0.06), transparent 68%);
 }
 
 .p-tech .s-tech-compute .wrap {
@@ -242,15 +242,13 @@
 }
 
 .p-tech .s-tech-compute__hero-num {
-  font-family: var(--font-cond);
+  font-family: var(--font-body);
   font-size: clamp(4.5rem, 9vw, 8rem);
-  font-weight: 700;
+  font-weight: 800;
+  font-feature-settings: var(--tnum);
   line-height: 0.88;
   letter-spacing: -0.02em;
   color: var(--text);
-  text-shadow:
-    0 0 40px rgba(103, 232, 249, 0.25),
-    0 0 80px rgba(103, 232, 249, 0.1);
   user-select: none;
 }
 
@@ -331,8 +329,8 @@
   line-height: 1.6;
   padding: var(--s-4);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--ink-850);
+  border-radius: var(--r-sm);
+  background: var(--bg-sunken);
 }
 
 /* dot grid right column */
@@ -371,8 +369,8 @@
 }
 
 .p-tech .s-tech-compute__dot--cyan {
-  background: var(--cyan);
-  box-shadow: 0 0 4px rgba(103, 232, 249, 0.4);
+  background: var(--clay);
+  box-shadow: 0 0 4px rgba(224, 122, 95, 0.4);
 }
 
 .p-tech .s-tech-compute__dot--gold {
@@ -403,8 +401,8 @@
 }
 
 .p-tech .s-tech-compute__legend-dot--cyan {
-  background: var(--cyan);
-  box-shadow: 0 0 5px rgba(103, 232, 249, 0.5);
+  background: var(--clay);
+  box-shadow: 0 0 5px rgba(224, 122, 95, 0.5);
 }
 
 .p-tech .s-tech-compute__legend-dot--gold {
@@ -436,9 +434,9 @@
   width: 44px;
   height: 44px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-sm);
   padding: 8px;
-  background: rgba(103, 232, 249, 0.04);
+  background: rgba(224, 122, 95, 0.04);
   flex-shrink: 0;
   transition:
     border-color 0.35s var(--ease),
@@ -447,7 +445,7 @@
 
 .p-tech .s-tech-network__card:hover .s-tech-network__card-icon {
   border-color: var(--line-bright);
-  background: rgba(103, 232, 249, 0.08);
+  background: rgba(224, 122, 95, 0.08);
 }
 
 .p-tech .s-tech-network__card-name {
@@ -492,14 +490,14 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-md);
   overflow: hidden;
 }
 
 .p-tech .s-tech-network__metric-cell {
   padding: var(--s-5) var(--s-6);
   border-right: 1px solid var(--line);
-  background: var(--ink-850);
+  background: var(--bg-sunken);
 }
 
 .p-tech .s-tech-network__metric-cell:last-child {
@@ -507,9 +505,10 @@
 }
 
 .p-tech .s-tech-network__metric-num {
-  font-family: var(--font-cond);
+  font-family: var(--font-body);
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 600;
+  font-weight: 800;
+  font-feature-settings: var(--tnum);
   color: var(--text);
   line-height: 0.95;
   letter-spacing: -0.01em;
@@ -678,9 +677,9 @@
   width: 44px;
   height: 44px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-sm);
   padding: 8px;
-  background: rgba(103, 232, 249, 0.04);
+  background: rgba(224, 122, 95, 0.04);
   flex-shrink: 0;
   transition:
     border-color 0.35s var(--ease),
@@ -689,7 +688,7 @@
 
 .p-tech .s-tech-data__card:hover .s-tech-data__card-icon {
   border-color: var(--line-bright);
-  background: rgba(103, 232, 249, 0.08);
+  background: rgba(224, 122, 95, 0.08);
 }
 
 .p-tech .s-tech-data__card-name {
@@ -765,9 +764,9 @@
   width: 40px;
   height: 40px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-sm);
   padding: 7px;
-  background: rgba(103, 232, 249, 0.04);
+  background: rgba(224, 122, 95, 0.04);
   flex-shrink: 0;
 }
 
@@ -855,21 +854,22 @@
 }
 
 .p-tech .s-tech-dr__metric-card--primary {
-  border-color: rgba(103, 232, 249, 0.28);
-  background: linear-gradient(140deg, rgba(103, 232, 249, 0.06) 0%, var(--ink-800) 60%);
+  border-color: rgba(224, 122, 95, 0.28);
+  background: linear-gradient(140deg, rgba(224, 122, 95, 0.06) 0%, var(--surface) 60%);
 }
 
 .p-tech .s-tech-dr__metric-num {
-  font-family: var(--font-cond);
+  font-family: var(--font-body);
   font-size: clamp(2.8rem, 5.5vw, 4.5rem);
-  font-weight: 600;
+  font-weight: 800;
+  font-feature-settings: var(--tnum);
   line-height: 0.92;
   color: var(--text);
   letter-spacing: 0.01em;
 }
 
 .p-tech .s-tech-dr__metric-unit {
-  font-family: var(--font-cond);
+  font-family: var(--font-mono);
   font-size: 0.44em;
   color: var(--cyan);
   letter-spacing: 0.04em;
@@ -1008,7 +1008,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(50% 70% at 50% 50%, var(--glow-cyan), transparent 70%);
+  background: radial-gradient(50% 70% at 50% 50%, rgba(224, 122, 95, 0.06), transparent 70%);
 }
 
 .p-tech .s-tech-cta__panel {

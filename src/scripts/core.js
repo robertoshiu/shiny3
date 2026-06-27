@@ -534,7 +534,7 @@ function initTheme() {
 
   function updateMetaThemeColor(theme) {
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#F5F5F7' : '#07090C');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#FAF6F0' : '#1C1611');
   }
 
   function syncToggleAria(theme) {
@@ -617,8 +617,8 @@ function initHeroParallax() {
     const scrolled = -rect.top;
     const total = hero.offsetHeight - vh;
     const progress = total > 0 ? Math.max(0, Math.min(1, scrolled / total)) : 0;
-    // depth 0.3, ≤5% vh max
-    const yOffset = progress * vh * -0.05 * 0.3;
+    // gentle settle — depth 0.2, ≤3% vh max (organic, not mechanical)
+    const yOffset = progress * vh * -0.03 * 0.2;
     heroInner.style.transform = 'translate3d(0, ' + yOffset.toFixed(2) + 'px, 0)';
     // A5: subtle depth — capped scale 1 -> 1.06 across hero scroll.
     if (heroVideo) {
@@ -778,22 +778,20 @@ function initContactForm() {
 }
 
 // =============================================================================
-// IIFE7 — Wafer scan SVG animation pause
-//   Pauses or unpauses SVG animations on .wafer-scan per prefers-reduced-motion.
+// IIFE7 — Blob drift reduced-motion guard
+//   CSS drives the blobDrift animation; this function pauses it when the user
+//   prefers reduced motion (CSS @media also disables it, but JS gives instant
+//   response to a live preference change without a page reload).
 // =============================================================================
 
-function initWaferScan() {
-  const scan = document.querySelector('.wafer-scan');
-  if (!scan) return;
-  const svg = scan.ownerSVGElement || scan.closest('svg');
-  if (!svg || typeof svg.pauseAnimations !== 'function') return;
+function initBlobDrift() {
+  const blobs = document.querySelectorAll('.fab-motif__blob');
+  if (!blobs.length) return;
   const mq = matchMedia('(prefers-reduced-motion: reduce)');
   function apply() {
-    try {
-      mq.matches ? svg.pauseAnimations() : svg.unpauseAnimations();
-    } catch (e) {
-      /* ignore */
-    }
+    blobs.forEach(function (b) {
+      b.style.animationPlayState = mq.matches ? 'paused' : '';
+    });
   }
   apply();
   if (mq.addEventListener) {
@@ -816,5 +814,5 @@ document.addEventListener('DOMContentLoaded', function () {
   initTheme(); // IIFE4: theme manager
   initHeroParallax(); // IIFE5: parallax + video pause
   initContactForm(); // IIFE6: contact form
-  initWaferScan(); // IIFE7: wafer scan pause
+  initBlobDrift(); // IIFE7: fab-process blob drift reduced-motion guard
 });
