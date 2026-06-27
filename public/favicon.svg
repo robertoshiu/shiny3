@@ -1,14 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="顯藝科技 ShinyLogic">
-  <rect width="64" height="64" rx="10" fill="#07090C"/>
-  <!-- wafer: concentric rings + notch -->
-  <circle cx="32" cy="32" r="22" fill="none" stroke="#67E8F9" stroke-width="1.4" opacity=".55"/>
-  <circle cx="32" cy="32" r="15" fill="none" stroke="#67E8F9" stroke-width="1.2" opacity=".30"/>
-  <!-- notch (flat) -->
-  <path d="M32 54 m-5 0 a5 5 0 0 1 10 0" fill="#07090C" stroke="#67E8F9" stroke-width="1.2" opacity=".6"/>
-  <!-- SL monogram -->
-  <text x="32" y="40" text-anchor="middle"
-        font-family="'Saira','Segoe UI',sans-serif" font-weight="700" font-size="22"
-        letter-spacing="-1" fill="#67E8F9">SL</text>
-  <!-- one reticle tick (top-left L mark) -->
-  <path d="M12 18 L12 12 L18 12" fill="none" stroke="#67E8F9" stroke-width="1.6"/>
+  <!-- cream background with leaf-corner gesture (TL/TR/BR 12px, BL 4px — mirrors --r-leaf) -->
+  <path d="M12,0 H52 Q64,0 64,12 V52 Q64,64 52,64 H4 Q0,64 0,60 V12 Q0,0 12,0 Z" fill="#FAF6F0"/>
+  <!-- sprout stem -->
+  <path d="M32 50 L32 26" stroke="#E07A5F" stroke-width="2.8" stroke-linecap="round"/>
+  <!-- left leaf — clay fill, curves left and up -->
+  <path d="M32 36 C 26 30, 14 26, 16 14 C 26 12, 36 22, 32 36 Z" fill="#E07A5F"/>
+  <!-- right bud — clay-700, smaller, curves right and up -->
+  <path d="M32 26 C 38 20, 50 16, 48 6 C 40 8, 32 18, 32 26 Z" fill="#B0492A" opacity="0.82"/>
 </svg>
