@@ -578,10 +578,12 @@ a:not([class*='btn']) {
       from {
         opacity: 0;
         transform: translateY(16px);
+        filter: blur(4px);
       }
       to {
         opacity: 1;
         transform: none;
+        filter: blur(0);
       }
     }
   }
