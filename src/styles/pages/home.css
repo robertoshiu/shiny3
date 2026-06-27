@@ -1177,7 +1177,7 @@
 .s-compute__dots {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 7px;
   align-content: flex-start;
   width: 100%;
 }
@@ -1209,10 +1209,11 @@
   z-index: 2;
 }
 
-/* Clay variant — GB300 NVL72 (primary compute) */
+/* Clay variant — GB300 NVL72 (primary compute). Lighter clay-300 fill + wider
+   gap so the field reads as a soft warm fabric, not a dense saturated block. */
 .s-compute__dot.is-cyan {
-  background: var(--clay);
-  box-shadow: 0 0 3px rgba(176, 73, 42, 0.30);
+  background: var(--clay-300);
+  box-shadow: 0 0 3px rgba(176, 73, 42, 0.18);
 }
 .s-compute__dot.is-cyan.is-visible:hover {
   box-shadow:
