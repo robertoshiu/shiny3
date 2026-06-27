@@ -13,5 +13,5 @@ module.exports = {
     'no-var': 'error',
     'prefer-const': 'warn',
   },
-  ignorePatterns: ['dist', 'node_modules', 'playwright-report', 'test-results', 'apps-script'],
+  ignorePatterns: ['dist', 'node_modules', 'playwright-report', 'test-results', 'apps-script', 'ui'],
 };
