@@ -24,7 +24,7 @@
   padding: 1.25rem 1.5rem;
   background: var(--ink-800);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-md);
   width: fit-content;
   max-width: 100%;
 }
@@ -46,9 +46,10 @@
 }
 
 .p-careers__hero-num {
-  font-family: var(--font-cond);
+  font-family: var(--font-body);
   font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-  font-weight: 700;
+  font-weight: 800;
+  font-feature-settings: var(--tnum);
   line-height: 1;
   color: var(--text);
   letter-spacing: 0.01em;
@@ -82,6 +83,7 @@
   flex-direction: column;
   gap: var(--s-4);
   padding: var(--s-6);
+  border-radius: var(--r-leaf); /* leaf corner — reticle → organic motif */
 }
 
 .p-careers__why-icon {
@@ -91,8 +93,8 @@
   align-items: center;
   justify-content: center;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(103, 232, 249, 0.04);
+  border-radius: var(--r-sm);
+  background: var(--clay-100);
   flex: none;
 }
 
@@ -230,8 +232,8 @@
 
 /* Accent the full-headcount phase (P4) */
 .p-careers__phase[data-phase='4'] .p-careers__phase-bar {
-  background: linear-gradient(90deg, var(--cyan), var(--cyan-bright));
-  box-shadow: 0 0 12px var(--line-bright);
+  background: linear-gradient(90deg, var(--clay), var(--clay-deep));
+  box-shadow: var(--elev-1);
 }
 
 .p-careers__phase-head {
@@ -259,9 +261,10 @@
 }
 
 .p-careers__phase-num {
-  font-family: var(--font-cond);
+  font-family: var(--font-body);
   font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-  font-weight: 700;
+  font-weight: 800;
+  font-feature-settings: var(--tnum);
   color: var(--text);
   line-height: 1;
   letter-spacing: 0.01em;
@@ -282,7 +285,7 @@
 .p-careers__phase-bar {
   height: 100%;
   width: calc(var(--pct) * 1%);
-  background: var(--cyan-deep);
+  background: var(--clay-ink);
   border-radius: 2px;
   transform-origin: left;
   transition: width 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -390,9 +393,10 @@
 }
 
 .p-careers__culture-metric-val {
-  font-family: var(--font-cond);
+  font-family: var(--font-body);
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 800;
+  font-feature-settings: var(--tnum);
   letter-spacing: 0.04em;
   line-height: 1;
 }
@@ -505,7 +509,7 @@
   margin-top: var(--s-6);
   padding: var(--s-5);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-md);
   background: var(--ink-800);
   font-size: 0.88rem;
   letter-spacing: 0.03em;
@@ -514,7 +518,7 @@
 }
 
 .p-careers__roles-open-call a {
-  color: var(--cyan);
+  color: var(--clay-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -526,6 +530,7 @@
 .p-careers__apply {
   position: relative;
   overflow: hidden;
+  border-radius: var(--r-leaf-alt); /* leaf-corner brand moment: replaces reticle/glow */
 }
 
 .p-careers__apply-glow {
@@ -533,7 +538,9 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(55% 65% at 75% 40%, var(--glow-cyan), transparent 72%);
+  /* warm clay/sun blob contour — replaces retired cyan glow */
+  background: radial-gradient(55% 65% at 75% 40%, rgba(224, 122, 95, 0.08), transparent 72%),
+              radial-gradient(35% 45% at 20% 70%, rgba(233, 196, 106, 0.06), transparent 60%);
 }
 
 .p-careers__apply-panel {
@@ -556,9 +563,9 @@
 }
 
 .p-careers__apply-title {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
   line-height: 1.15;
   letter-spacing: -0.01em;
@@ -583,9 +590,9 @@
   font-family: var(--font-mono);
   font-size: 0.9rem;
   letter-spacing: 0.06em;
-  color: var(--cyan);
+  color: var(--clay-ink);
   border: 1px solid var(--line-bright);
-  border-radius: var(--radius);
+  border-radius: var(--r-pill);
   padding: 10px 16px;
   transition:
     background-color 0.25s var(--ease),
@@ -595,9 +602,9 @@
 }
 
 .p-careers__apply-email:hover {
-  background: rgba(103, 232, 249, 0.08);
-  border-color: var(--cyan);
-  color: var(--cyan-bright);
+  background: var(--clay-100);
+  border-color: var(--clay-ink);
+  color: var(--clay-deep);
 }
 
 .p-careers__apply-ctas {
