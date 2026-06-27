@@ -1,0 +1,9 @@
+{
+  "projectId": "5f8cd816-cfdb-4321-8588-c0ae57a6b1e7",
+  "pkg": "ui",
+  "globalName": "ShinyLogicUI",
+  "shape": "package",
+  "cssEntry": "dist/style.css",
+  "buildCmd": "pnpm -C ui build",
+  "readmeHeader": ".design-sync/conventions.md"
+}
