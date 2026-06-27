@@ -7,57 +7,78 @@
 /* --font-display is kept as pure Saira (no Roboto). The v3 apple-system+Roboto override at source styles.css:9735 is intentionally NOT ported here — DESIGN.md §3 forbids Roboto. The rest of the v3 polish layer lives in polish.css. */
 /* ----- 4. COLOR TOKENS + 5. FONT VARS + SPACING SCALE -------------------- */
 :root {
-  /* color */
-  --ink-900: #07090c;
-  --ink-850: #0a0d11;
-  --ink-800: #0d1217;
-  --ink-700: #121922;
-  --ink-600: #18222d;
-
-  --text: #eaf1f6;
-  --mist: #c4d0d9;
-  --fog: #8c9dab;
-  --steel: #788a96; /* T27: was #5c6b78 (3.63:1 on ink-900); now 5.58:1 */
-
-  --cyan: #67e8f9;
-  --cyan-bright: #a5f3fc;
-  --cyan-deep: #22d3ee;
-  --gold: #e7b567;
-  --good: #5ee6a8;
-
-  --line: rgba(147, 164, 179, 0.12);
-  --line-bright: rgba(103, 232, 249, 0.3);
-  --grid: rgba(147, 164, 179, 0.045);
-  --glow-cyan: rgba(103, 232, 249, 0.16);
-
+  /* ===== Soft Organic Clay — Clay Light (default) ===== */
+  --bg-canvas:#FAF6F0; --bg-sunken:#F2E9DE; --surface:#FFFDFB; --surface-raised:#FFFFFF; --surface-ink:#241C16;
+  --ink:#2A211B; --ink-2:#5A4F47; --ink-3:#857A6E; --ink-inverse:#FFF8F0; --ink-inverse-2:#C9BCB0;
+  --clay-100:#F8E5DD; --clay-500:#E07A5F; --clay-700:#B0492A; --clay-800:#8A3A21;
+  --sage-100:#E5EDE2; --sage-500:#81A684; --sage-700:#3F6248; --sage-800:#33503B;
+  --sun-100:#FBEFCF;  --sun-500:#E9C46A;  --sun-700:#8A5A00;
+  --clay:var(--clay-500); --clay-ink:var(--clay-700); --clay-deep:var(--clay-800);
+  --sage:var(--sage-500); --sage-ink:var(--sage-700);
+  --sun:var(--sun-500);   --sun-ink:var(--sun-700);
+  --success:#3F6248; --success-fill:#81A684; --success-tint:#E5EDE2;
+  --warning:#8A5A00; --warning-fill:#E9C46A; --warning-tint:#FBEFCF;
+  --danger:#B23A28;  --danger-tint:#F8E0DB; --info:#2E5866; --info-tint:#E0EBEE;
+  --border:#EBDFCF; --border-strong:#DCCBB4; --border-field:#9C886B; --focus-ring:#B0492A;
+  --shadow-rgb:83 60 42;
   /* fonts */
-  --font-display: 'Saira', 'Noto Sans TC', system-ui, sans-serif;
-  --font-cond: 'Saira Condensed', 'Saira', 'Noto Sans TC', sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
-  --font-body: 'Noto Sans TC', 'Saira', system-ui, sans-serif;
-
-  /* spacing — 8px base scale */
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 12px;
-  --s-4: 16px;
-  --s-5: 24px;
-  --s-6: 32px;
-  --s-7: 48px;
-  --s-8: 64px;
-  --s-9: 96px;
-  --s-10: 128px;
-
-  /* layout */
-  --wrap: 1200px;
-  --pad: clamp(20px, 5vw, 64px);
-  --sec-pad: clamp(80px, 11vw, 168px);
-  --radius: 4px;
-
+  --font-display:"Fraunces","Noto Serif TC","Noto Serif SC",Georgia,serif;
+  --font-body:"Nunito Sans","Noto Sans TC","Noto Sans SC",system-ui,sans-serif;
+  --font-mark:"Varela Round",var(--font-body);
+  --font-mono:"Spline Sans Mono",ui-monospace,monospace;
+  --fraunces-set:"opsz" 144,"SOFT" 50,"WONK" 0; --tnum:"tnum" 1,"lnum" 1;
+  /* spacing/layout (unchanged scale) */
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--s-10:128px;
+  --container:1200px; --container-text:720px; --wrap:1200px;
+  --pad:clamp(20px,5vw,40px); --sec-pad:clamp(80px,11vw,160px);
+  /* radius scale + leaf + blob */
+  --r-xs:8px;--r-sm:12px;--r-md:16px;--r-lg:24px;--r-xl:32px;--r-2xl:40px;--r-pill:999px;
+  --r-leaf:32px 32px 32px 8px; --r-leaf-alt:40px 8px 40px 8px; --r-blob:60% 40% 30% 70% / 60% 30% 70% 40%;
+  --radius:var(--r-md); /* legacy alias → role-correct radii applied per element in later tasks */
+  /* elevation (warm double-shadow) */
+  --elev-1:0 1px 2px rgb(var(--shadow-rgb)/.06),0 2px 6px rgb(var(--shadow-rgb)/.05);
+  --elev-2:0 2px 4px rgb(var(--shadow-rgb)/.05),0 14px 30px -10px rgb(var(--shadow-rgb)/.14);
+  --elev-3:0 4px 8px rgb(var(--shadow-rgb)/.06),0 28px 56px -14px rgb(var(--shadow-rgb)/.20);
+  --shadow-clay:0 20px 44px -14px rgb(var(--shadow-rgb)/.22),inset 0 1px 0 rgb(255 255 255/.65);
+  --shadow-focus:0 0 0 3px rgb(176 73 42/.35);
   /* motion */
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --strip-h: 30px;
-  --nav-h: 68px;
+  --ease-soft:cubic-bezier(0.22,1,0.36,1); --ease-inout:cubic-bezier(0.65,0,0.35,1); --ease-spring:cubic-bezier(0.34,1.28,0.64,1);
+  --t-fast:200ms;--t-base:360ms;--t-slow:600ms;--t-amble:900ms;--t-drift:18s;
+  --ease:var(--ease-soft); /* legacy alias */
+  --strip-h:30px; --nav-h:68px;
+  /* ===== legacy color aliases (transitional bridge; unambiguous 1:1 by role) ===== */
+  --ink-900:var(--bg-canvas); --ink-850:var(--bg-sunken); --ink-800:var(--surface); --ink-700:var(--surface); --ink-600:var(--surface-raised);
+  --text:var(--ink); --mist:var(--ink-2); --fog:var(--ink-2); --steel:var(--ink-3);
+  --cyan:var(--clay-ink); --cyan-bright:var(--clay-deep); --cyan-deep:var(--clay-ink);
+  --gold:var(--sun-ink); --good:var(--sage); --line:var(--border); --line-bright:var(--border-strong);
+  --grid:transparent; --glow-cyan:transparent;
+  --font-cond:var(--font-display);
+  color-scheme:light;
+  /* ===== additional transitional aliases for polish.css ===== */
+  --ease-decelerate:var(--ease-soft);
+  --ease-button:var(--ease-inout);
+  --ease-sharp:cubic-bezier(0.32,0.72,0,1);
+  --radius-card:var(--r-lg);
+  --radius-cta:var(--r-pill);
+  --nav-bg-scrolled:color-mix(in srgb,var(--bg-canvas) 85%,transparent);
+  --mobile-panel-bg:color-mix(in srgb,var(--bg-canvas) 97%,transparent);
+  --scrim:color-mix(in srgb,var(--bg-canvas) 85%,transparent);
+}
+
+[data-theme="dark"]{
+  --bg-canvas:#1C1611;--bg-sunken:#15100C;--surface:#271F18;--surface-raised:#322619;--surface-ink:#0F0B08;
+  --ink:#F3EADD;--ink-2:#CDBFAF;--ink-3:#9C8E7E;--ink-inverse:#2A211B;
+  --clay-500:#E07A5F;--clay-700:#EFA88E;--clay-800:#F4BBA4;
+  --sage-500:#81A684;--sage-700:#A9C9AB; --sun-500:#E9C46A;--sun-700:#E9C46A;
+  --clay:var(--clay-500);--clay-ink:var(--clay-700);--clay-deep:var(--clay-800);
+  --sage:var(--sage-500);--sage-ink:var(--sage-700);--sun:var(--sun-500);--sun-ink:var(--sun-700);
+  --success:#A9C9AB;--success-tint:#21302A; --warning:#E9C46A;--warning-tint:#2E2615; --danger:#E8917F;--danger-tint:#33211C; --info:#8FB6C4;--info-tint:#16242A;
+  --border:rgba(243,234,221,.12);--border-strong:rgba(243,234,221,.20);--border-field:rgba(243,234,221,.34);--focus-ring:#EFA88E;
+  --shadow-rgb:10 6 3; color-scheme:dark;
+  /* legacy aliases re-point automatically via the var() chain */
+  --ink-900:var(--bg-canvas);--ink-850:var(--bg-sunken);--ink-800:var(--surface);--ink-700:var(--surface);--ink-600:var(--surface-raised);
+  --text:var(--ink);--mist:var(--ink-2);--fog:var(--ink-2);--steel:var(--ink-3);
+  --cyan:var(--clay-ink);--cyan-bright:var(--clay-deep);--gold:var(--sun-ink);--good:var(--sage);--line:var(--border);--line-bright:var(--border-strong);
 }
 
 /* ----- BASE RESET -------------------------------------------------------- */
