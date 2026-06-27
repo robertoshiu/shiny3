@@ -21,25 +21,28 @@
   overflow: hidden;
 }
 
-/* restrained single radial glow (§7 rule 7 — one per page spotlight) */
+/* warm clay/sun blob (replaces retired glow-cyan) */
 .p-contact .contact-hero__glow {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(58% 52% at 82% 36%, var(--glow-cyan), transparent 68%),
-    radial-gradient(38% 36% at 10% 80%, rgba(231, 181, 103, 0.04), transparent 70%);
+    radial-gradient(58% 52% at 82% 36%, rgba(224,122,95,0.08), transparent 68%),
+    radial-gradient(38% 36% at 10% 80%, rgba(233,196,106,0.05), transparent 70%);
 }
 
+/* faint sage strata / contour (replaces retired blueprint grid) */
 .p-contact .contact-hero__grid {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 80px),
-    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 80px);
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(129,166,132,0.05) 0 1px,
+    transparent 1px 60px
+  );
   -webkit-mask-image: radial-gradient(68% 68% at 78% 38%, #000, transparent 80%);
   mask-image: radial-gradient(68% 68% at 78% 38%, #000, transparent 80%);
 }
@@ -61,8 +64,8 @@
 }
 
 .p-contact .contact-hero__title {
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: clamp(2.4rem, 5.5vw, 4.8rem);
   line-height: 1.06;
   letter-spacing: -0.015em;
@@ -90,25 +93,28 @@
   width: 100%;
   max-width: 320px;
   aspect-ratio: 1 / 1;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--ink-800);
+  border: 1px solid var(--border);
+  border-radius: var(--r-leaf);
+  background: var(--surface);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: var(--s-4);
   overflow: hidden;
+  box-shadow: var(--elev-2);
 }
 
-/* inner cross-hair SVG background */
+/* faint epitaxial strata (replaces retired crosshair grid) */
 .p-contact .contact-hero__coord-inner::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 40px),
-    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 40px);
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(129,166,132,0.06) 0 1px,
+    transparent 1px 32px
+  );
 }
 
 /* center-point reticle ring */
@@ -159,7 +165,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--cyan);
-  border: 1px solid rgba(103, 232, 249, 0.28);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
   padding: 3px 8px;
 }
@@ -243,18 +249,18 @@
 .p-contact .s-form__select,
 .p-contact .s-form__textarea {
   width: 100%;
-  background: var(--ink-900);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1.5px solid var(--border-field);
+  border-radius: var(--r-sm);
   color: var(--text);
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
   padding: 11px 14px;
   transition:
-    border-color 0.25s var(--ease),
-    box-shadow 0.25s var(--ease),
-    background-color 0.25s var(--ease);
+    border-color 0.25s var(--ease-soft),
+    box-shadow 0.25s var(--ease-soft),
+    background-color 0.25s var(--ease-soft);
   -webkit-appearance: none;
   appearance: none;
   cursor: text;
@@ -263,7 +269,7 @@
 .p-contact .s-form__select {
   cursor: pointer;
   /* custom arrow */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C6B78' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23857A6E' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 38px;
@@ -271,11 +277,11 @@
 
 .p-contact .s-form__select:focus,
 .p-contact .s-form__select:hover {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2367E8F9' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B0492A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 .p-contact .s-form__select option {
-  background: var(--ink-800);
+  background: var(--surface);
   color: var(--text);
 }
 
@@ -297,16 +303,16 @@
 .p-contact .s-form__select:focus,
 .p-contact .s-form__textarea:focus {
   outline: none;
-  border-color: var(--line-bright);
-  box-shadow: 0 0 0 2px rgba(103, 232, 249, 0.12);
-  background-color: var(--ink-850);
+  border-color: var(--focus-ring);
+  box-shadow: var(--shadow-focus);
+  background-color: var(--bg-sunken);
 }
 
 /* hover */
 .p-contact .s-form__input:hover,
 .p-contact .s-form__select:hover,
 .p-contact .s-form__textarea:hover {
-  border-color: rgba(103, 232, 249, 0.22);
+  border-color: var(--border-strong);
 }
 
 /* two-column row (Name + Company) */
@@ -343,8 +349,8 @@
   gap: var(--s-4);
   padding: var(--s-6);
   border: 1px solid var(--line-bright);
-  border-radius: var(--radius);
-  background: rgba(103, 232, 249, 0.04);
+  border-radius: var(--r-md);
+  background: var(--sage-100);
   margin-top: var(--s-5);
 }
 
@@ -397,7 +403,7 @@
   gap: var(--s-3);
   padding: var(--s-5);
   border: 1px solid rgba(231, 181, 103, 0.4);
-  border-radius: var(--radius);
+  border-radius: var(--r-md);
   background: rgba(231, 181, 103, 0.05);
   margin-top: var(--s-5);
 }
@@ -474,7 +480,7 @@
 .p-contact .s-direct__val a {
   color: var(--cyan);
   text-decoration: none;
-  transition: color 0.25s var(--ease);
+  transition: color 0.25s var(--ease-soft);
 }
 
 .p-contact .s-direct__val a:hover {
@@ -491,21 +497,24 @@
 
 /* coordinate panel (decorative) */
 .p-contact .s-direct__coord-panel {
-  background: var(--ink-850);
+  background: var(--bg-sunken);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-md);
   padding: var(--s-5);
   position: relative;
   overflow: hidden;
 }
 
+/* faint epitaxial strata (replaces retired blueprint grid) */
 .p-contact .s-direct__coord-panel::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 32px),
-    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 32px);
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(129,166,132,0.05) 0 1px,
+    transparent 1px 24px
+  );
   pointer-events: none;
 }
 
@@ -568,18 +577,18 @@
   width: 40px;
   height: 40px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--r-xs);
   padding: 7px;
-  background: rgba(103, 232, 249, 0.04);
+  background: var(--clay-100);
   flex-shrink: 0;
   transition:
-    border-color 0.35s var(--ease),
-    background-color 0.35s var(--ease);
+    border-color 0.35s var(--ease-soft),
+    background-color 0.35s var(--ease-soft);
 }
 
 .p-contact .s-types__card:hover .s-types__card-icon {
   border-color: var(--line-bright);
-  background: rgba(103, 232, 249, 0.08);
+  background: rgba(224,122,95,0.12);
 }
 
 .p-contact .s-types__card-name {
@@ -588,7 +597,7 @@
   font-size: 1rem;
   line-height: 1.25;
   color: var(--mist);
-  transition: color 0.35s var(--ease);
+  transition: color 0.35s var(--ease-soft);
 }
 
 .p-contact .s-types__card:hover .s-types__card-name {
@@ -625,8 +634,8 @@
 
 /* accent first card */
 .p-contact .s-types__card:first-child {
-  border-color: rgba(103, 232, 249, 0.18);
-  background: linear-gradient(140deg, rgba(103, 232, 249, 0.04) 0%, var(--ink-700) 55%);
+  border-color: rgba(224,122,95,0.2);
+  background: linear-gradient(140deg, var(--clay-100) 0%, var(--surface) 55%);
 }
 
 .p-contact .s-types__card:first-child .s-types__card-name {
@@ -637,17 +646,17 @@
 .p-contact .s-cta {
   position: relative;
   overflow: hidden;
-  background: var(--ink-900);
-  border-top: 1px solid var(--line);
+  background: var(--surface-ink);
+  border-top: 1px solid rgba(243,234,221,.12);
 }
 
-/* restrained glow — mirrors the home #contact visual language */
+/* warm clay blob (replaces retired glow-cyan) */
 .p-contact .s-cta__glow {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(60% 70% at 50% 60%, var(--glow-cyan), transparent 65%);
+  background: radial-gradient(60% 70% at 50% 60%, rgba(224,122,95,0.12), transparent 65%);
   opacity: 0.7;
 }
 
@@ -670,13 +679,15 @@
   max-width: 840px;
   padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 64px);
   position: relative;
+  border-radius: var(--r-leaf);
+  border: 1px solid rgba(243,234,221,.15);
 }
 
 .p-contact .s-cta__statement {
   font-family: var(--font-body);
   font-size: clamp(1.15rem, 2vw, 1.4rem);
   line-height: 1.7;
-  color: var(--mist);
+  color: var(--ink-inverse-2);
   max-width: 60ch;
   margin-inline: auto;
 }
@@ -686,7 +697,7 @@
   justify-content: center;
   gap: clamp(32px, 6vw, 80px);
   padding-block: var(--s-5);
-  border-block: 1px solid var(--line);
+  border-block: 1px solid rgba(243,234,221,.12);
   flex-wrap: wrap;
 }
 
@@ -701,7 +712,7 @@
   font-family: var(--font-cond);
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 700;
-  color: var(--text);
+  color: var(--ink-inverse);
   line-height: 1;
   letter-spacing: 0.01em;
 }
@@ -711,7 +722,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--steel);
+  color: var(--clay-ink);
 }
 
 .p-contact .s-cta__actions {
@@ -725,7 +736,7 @@
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.14em;
-  color: var(--steel);
+  color: var(--ink-inverse-2);
   opacity: 0.55;
 }
 
@@ -733,7 +744,7 @@
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.1em;
-  color: var(--steel);
+  color: var(--ink-inverse-2);
   opacity: 0.45;
 }
 
