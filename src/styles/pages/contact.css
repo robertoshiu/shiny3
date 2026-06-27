@@ -28,8 +28,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(58% 52% at 82% 36%, rgba(224,122,95,0.08), transparent 68%),
-    radial-gradient(38% 36% at 10% 80%, rgba(233,196,106,0.05), transparent 70%);
+    radial-gradient(58% 52% at 82% 36%, rgba(224, 122, 95, 0.08), transparent 68%),
+    radial-gradient(38% 36% at 10% 80%, rgba(233, 196, 106, 0.05), transparent 70%);
 }
 
 /* faint sage strata / contour (replaces retired blueprint grid) */
@@ -40,7 +40,7 @@
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(129,166,132,0.05) 0 1px,
+    rgba(129, 166, 132, 0.05) 0 1px,
     transparent 1px 60px
   );
   -webkit-mask-image: radial-gradient(68% 68% at 78% 38%, #000, transparent 80%);
@@ -112,7 +112,7 @@
   inset: 0;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(129,166,132,0.06) 0 1px,
+    rgba(129, 166, 132, 0.06) 0 1px,
     transparent 1px 32px
   );
 }
@@ -512,7 +512,7 @@
   inset: 0;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(129,166,132,0.05) 0 1px,
+    rgba(129, 166, 132, 0.05) 0 1px,
     transparent 1px 24px
   );
   pointer-events: none;
@@ -588,7 +588,7 @@
 
 .p-contact .s-types__card:hover .s-types__card-icon {
   border-color: var(--line-bright);
-  background: rgba(224,122,95,0.12);
+  background: rgba(224, 122, 95, 0.12);
 }
 
 .p-contact .s-types__card-name {
@@ -634,7 +634,7 @@
 
 /* accent first card */
 .p-contact .s-types__card:first-child {
-  border-color: rgba(224,122,95,0.2);
+  border-color: rgba(224, 122, 95, 0.2);
   background: linear-gradient(140deg, var(--clay-100) 0%, var(--surface) 55%);
 }
 
@@ -647,7 +647,7 @@
   position: relative;
   overflow: hidden;
   background: var(--surface-ink);
-  border-top: 1px solid rgba(243,234,221,.12);
+  border-top: 1px solid rgba(243, 234, 221, 0.12);
 }
 
 /* warm clay blob (replaces retired glow-cyan) */
@@ -656,7 +656,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(60% 70% at 50% 60%, rgba(224,122,95,0.12), transparent 65%);
+  background: radial-gradient(60% 70% at 50% 60%, rgba(224, 122, 95, 0.12), transparent 65%);
   opacity: 0.7;
 }
 
@@ -680,14 +680,14 @@
   padding: clamp(40px, 6vw, 72px) clamp(32px, 5vw, 64px);
   position: relative;
   border-radius: var(--r-leaf);
-  border: 1px solid rgba(243,234,221,.15);
+  border: 1px solid rgba(243, 234, 221, 0.15);
 }
 
 .p-contact .s-cta__statement {
   font-family: var(--font-body);
   font-size: clamp(1.15rem, 2vw, 1.4rem);
   line-height: 1.7;
-  color: var(--ink-inverse-2);
+  color: var(--ink-2);
   max-width: 60ch;
   margin-inline: auto;
 }
@@ -697,7 +697,7 @@
   justify-content: center;
   gap: clamp(32px, 6vw, 80px);
   padding-block: var(--s-5);
-  border-block: 1px solid rgba(243,234,221,.12);
+  border-block: 1px solid rgba(243, 234, 221, 0.12);
   flex-wrap: wrap;
 }
 
@@ -712,7 +712,7 @@
   font-family: var(--font-cond);
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 700;
-  color: var(--ink-inverse);
+  color: var(--ink);
   line-height: 1;
   letter-spacing: 0.01em;
 }
@@ -736,7 +736,7 @@
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.14em;
-  color: var(--ink-inverse-2);
+  color: var(--ink-3);
   opacity: 0.55;
 }
 
@@ -744,7 +744,7 @@
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.1em;
-  color: var(--ink-inverse-2);
+  color: var(--ink-3);
   opacity: 0.45;
 }
 

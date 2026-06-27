@@ -259,12 +259,11 @@ test.describe('Index hero — motifs', () => {
     expect(count, 'Hero should have at least 4 reticle tick elements').toBeGreaterThanOrEqual(4);
   });
 
-  test('MOTIF 3 — hero__wafer SVG: visible, sized ≥100px, has circles + scan line', async ({
+  test('MOTIF 3 — hero__wafer: fab-process motif visible, sized ≥100px, has rings SVG + blobs', async ({
     page,
   }) => {
     const wafer = page.locator('.hero__wafer');
     await expect(wafer, '.hero__wafer must exist').toBeAttached();
-    // May be partially off-screen on right side but should have a box
     const box = await wafer.boundingBox();
     expect(box, 'hero__wafer should have a rendered bounding box').toBeTruthy();
     if (box) {
@@ -274,14 +273,22 @@ test.describe('Index hero — motifs', () => {
       expect(box.width, 'wafer width must be ≥ 100px').toBeGreaterThanOrEqual(100);
       expect(box.height, 'wafer height must be ≥ 100px').toBeGreaterThanOrEqual(100);
     }
-    // SVG concentric circles
+    // fab-motif__rings SVG with concentric circles
     const circles = page.locator('.hero__wafer svg circle');
     const circleCount = await circles.count();
     console.log(`Wafer circles: ${circleCount}`);
-    expect(circleCount, 'Wafer SVG must contain concentric circles').toBeGreaterThanOrEqual(4);
-    // Scan line group
-    const scan = page.locator('.wafer-scan');
-    await expect(scan, '.wafer-scan rotation element must be present').toBeAttached();
+    expect(
+      circleCount,
+      'fab-motif__rings SVG must contain concentric circles',
+    ).toBeGreaterThanOrEqual(4);
+    // Drifting blob elements (replace legacy wafer-scan)
+    const blobs = page.locator('.hero__wafer .fab-motif__blob');
+    const blobCount = await blobs.count();
+    console.log(`Fab blobs: ${blobCount}`);
+    expect(
+      blobCount,
+      'hero__wafer must contain at least 2 fab-motif__blob elements',
+    ).toBeGreaterThanOrEqual(2);
   });
 
   test('MOTIF 4 — monospace kicker in hero (with FAB or 智能 text)', async ({ page }) => {
@@ -490,7 +497,9 @@ test.describe('Visual fidelity spot-checks', () => {
     expect(tokens.line, '--line').toBeTruthy();
   });
 
-  test('index: font stacks contain Saira, IBM Plex Mono, Noto Sans TC', async ({ page }) => {
+  test('index: font stacks contain Fraunces, Nunito Sans, Spline Sans Mono, Noto CJK fonts', async ({
+    page,
+  }) => {
     await page.goto('', { waitUntil: 'load' });
     const fonts = await page.evaluate(() => {
       const cs = getComputedStyle(document.documentElement);
@@ -501,8 +510,10 @@ test.describe('Visual fidelity spot-checks', () => {
       };
     });
     console.log('Font stacks:', JSON.stringify(fonts, null, 2));
-    expect(fonts.display, '--font-display should include Saira').toContain('saira');
-    expect(fonts.mono, '--font-mono should include IBM Plex Mono').toContain('ibm plex mono');
+    expect(fonts.display, '--font-display should include Fraunces').toContain('fraunces');
+    expect(fonts.display, '--font-display should include Noto Serif TC').toContain('noto serif tc');
+    expect(fonts.mono, '--font-mono should include Spline Sans Mono').toContain('spline sans mono');
+    expect(fonts.body, '--font-body should include Nunito Sans').toContain('nunito sans');
     expect(fonts.body, '--font-body should include Noto Sans TC').toContain('noto sans tc');
   });
 
@@ -582,16 +593,16 @@ test.describe('Visual fidelity spot-checks', () => {
     ).toBe(true);
   });
 
-  test('index: cyan accent color token matches expected value', async ({ page }) => {
+  test('index: clay accent token matches warm clay fill value', async ({ page }) => {
     await page.goto('', { waitUntil: 'load' });
-    const cyan = await page.evaluate(() =>
-      getComputedStyle(document.documentElement).getPropertyValue('--cyan').trim(),
+    const clay = await page.evaluate(() =>
+      getComputedStyle(document.documentElement).getPropertyValue('--clay-500').trim(),
     );
-    console.log('--cyan:', cyan);
-    // Should be #67E8F9 per DESIGN.md
+    console.log('--clay-500:', clay);
+    // Should be #e07a5f per DESIGN.md (warm clay fill — the primary accent)
     expect(
-      cyan.toLowerCase().includes('67e8f9') || cyan.toLowerCase().includes('67,232,249'),
-      `--cyan should be #67E8F9 or rgb equivalent; got "${cyan}"`,
+      clay.toLowerCase().includes('e07a5f'),
+      `--clay-500 should be #e07a5f (warm clay fill); got "${clay}"`,
     ).toBe(true);
   });
 

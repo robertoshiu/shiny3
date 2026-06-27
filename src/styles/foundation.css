@@ -8,77 +8,191 @@
 /* ----- 4. COLOR TOKENS + 5. FONT VARS + SPACING SCALE -------------------- */
 :root {
   /* ===== Soft Organic Clay — Clay Light (default) ===== */
-  --bg-canvas:#FAF6F0; --bg-sunken:#F2E9DE; --surface:#FFFDFB; --surface-raised:#FFFFFF; --surface-ink:#241C16;
-  --ink:#2A211B; --ink-2:#5A4F47; --ink-3:#857A6E; --ink-inverse:#FFF8F0; --ink-inverse-2:#C9BCB0;
-  --clay-100:#F8E5DD; --clay-500:#E07A5F; --clay-700:#B0492A; --clay-800:#8A3A21;
-  --sage-100:#E5EDE2; --sage-500:#81A684; --sage-700:#3F6248; --sage-800:#33503B;
-  --sun-100:#FBEFCF;  --sun-500:#E9C46A;  --sun-700:#8A5A00;
-  --clay:var(--clay-500); --clay-ink:var(--clay-700); --clay-deep:var(--clay-800);
-  --sage:var(--sage-500); --sage-ink:var(--sage-700);
-  --sun:var(--sun-500);   --sun-ink:var(--sun-700);
-  --success:#3F6248; --success-fill:#81A684; --success-tint:#E5EDE2;
-  --warning:#8A5A00; --warning-fill:#E9C46A; --warning-tint:#FBEFCF;
-  --danger:#B23A28;  --danger-tint:#F8E0DB; --info:#2E5866; --info-tint:#E0EBEE;
-  --border:#EBDFCF; --border-strong:#DCCBB4; --border-field:#9C886B; --focus-ring:#B0492A;
-  --shadow-rgb:83 60 42;
+  --bg-canvas: #faf6f0;
+  --bg-sunken: #f2e9de;
+  --surface: #fffdfb;
+  --surface-raised: #fff;
+  --surface-ink: #241c16;
+  --ink: #2a211b;
+  --ink-2: #5a4f47;
+  --ink-3: #6b6155;
+  --ink-inverse: #fff8f0;
+  --ink-inverse-2: #c9bcb0;
+  --ink-on-fill: #2a211b;
+  --clay-100: #f8e5dd;
+  --clay-500: #e07a5f;
+  --clay-700: #a8451f;
+  --clay-800: #8a3a21;
+  --sage-100: #e5ede2;
+  --sage-500: #81a684;
+  --sage-700: #3f6248;
+  --sage-800: #33503b;
+  --sun-100: #fbefcf;
+  --sun-500: #e9c46a;
+  --sun-700: #8a5a00;
+  --clay: var(--clay-500);
+  --clay-ink: var(--clay-700);
+  --clay-deep: var(--clay-800);
+  --sage: var(--sage-500);
+  --sage-ink: var(--sage-700);
+  --sun: var(--sun-500);
+  --sun-ink: var(--sun-700);
+  --success: #3f6248;
+  --success-fill: #81a684;
+  --success-tint: #e5ede2;
+  --warning: #8a5a00;
+  --warning-fill: #e9c46a;
+  --warning-tint: #fbefcf;
+  --danger: #b23a28;
+  --danger-tint: #f8e0db;
+  --info: #2e5866;
+  --info-tint: #e0ebee;
+  --border: #ebdfcf;
+  --border-strong: #dccbb4;
+  --border-field: #9c886b;
+  --focus-ring: #b0492a;
+  --shadow-rgb: 83 60 42;
   /* fonts */
-  --font-display:"Fraunces","Noto Serif TC","Noto Serif SC",Georgia,serif;
-  --font-body:"Nunito Sans","Noto Sans TC","Noto Sans SC",system-ui,sans-serif;
-  --font-mark:"Varela Round",var(--font-body);
-  --font-mono:"Spline Sans Mono",ui-monospace,monospace;
-  --fraunces-set:"opsz" 144,"SOFT" 50,"WONK" 0; --tnum:"tnum" 1,"lnum" 1;
+  --font-display: 'Fraunces', 'Noto Serif TC', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Nunito Sans', 'Noto Sans TC', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mark: 'Varela Round', var(--font-body);
+  --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
+  --fraunces-set: 'opsz' 144, 'SOFT' 50, 'WONK' 0;
+  --tnum: 'tnum' 1, 'lnum' 1;
   /* spacing/layout (unchanged scale) */
-  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--s-10:128px;
-  --container:1200px; --container-text:720px; --wrap:1200px;
-  --pad:clamp(20px,5vw,40px); --sec-pad:clamp(80px,11vw,160px);
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+  --container: 1200px;
+  --container-text: 720px;
+  --wrap: 1200px;
+  --pad: clamp(20px, 5vw, 40px);
+  --sec-pad: clamp(80px, 11vw, 160px);
   /* radius scale + leaf + blob */
-  --r-xs:8px;--r-sm:12px;--r-md:16px;--r-lg:24px;--r-xl:32px;--r-2xl:40px;--r-pill:999px;
-  --r-leaf:32px 32px 32px 8px; --r-leaf-alt:40px 8px 40px 8px; --r-blob:60% 40% 30% 70% / 60% 30% 70% 40%;
-  --radius:var(--r-md); /* legacy alias → role-correct radii applied per element in later tasks */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-2xl: 40px;
+  --r-pill: 999px;
+  --r-leaf: 32px 32px 32px 8px;
+  --r-leaf-alt: 40px 8px 40px 8px;
+  --r-blob: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  --radius: var(--r-md); /* legacy alias → role-correct radii applied per element in later tasks */
   /* elevation (warm double-shadow) */
-  --elev-1:0 1px 2px rgb(var(--shadow-rgb)/.06),0 2px 6px rgb(var(--shadow-rgb)/.05);
-  --elev-2:0 2px 4px rgb(var(--shadow-rgb)/.05),0 14px 30px -10px rgb(var(--shadow-rgb)/.14);
-  --elev-3:0 4px 8px rgb(var(--shadow-rgb)/.06),0 28px 56px -14px rgb(var(--shadow-rgb)/.20);
-  --shadow-clay:0 20px 44px -14px rgb(var(--shadow-rgb)/.22),inset 0 1px 0 rgb(255 255 255/.65);
-  --shadow-focus:0 0 0 3px rgb(176 73 42/.35);
+  --elev-1: 0 1px 2px rgb(var(--shadow-rgb)/0.06), 0 2px 6px rgb(var(--shadow-rgb)/0.05);
+  --elev-2: 0 2px 4px rgb(var(--shadow-rgb)/0.05), 0 14px 30px -10px rgb(var(--shadow-rgb)/0.14);
+  --elev-3: 0 4px 8px rgb(var(--shadow-rgb)/0.06), 0 28px 56px -14px rgb(var(--shadow-rgb)/0.2);
+  --shadow-clay: 0 20px 44px -14px rgb(var(--shadow-rgb)/0.22), inset 0 1px 0 rgb(255 255 255/0.65);
+  --shadow-focus: 0 0 0 3px rgb(176 73 42/0.35);
   /* motion */
-  --ease-soft:cubic-bezier(0.22,1,0.36,1); --ease-inout:cubic-bezier(0.65,0,0.35,1); --ease-spring:cubic-bezier(0.34,1.28,0.64,1);
-  --t-fast:200ms;--t-base:360ms;--t-slow:600ms;--t-amble:900ms;--t-drift:18s;
-  --ease:var(--ease-soft); /* legacy alias */
-  --strip-h:30px; --nav-h:68px;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.28, 0.64, 1);
+  --t-fast: 200ms;
+  --t-base: 360ms;
+  --t-slow: 600ms;
+  --t-amble: 900ms;
+  --t-drift: 18s;
+  --ease: var(--ease-soft); /* legacy alias */
+  --strip-h: 30px;
+  --nav-h: 68px;
   /* ===== legacy color aliases (transitional bridge; unambiguous 1:1 by role) ===== */
-  --ink-900:var(--bg-canvas); --ink-850:var(--bg-sunken); --ink-800:var(--surface); --ink-700:var(--surface); --ink-600:var(--surface-raised);
-  --text:var(--ink); --mist:var(--ink-2); --fog:var(--ink-2); --steel:var(--ink-3);
-  --cyan:var(--clay-ink); --cyan-bright:var(--clay-deep); --cyan-deep:var(--clay-ink);
-  --gold:var(--sun-ink); --good:var(--sage); --line:var(--border); --line-bright:var(--border-strong);
-  --grid:transparent; --glow-cyan:transparent;
-  --font-cond:var(--font-display);
-  color-scheme:light;
+  --ink-900: var(--bg-canvas);
+  --ink-850: var(--bg-sunken);
+  --ink-800: var(--surface);
+  --ink-700: var(--surface);
+  --ink-600: var(--surface-raised);
+  --text: var(--ink);
+  --mist: var(--ink-2);
+  --fog: var(--ink-2);
+  --steel: var(--ink-3);
+  --cyan: var(--clay-ink);
+  --cyan-bright: var(--clay-deep);
+  --cyan-deep: var(--clay-ink);
+  --gold: var(--sun-ink);
+  --good: var(--sage);
+  --line: var(--border);
+  --line-bright: var(--border-strong);
+  --grid: transparent;
+  --glow-cyan: transparent;
+  --font-cond: var(--font-display);
+
+  color-scheme: light;
   /* ===== additional transitional aliases for polish.css ===== */
-  --ease-decelerate:var(--ease-soft);
-  --ease-button:var(--ease-inout);
-  --ease-sharp:cubic-bezier(0.32,0.72,0,1);
-  --radius-card:var(--r-lg);
-  --radius-cta:var(--r-pill);
-  --nav-bg-scrolled:color-mix(in srgb,var(--bg-canvas) 85%,transparent);
-  --mobile-panel-bg:color-mix(in srgb,var(--bg-canvas) 97%,transparent);
-  --scrim:color-mix(in srgb,var(--bg-canvas) 85%,transparent);
+  --ease-decelerate: var(--ease-soft);
+  --ease-button: var(--ease-inout);
+  --ease-sharp: cubic-bezier(0.32, 0.72, 0, 1);
+  --radius-card: var(--r-lg);
+  --radius-cta: var(--r-pill);
+  --nav-bg-scrolled: color-mix(in srgb, var(--bg-canvas) 85%, transparent);
+  --mobile-panel-bg: color-mix(in srgb, var(--bg-canvas) 97%, transparent);
+  --scrim: color-mix(in srgb, var(--bg-canvas) 85%, transparent);
 }
 
-[data-theme="dark"]{
-  --bg-canvas:#1C1611;--bg-sunken:#15100C;--surface:#271F18;--surface-raised:#322619;--surface-ink:#0F0B08;
-  --ink:#F3EADD;--ink-2:#CDBFAF;--ink-3:#9C8E7E;--ink-inverse:#2A211B;
-  --clay-500:#E07A5F;--clay-700:#EFA88E;--clay-800:#F4BBA4;
-  --sage-500:#81A684;--sage-700:#A9C9AB; --sun-500:#E9C46A;--sun-700:#E9C46A;
-  --clay:var(--clay-500);--clay-ink:var(--clay-700);--clay-deep:var(--clay-800);
-  --sage:var(--sage-500);--sage-ink:var(--sage-700);--sun:var(--sun-500);--sun-ink:var(--sun-700);
-  --success:#A9C9AB;--success-tint:#21302A; --warning:#E9C46A;--warning-tint:#2E2615; --danger:#E8917F;--danger-tint:#33211C; --info:#8FB6C4;--info-tint:#16242A;
-  --border:rgba(243,234,221,.12);--border-strong:rgba(243,234,221,.20);--border-field:rgba(243,234,221,.34);--focus-ring:#EFA88E;
-  --shadow-rgb:10 6 3; color-scheme:dark;
+[data-theme='dark'] {
+  --bg-canvas: #1c1611;
+  --bg-sunken: #15100c;
+  --surface: #271f18;
+  --surface-raised: #322619;
+  --surface-ink: #0f0b08;
+  --ink: #f3eadd;
+  --ink-2: #cdbfaf;
+  --ink-3: #a49484;
+  --clay-100: #3a2820;
+  --clay-500: #e07a5f;
+  --clay-700: #efa88e;
+  --clay-800: #f4bba4;
+  --sage-500: #81a684;
+  --sage-700: #a9c9ab;
+  --sun-500: #e9c46a;
+  --sun-700: #e9c46a;
+  --clay: var(--clay-500);
+  --clay-ink: var(--clay-700);
+  --clay-deep: var(--clay-800);
+  --sage: var(--sage-500);
+  --sage-ink: var(--sage-700);
+  --sun: var(--sun-500);
+  --sun-ink: var(--sun-700);
+  --success: #a9c9ab;
+  --success-tint: #21302a;
+  --warning: #e9c46a;
+  --warning-tint: #2e2615;
+  --danger: #e8917f;
+  --danger-tint: #33211c;
+  --info: #8fb6c4;
+  --info-tint: #16242a;
+  --border: rgba(243, 234, 221, 0.12);
+  --border-strong: rgba(243, 234, 221, 0.2);
+  --border-field: rgba(243, 234, 221, 0.34);
+  --focus-ring: #efa88e;
+  --shadow-rgb: 10 6 3;
+
+  color-scheme: dark;
   /* legacy aliases re-point automatically via the var() chain */
-  --ink-900:var(--bg-canvas);--ink-850:var(--bg-sunken);--ink-800:var(--surface);--ink-700:var(--surface);--ink-600:var(--surface-raised);
-  --text:var(--ink);--mist:var(--ink-2);--fog:var(--ink-2);--steel:var(--ink-3);
-  --cyan:var(--clay-ink);--cyan-bright:var(--clay-deep);--gold:var(--sun-ink);--good:var(--sage);--line:var(--border);--line-bright:var(--border-strong);
+  --ink-900: var(--bg-canvas);
+  --ink-850: var(--bg-sunken);
+  --ink-800: var(--surface);
+  --ink-700: var(--surface);
+  --ink-600: var(--surface-raised);
+  --text: var(--ink);
+  --mist: var(--ink-2);
+  --fog: var(--ink-2);
+  --steel: var(--ink-3);
+  --cyan: var(--clay-ink);
+  --cyan-bright: var(--clay-deep);
+  --gold: var(--sun-ink);
+  --good: var(--sage);
+  --line: var(--border);
+  --line-bright: var(--border-strong);
 }
 
 /* ----- BASE RESET -------------------------------------------------------- */
@@ -175,7 +289,7 @@ h4 {
   font-family: var(--font-body);
   font-size: clamp(0.72rem, 0.9vw, 0.8rem);
   font-weight: 700;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--clay-ink);
 }
@@ -193,7 +307,7 @@ h4 {
   font-weight: 600;
   line-height: 1;
   color: var(--ink-3);
-  opacity: .5;
+  opacity: 0.5;
   letter-spacing: 0.02em;
   user-select: none;
 }
@@ -382,7 +496,7 @@ b {
 }
 .btn--primary {
   background: var(--clay);
-  color: var(--ink);
+  color: var(--ink-on-fill);
   box-shadow: var(--elev-2);
 }
 .btn--primary:hover {
@@ -599,7 +713,9 @@ b {
   position: relative;
   padding: 6px 12px;
   border-radius: var(--r-pill);
-  transition: color var(--t-fast) var(--ease-soft), background-color var(--t-fast) var(--ease-soft);
+  transition:
+    color var(--t-fast) var(--ease-soft),
+    background-color var(--t-fast) var(--ease-soft);
 }
 .nav__link::after {
   display: none; /* pill bg replaces underline indicator */
@@ -666,20 +782,19 @@ b {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(55% 50% at 75% 30%, rgba(224,122,95,.08), transparent 70%),
-    radial-gradient(35% 35% at 18% 82%, rgba(233,196,106,.06), transparent 70%);
+    radial-gradient(55% 50% at 75% 30%, rgba(224, 122, 95, 0.08), transparent 70%),
+    radial-gradient(35% 35% at 18% 82%, rgba(233, 196, 106, 0.06), transparent 70%);
 }
 .hero__grid-overlay {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0 59px,
-      rgba(129,166,132,.04) 59px 60px
-    );
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 59px,
+    rgba(129, 166, 132, 0.04) 59px 60px
+  );
 }
 .hero__inner {
   position: relative;
@@ -1075,7 +1190,7 @@ b {
   z-index: 1000;
   padding: 10px 16px;
   background: var(--clay);
-  color: var(--ink);
+  color: var(--ink-on-fill);
   text-decoration: none;
   border-radius: var(--r-sm);
   font-weight: 700;
